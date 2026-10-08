@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { formats, plans } from "@/content/site";
+import { formats, planRules, plans } from "@/content/site";
 import { paymentMethods } from "@/domain/registration";
 import { Container, SoonTag } from "@/components/ui";
 import { PlanCard } from "@/components/plan-card";
@@ -17,10 +17,11 @@ export default function PlansPage() {
           <h1 className="font-display text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.92] font-extrabold tracking-[-0.05em]">
             Paketler
           </h1>
-          <p className="mt-6 max-w-xl text-lg text-ink-soft">
-            Grup paketleri 4 hafta geçerlidir ve seçtiğin sabah ya da akşam grubunda devam eder. Grup derslerinde
-            telafi yoktur; stüdyonun iptal ettiği ders paketinin sonuna eklenir.
-          </p>
+          <ul className="mt-6 max-w-xl space-y-1.5 text-lg text-ink-soft">
+            {planRules.map((rule) => (
+              <li key={rule}>{rule}</li>
+            ))}
+          </ul>
         </Container>
       </section>
 

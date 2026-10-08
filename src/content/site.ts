@@ -17,15 +17,9 @@ export const studio = {
   name: "Zenn Studio",
   domain: "zenn-studio.com",
   url: "https://zenn-studio.com",
-  // TODO(studio): fill in before launch.
-  address: null as string | null,
-  phoneDisplay: null as string | null,
-  email: null as string | null,
-  instagram: null as string | null,
 };
 
-/** WhatsApp number in international format without "+", e.g. 905321234567. */
-export const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
+// Contact and legal details live in ./company.ts.
 
 export type FormatId = "studio" | "live" | "coaching";
 
@@ -272,4 +266,20 @@ export const faqs = [
     q: "Ödemeyi nasıl yapıyorum?",
     a: "Şu an ön kayıt alıyoruz; ödemeyi stüdyoda ya da havale ile yapabilirsin. Kartla online ödeme yakında eklenecek.",
   },
+];
+
+/** Rules shown on /paketler and given to Zenn Asistan verbatim. */
+export const planRules = [
+  "Grup paketleri 4 hafta geçerlidir ve seçtiğin sabah ya da akşam grubunda devam eder.",
+  "8 derslik grup paketi pazartesi ve çarşamba, 12 derslik grup paketi pazartesi, çarşamba ve cuma günleridir.",
+  "Grup derslerinde telafi yoktur; katılmadığın ders de paketinden düşer.",
+  "Stüdyonun iptal ettiği ders paketinin sonuna eklenir.",
+];
+
+/** How online personal training works, step by step (shown on /online). */
+export const coachingFlow = [
+  { title: "Tanışma görüşmesi", text: "Hedefini, sağlık geçmişini, programını ve evdeki ekipmanını konuşuyoruz." },
+  { title: "Programın yazılır", text: "Antrenörün sana özel haftalık programı hazırlar; her hareketin anlatımı yanında." },
+  { title: "Videonu gönder", text: "Zorlandığın hareketi çek, gönder. Antrenörün formunu düzeltip geri döner." },
+  { title: "Haftalık değerlendirme", text: "Görüntülü görüşmede haftayı konuşur, programı bir sonraki haftaya göre güncellersiniz." },
 ];

@@ -8,11 +8,11 @@ import {
   disciplines,
   formats,
   plans,
-  whatsappNumber,
   type DisciplineSlug,
   type FormatId,
   type PlanId,
 } from "@/content/site";
+import { company } from "@/content/company";
 import { paymentMethods } from "@/domain/registration";
 import { buttonClass, SoonTag } from "@/components/ui";
 import { submitRegistration, type RegistrationState } from "./actions";
@@ -102,7 +102,7 @@ export function RegistrationForm() {
   }
 
   if (state.status === "ok") {
-    const wa = whatsappNumber ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(state.summary)}` : null;
+    const wa = company.whatsapp ? `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(state.summary)}` : null;
     return (
       <div className="rounded-[28px] bg-card p-7 sm:p-10" role="status">
         <span className="grid size-14 place-items-center rounded-2xl bg-lime">

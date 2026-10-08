@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import { studio } from "@/content/site";
 import "./globals.css";
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s | Zenn Studio",
   },
   description:
-    "Reformer pilates, mat pilates, kickboks ve fonksiyonel antrenman. Stüdyoda, canlı online ya da sana özel online programla. Ön kaydını hemen yap.",
+    "Reformer pilates, mat pilates, kickboks ve fonksiyonel antrenman; stüdyoda, canlı online ya da sana özel online programla. Yapay zekâ destekli Zenn Asistan sorularını anında yanıtlar.",
   openGraph: { siteName: "Zenn Studio", locale: "tr_TR", type: "website" },
 };
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <AssistantWidget />
       </body>
     </html>
   );

@@ -39,7 +39,7 @@ export const questions = [
   },
 ] as const;
 
-const goalFit: Record<Goal, DisciplineSlug[]> = {
+export const goalFit: Record<Goal, DisciplineSlug[]> = {
   posture: ["reformer-pilates", "mat-pilates"],
   strength: ["fonksiyonel-antrenman", "reformer-pilates"],
   stress: ["kickboks", "mat-pilates"],

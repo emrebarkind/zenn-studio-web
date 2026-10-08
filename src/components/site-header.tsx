@@ -1,16 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { buttonClass } from "@/components/ui";
 
-const nav = [
-  { href: "/#branslar", label: "Branşlar" },
-  { href: "/online", label: "Online" },
-  { href: "/paketler", label: "Paketler" },
-  { href: "/ders-bul", label: "Sana uygun ders" },
-];
+const nav = {
+  tr: [
+    { href: "/#branslar", label: "Branşlar" },
+    { href: "/online", label: "Zenn Online" },
+    { href: "/paketler", label: "Paketler" },
+    { href: "/ders-bul", label: "Sana uygun ders" },
+  ],
+  en: [
+    { href: "/en#offer", label: "What we offer" },
+    { href: "/en#claude", label: "How we use AI" },
+    { href: "/en#company", label: "Company" },
+  ],
+};
 
 export function Wordmark({ className = "" }: { className?: string }) {
   return <span className={`text-[26px] font-bold tracking-[-0.05em] ${className}`}>zenn</span>;
@@ -21,6 +29,21 @@ export function Wordmark({ className = "" }: { className?: string }) {
  *  (pt-3 + h-14, sm: h-16). */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const lang = usePathname()?.startsWith("/en") ? "en" : "tr";
+  const items = nav[lang];
+  const cta = lang === "en" ? { href: "/kayit", label: "Pre-register" } : { href: "/kayit", label: "Ön kayıt yap" };
+  // Small language switch: TR ↔ EN (the English site is a single page).
+  const switcher = (
+    <Link
+      href={lang === "en" ? "/" : "/en"}
+      hrefLang={lang === "en" ? "tr" : "en"}
+      onClick={() => setOpen(false)}
+      className="grid min-h-10 min-w-10 place-items-center rounded-full px-2 text-sm font-semibold text-paper/75 hover:text-paper"
+      aria-label={lang === "en" ? "Türkçe" : "English"}
+    >
+      {lang === "en" ? "TR" : "EN"}
+    </Link>
+  );
 
   return (
     <header className="on-ink sticky top-0 z-40 px-3 pt-3 sm:px-5">
@@ -30,7 +53,7 @@ export function SiteHeader() {
             <Wordmark />
           </Link>
           <nav aria-label="Ana menü" className="hidden items-center gap-7 md:flex">
-            {nav.map((item) => (
+            {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -41,15 +64,16 @@ export function SiteHeader() {
             ))}
           </nav>
           <div className="flex items-center gap-1">
-            <Link href="/kayit" className={buttonClass("primary", "hidden min-h-10 px-5 sm:inline-flex")}>
-              Ön kayıt yap
+            {switcher}
+            <Link href={cta.href} className={buttonClass("primary", "hidden min-h-10 px-5 sm:inline-flex")}>
+              {cta.label}
             </Link>
             <button
               type="button"
               className="grid size-11 place-items-center rounded-full md:hidden"
               aria-expanded={open}
               aria-controls="mobile-nav"
-              aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
+              aria-label={open ? (lang === "en" ? "Close menu" : "Menüyü kapat") : lang === "en" ? "Open menu" : "Menüyü aç"}
               onClick={() => setOpen((v) => !v)}
             >
               {open ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -59,7 +83,7 @@ export function SiteHeader() {
         {open && (
           <nav id="mobile-nav" aria-label="Mobil menü" className="px-5 pb-5 md:hidden">
             <ul className="border-t border-paper/10 pt-2">
-              {nav.map((item) => (
+              {items.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -71,8 +95,8 @@ export function SiteHeader() {
                 </li>
               ))}
             </ul>
-            <Link href="/kayit" onClick={() => setOpen(false)} className={buttonClass("primary", "mt-3 w-full")}>
-              Ön kayıt yap
+            <Link href={cta.href} onClick={() => setOpen(false)} className={buttonClass("primary", "mt-3 w-full")}>
+              {cta.label}
             </Link>
           </nav>
         )}

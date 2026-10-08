@@ -1,9 +1,10 @@
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { Check } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 import { disciplines, faqs, formats, photos } from "@/content/site";
 import { ButtonLink, Container } from "@/components/ui";
 import reformerPhoto from "@/assets/photos/reformer.jpg";
+import { AskAssistantButton } from "@/components/assistant/open-assistant";
 
 const formatName = Object.fromEntries(formats.map((f) => [f.id, f.name]));
 
@@ -21,8 +22,8 @@ const reasons = [
     text: "Reformer stüdyoda. Mat pilates, kickboks ve fonksiyonel antrenmanı evde de sürdürebilirsin.",
   },
   {
-    title: "Takipte kalırsın",
-    text: "Derslerinden önce SMS hatırlatma, online programda haftalık değerlendirme.",
+    title: "Sorunun cevabı hazır",
+    text: "Yapay zekâ destekli Zenn Asistan paket ve ders sorularını her saat yanıtlar; gerektiğinde seni ekibimize bağlar.",
   },
 ];
 
@@ -127,8 +128,9 @@ export default function Home() {
             Stüdyoda. Evinde. Programında.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
-            Reformer pilates, mat pilates, kickboks ve fonksiyonel antrenman. Aynı antrenörlerle ister stüdyoya gel,
-            ister evinden canlı katıl, ister sana yazılmış programla kendi saatinde çalış.
+            Reformer pilates, mat pilates, kickboks ve fonksiyonel antrenman; stüdyoda, canlı online ya da sana yazılmış
+            programla. Teknolojiyle çalışan bir stüdyoyuz: sorularını yapay zekâ destekli asistanımız yanıtlar,
+            antrenmanını antrenörün takip eder.
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
             <ButtonLink href="/kayit" variant="ink">
@@ -141,7 +143,41 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="pb-20 sm:pb-28">
+      <section className="pb-4">
+        <Container>
+          <div className="on-ink grid gap-8 rounded-[28px] bg-ink p-7 text-paper sm:p-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-paper/30">
+                <Sparkles className="size-3.5 text-lime" aria-hidden />
+                Yapay zekâ
+              </span>
+              <h2 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] leading-[1.05] font-semibold tracking-[-0.035em]">
+                Zenn Asistan&apos;a sor.
+              </h2>
+              <p className="mt-3 max-w-md text-lg text-paper/70">
+                Hedefini ve programını söyle; sana uygun branşı, formatı ve paketi önersin, ön kaydını başlatsın.
+                İstediğin an seni ekibimize bağlar.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2">
+              {["Bana hangi paket uygun?", "Canlı online derse nasıl katılırım?", "Kaçırdığım dersin telafisi var mı?"].map(
+                (q) => (
+                  <AskAssistantButton
+                    key={q}
+                    question={q}
+                    className="flex min-h-14 items-center justify-between gap-4 rounded-[18px] bg-paper/[0.07] px-5 text-left font-medium transition-colors hover:bg-paper/[0.13]"
+                  >
+                    {q}
+                    <Sparkles className="size-4 shrink-0 text-lime" aria-hidden />
+                  </AskAssistantButton>
+                ),
+              )}
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="pt-4 pb-20 sm:pb-28">
         <Container className="space-y-4">
           <PhotoCard
             tall
