@@ -1,7 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { assistantLimits, assistantModel } from "@/lib/assistant/config";
 import { cannedReplies, findSensitiveData, guessLang, mentionsHealth } from "@/lib/assistant/guard";
-import { buildSystemPrompt, HANDOFF_MARKER } from "@/lib/assistant/prompt";
+import { buildSystemPrompt } from "@/lib/assistant/prompt";
+import { HANDOFF_MARKER } from "@/lib/assistant/prompt-markers";
 import { createRateLimiter } from "@/lib/assistant/rate-limit";
 import { assistantRequestSchema, withoutBlockedTurns } from "@/lib/assistant/request";
 

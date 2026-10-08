@@ -2,9 +2,13 @@
 // placeholder ("[DOLDUR]", "[adres]", …) would go live. Runs as `prebuild`.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
-import { company, companyProblems } from "../src/content/company";
+import { company, companyProblems, missingCompanyFields } from "../src/content/company";
 
+const strict = process.env.COMPANY_STRICT === "1";
+const missing = missingCompanyFields(company).map((p) => `src/content/company.ts: ${p}`);
 const problems = companyProblems(company).map((p) => `src/content/company.ts: ${p}`);
+if (strict) problems.push(...missing);
+else if (missing.length) console.warn("Uyarı — şirket bilgileri eksik (sitede gösterilmiyor):\n" + missing.map((p) => `  - ${p}`).join("\n"));
 
 const placeholder = /\[(DOLDUR|Ticari unvan|adres|e-posta adresi|Verilerin[^\]]*)\]/i;
 function scan(dir: string) {
@@ -23,7 +27,7 @@ function scan(dir: string) {
 scan("src");
 
 if (problems.length) {
-  console.error("Yayın engellendi — şirket bilgileri eksik:\n" + problems.map((p) => `  - ${p}`).join("\n"));
+  console.error("Yayın engellendi:\n" + problems.map((p) => `  - ${p}`).join("\n"));
   process.exit(1);
 }
-console.log("Şirket bilgileri tamam.");
+console.log(missing.length && !strict ? "Yer tutucu yok; eksik alanlar gizli." : "Şirket bilgileri tamam.");

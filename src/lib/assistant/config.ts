@@ -18,3 +18,9 @@ export const defaultAssistantModel = "claude-haiku-4-5-20251001";
 export function assistantModel(): string {
   return process.env.ZENN_ASSISTANT_MODEL?.trim() || defaultAssistantModel;
 }
+
+/**
+ * The live, API-backed chat is off unless explicitly enabled. While off, the
+ * site shows the scripted demo (#demo) instead and never calls the API.
+ */
+export const assistantLive = process.env.NEXT_PUBLIC_ASSISTANT_LIVE === "true";

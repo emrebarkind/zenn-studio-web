@@ -1,9 +1,6 @@
 import { buildKnowledge } from "./knowledge";
 
-// Action markers the model may put on the last line of an answer. The chat
-// panel turns them into buttons and never shows them as text (see actions.ts).
-export const ENROLL_MARKER = "<<KAYIT";
-export const HANDOFF_MARKER = "<<EKIP>>";
+export { ENROLL_MARKER, HANDOFF_MARKER } from "./prompt-markers";
 
 const rules = `Sen Zenn Asistan'sın: Zenn Studio'nun web sitesindeki yapay zekâ satış ve destek asistanı. Ziyaretçi sitenin sağ altındaki sohbet panelinden yazıyor.
 

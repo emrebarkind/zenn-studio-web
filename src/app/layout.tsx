@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { AssistantWidget } from "@/components/assistant/assistant-widget";
+import { assistantLive } from "@/lib/assistant/config";
 import { studio } from "@/content/site";
 import "./globals.css";
 
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
-        <AssistantWidget />
+        {assistantLive && <AssistantWidget />}
       </body>
     </html>
   );

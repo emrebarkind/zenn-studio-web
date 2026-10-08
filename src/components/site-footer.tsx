@@ -19,13 +19,23 @@ export function SiteFooter() {
         <div className="text-center">
           <Wordmark className="text-4xl" />
           <p className="mx-auto mt-3 max-w-sm text-paper/60">
-            Reformer, mat pilates, kickboks ve fonksiyonel antrenman. Stüdyoda ya da online, aynı antrenörlerle.
+            Fitness stüdyoları için yapay zekâ destekli satış ve müşteri hizmetleri. İstanbul.
           </p>
         </div>
         <div className="mt-14 grid gap-10 text-center sm:grid-cols-3">
           <div>
-            <h2 className="text-sm font-semibold">Branşlar</h2>
+            <h2 className="text-sm font-semibold">Zenn</h2>
             <ul className="mt-4 space-y-2 text-paper/60">
+              <li><Link className="hover:text-paper" href="/#urun">Ürün</Link></li>
+              <li><Link className="hover:text-paper" href="/#demo">Demo</Link></li>
+              <li><Link className="hover:text-paper" href="/#guven">Güven ve KVKK</Link></li>
+              <li><Link className="hover:text-paper" href="/en" hrefLang="en">English</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold">Zenn Studio</h2>
+            <ul className="mt-4 space-y-2 text-paper/60">
+              <li><Link className="hover:text-paper" href="/studio">Stüdyo</Link></li>
               {disciplines.map((d) => (
                 <li key={d.slug}>
                   <Link className="hover:text-paper" href={`/branslar/${d.slug}`}>
@@ -33,19 +43,12 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
+              <li><Link className="hover:text-paper" href="/online">Zenn Online</Link></li>
+              <li><Link className="hover:text-paper" href="/paketler">Paketler</Link></li>
+              <li><Link className="hover:text-paper" href="/kayit">Ön kayıt</Link></li>
             </ul>
           </div>
           <div>
-            <h2 className="text-sm font-semibold">Stüdyo</h2>
-            <ul className="mt-4 space-y-2 text-paper/60">
-              <li><Link className="hover:text-paper" href="/online">Zenn Online</Link></li>
-              <li><Link className="hover:text-paper" href="/paketler">Paketler</Link></li>
-              <li><Link className="hover:text-paper" href="/ders-bul">Sana uygun dersi bul</Link></li>
-              <li><Link className="hover:text-paper" href="/kayit">Ön kayıt</Link></li>
-              <li><Link className="hover:text-paper" href="/en" hrefLang="en">English</Link></li>
-            </ul>
-          </div>
-          <div id="iletisim" className="scroll-mt-24">
             <h2 className="text-sm font-semibold">İletişim</h2>
             <address className="mt-4 space-y-2 text-paper/60 not-italic">
               {company.address && (

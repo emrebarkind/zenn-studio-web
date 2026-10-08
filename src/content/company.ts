@@ -2,10 +2,12 @@
 // only place these facts live: the footer, the contact section, the KVKK
 // notice and Zenn Asistan's human hand-off all read from here.
 //
-// Leave a value as "" until it is known. Empty optional fields are simply not
-// rendered; empty REQUIRED fields fail the production build
-// (`npm run check:company`, run as `prebuild`), and so does any bracketed
-// placeholder such as "[DOLDUR]" — a placeholder must never go live.
+// Leave a value as "" until it is known; empty fields are simply not rendered.
+// `npm run check:company` (run as `prebuild`) always fails on a bracketed
+// placeholder such as "[DOLDUR]" or a malformed value — a placeholder must
+// never go live. Empty REQUIRED fields only warn for now (the studio asked to
+// publish before the legal details exist); set COMPANY_STRICT=1 to make them
+// fail the build again once the details are in.
 
 export type Company = {
   /** Ticari unvan, e.g. "Zenn Spor Hizmetleri Ltd. Şti." */
@@ -55,12 +57,14 @@ export const requiredCompanyFields = [
 
 const placeholder = /\[[^\]]*\]|DOLDUR/i;
 
-/** Problems that must block a production build; empty list = publishable. */
+/** Required fields that are still empty. */
+export function missingCompanyFields(c: Company): string[] {
+  return requiredCompanyFields.filter((key) => !c[key].trim()).map((key) => `${key} boş`);
+}
+
+/** Problems that always block a production build: placeholders and malformed values. */
 export function companyProblems(c: Company): string[] {
   const problems: string[] = [];
-  for (const key of requiredCompanyFields) {
-    if (!c[key].trim()) problems.push(`${key} boş`);
-  }
   for (const [key, value] of Object.entries(c)) {
     if (placeholder.test(value)) problems.push(`${key} yer tutucu içeriyor: "${value}"`);
   }

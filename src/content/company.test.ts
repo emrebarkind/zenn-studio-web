@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { companyProblems, contactChannels, type Company } from "./company";
+import { companyProblems, contactChannels, missingCompanyFields, type Company } from "./company";
 
 const filled: Company = {
   legalName: "Zenn Spor Hizmetleri Ltd. Şti.",
@@ -20,10 +20,10 @@ describe("companyProblems", () => {
     expect(companyProblems(filled)).toEqual([]);
   });
 
-  it("reports every empty required field", () => {
-    const problems = companyProblems({ ...filled, legalName: "", mersis: " " });
-    expect(problems).toContain("legalName boş");
-    expect(problems).toContain("mersis boş");
+  it("reports every empty required field separately", () => {
+    const missing = missingCompanyFields({ ...filled, legalName: "", mersis: " " });
+    expect(missing).toEqual(["legalName boş", "mersis boş"]);
+    expect(companyProblems({ ...filled, legalName: "" })).toEqual([]);
   });
 
   it("never lets a bracketed placeholder through", () => {

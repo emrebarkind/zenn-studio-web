@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 const sections = [
   {
     title: "Veri sorumlusu",
-    body: `${company.address}, ${company.city} adresinde faaliyet gösteren ${company.legalName} ("Zenn Studio"), 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında veri sorumlusudur.`,
+    body: `${company.address ? `${company.address}, ${company.city} adresinde faaliyet gösteren ` : ""}${
+      company.legalName ? `${company.legalName} ("Zenn Studio")` : "Zenn Studio"
+    }, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında veri sorumlusudur.`,
   },
   {
     title: "İşlenen kişisel veriler",
@@ -33,7 +35,9 @@ const sections = [
   },
   {
     title: "Haklarınız",
-    body: `Kanun'un 11. maddesi kapsamındaki taleplerini ${company.email} adresine iletebilirsin.`,
+    body: company.email
+      ? `Kanun'un 11. maddesi kapsamındaki taleplerini ${company.email} adresine iletebilirsin.`
+      : "Kanun'un 11. maddesi kapsamındaki taleplerini sitedeki iletişim kanallarımız üzerinden iletebilirsin.",
   },
 ];
 

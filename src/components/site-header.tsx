@@ -6,18 +6,34 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { buttonClass } from "@/components/ui";
 
-const nav = {
-  tr: [
-    { href: "/#branslar", label: "Branşlar" },
+type Mode = "landing-tr" | "landing-en" | "studio";
+
+// The company landing (/ and /en) and the studio site share one header.
+const nav: Record<Mode, { href: string; label: string }[]> = {
+  "landing-tr": [
+    { href: "/#urun", label: "Ürün" },
+    { href: "/#demo", label: "Demo" },
+    { href: "/#guven", label: "Güven" },
+    { href: "/studio", label: "Zenn Studio" },
+  ],
+  "landing-en": [
+    { href: "/en#product", label: "Product" },
+    { href: "/en#demo", label: "Demo" },
+    { href: "/en#trust", label: "Trust" },
+    { href: "/studio", label: "Zenn Studio" },
+  ],
+  studio: [
+    { href: "/studio#branslar", label: "Branşlar" },
     { href: "/online", label: "Zenn Online" },
     { href: "/paketler", label: "Paketler" },
     { href: "/ders-bul", label: "Sana uygun ders" },
   ],
-  en: [
-    { href: "/en#offer", label: "What we offer" },
-    { href: "/en#claude", label: "How we use AI" },
-    { href: "/en#company", label: "Company" },
-  ],
+};
+
+const ctas: Record<Mode, { href: string; label: string }> = {
+  "landing-tr": { href: "/#iletisim", label: "Bize ulaşın" },
+  "landing-en": { href: "/en#contact", label: "Contact us" },
+  studio: { href: "/kayit", label: "Ön kayıt yap" },
 };
 
 export function Wordmark({ className = "" }: { className?: string }) {
@@ -29,10 +45,12 @@ export function Wordmark({ className = "" }: { className?: string }) {
  *  (pt-3 + h-14, sm: h-16). */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const lang = usePathname()?.startsWith("/en") ? "en" : "tr";
-  const items = nav[lang];
-  const cta = lang === "en" ? { href: "/kayit", label: "Pre-register" } : { href: "/kayit", label: "Ön kayıt yap" };
-  // Small language switch: TR ↔ EN (the English site is a single page).
+  const pathname = usePathname() ?? "/";
+  const lang = pathname.startsWith("/en") ? "en" : "tr";
+  const mode: Mode = pathname === "/" ? "landing-tr" : lang === "en" ? "landing-en" : "studio";
+  const items = nav[mode];
+  const cta = ctas[mode];
+  // Small language switch: TR ↔ EN (English covers the company landing only).
   const switcher = (
     <Link
       href={lang === "en" ? "/" : "/en"}

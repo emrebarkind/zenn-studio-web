@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Sparkles } from "lucide-react";
 import { coachingFlow, comingSoon, formats, photos } from "@/content/site";
 import { ButtonLink, Container, SoonTag } from "@/components/ui";
-import { AskAssistantButton } from "@/components/assistant/open-assistant";
 
 export const metadata: Metadata = {
   title: "Zenn Online",
   description:
-    "Zenn Online: canlı online dersler, online personal training, video ile form geri bildirimi ve yapay zekâ destekli Zenn Asistan.",
+    "Zenn Online: canlı online dersler, online personal training ve video ile form geri bildirimi.",
 };
 
 const live = formats.find((f) => f.id === "live")!;
@@ -19,15 +17,9 @@ const liveNow = [
   { name: "Canlı online dersler", detail: "Kamera açık küçük gruplar; antrenörün seni görür ve anında düzeltir." },
   { name: "Online personal training", detail: "Hedefine ve evdeki ekipmanına göre yazılan haftalık program." },
   { name: "Video geri bildirim", detail: "Hareketini çekip gönder; antrenörün formunu videodan düzeltsin." },
-  { name: "Zenn Asistan", detail: "Yapay zekâ destekli asistan; paket ve ders sorularını anında yanıtlar." },
 ];
 const soon = [...comingSoon, { name: "Kartla online ödeme", detail: "iyzico ile taksit seçenekli güvenli ödeme." }];
 
-const assistantQuestions = [
-  "Evden çalışmak istiyorum, hangi paket bana uygun?",
-  "Canlı online derse nasıl katılırım?",
-  "Online personal training nasıl işliyor?",
-];
 
 function LiveTag() {
   return <span className="rounded-full bg-moss-soft px-2.5 py-0.5 text-xs font-semibold text-moss">Yayında</span>;
@@ -56,17 +48,12 @@ export default function OnlinePage() {
               </h1>
               <p className="mt-4 max-w-xl text-lg text-paper/80">
                 Online derslerimiz video izlemek değil: antrenörün seni görür, düzeltir ve ilerlemeni takip eder.
-                Sorularını da yapay zekâ destekli Zenn Asistan anında yanıtlar.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <ButtonLink href="/kayit?format=live">Ön kayıt yap</ButtonLink>
-                <AskAssistantButton
-                  question="Online derslerden hangisi bana uygun?"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold ring-1 ring-paper/40 hover:ring-paper"
-                >
-                  <Sparkles className="size-4 text-lime" aria-hidden />
-                  Asistana sor
-                </AskAssistantButton>
+                <ButtonLink href="/ders-bul" variant="light">
+                  Sana uygun dersi bul
+                </ButtonLink>
               </div>
             </div>
           </div>
@@ -144,31 +131,6 @@ export default function OnlinePage() {
         </Container>
       </section>
 
-      <section className="pb-24 sm:pb-32">
-        <Container>
-          <div className="rounded-[28px] bg-card p-7 text-center sm:p-12">
-            <Sparkles className="mx-auto size-7 text-moss" aria-hidden />
-            <h2 className="mt-4 text-[clamp(2rem,5vw,3.25rem)] leading-[1.05] font-semibold tracking-[-0.035em]">
-              Hangi paket sana uygun? Asistana sor.
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-ink-soft">
-              Zenn Asistan hedefini ve programını sorar, sana uygun branşı, formatı ve paketi önerir. İstediğin an seni
-              ekibimize bağlar.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
-              {assistantQuestions.map((q) => (
-                <AskAssistantButton
-                  key={q}
-                  question={q}
-                  className="rounded-full bg-paper px-4 py-2.5 text-[15px] font-medium ring-1 ring-ink/15 hover:ring-ink/40"
-                >
-                  {q}
-                </AskAssistantButton>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
     </>
   );
 }
