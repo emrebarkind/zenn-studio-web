@@ -87,7 +87,7 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
         </Container>
       </section>
 
-      <section className="bg-stone py-16 sm:py-24">
+      <section className="pb-16 sm:pb-24">
         <Container>
           <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Nerede yapabilirsin</h2>
           <div className="mt-8 grid gap-4 md:grid-cols-3">

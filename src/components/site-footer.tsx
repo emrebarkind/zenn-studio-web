@@ -4,44 +4,49 @@ import { Wordmark } from "@/components/site-header";
 
 export function SiteFooter() {
   return (
-    <footer className="on-ink bg-ink text-paper">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
-        <div>
-          <Wordmark />
-          <p className="mt-4 max-w-xs text-paper/70">
-            Stüdyoda, evinden canlı ya da sana yazılmış programla. Aynı antrenörler, aynı standart.
+    <footer className="on-ink mt-auto bg-ink text-paper">
+      <div className="mx-auto max-w-6xl px-4 pt-16 pb-10 sm:px-6">
+        <div className="text-center">
+          <Wordmark className="text-4xl" />
+          <p className="mx-auto mt-3 max-w-sm text-paper/60">
+            Reformer, mat pilates, kickboks ve fonksiyonel antrenman. Stüdyoda ya da online, aynı antrenörlerle.
           </p>
-          <address className="mt-6 space-y-1 text-sm text-paper/70 not-italic">
-            {studio.address && <p>{studio.address}</p>}
-            {studio.phoneDisplay && <p>{studio.phoneDisplay}</p>}
-            {studio.email && <p>{studio.email}</p>}
-          </address>
         </div>
-        <div>
-          <h2 className="font-display text-lg font-semibold">Branşlar</h2>
-          <ul className="mt-4 space-y-2 text-paper/70">
-            {disciplines.map((d) => (
-              <li key={d.slug}>
-                <Link className="hover:text-lime" href={`/branslar/${d.slug}`}>
-                  {d.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-14 grid gap-10 text-center sm:grid-cols-3">
+          <div>
+            <h2 className="text-sm font-semibold">Branşlar</h2>
+            <ul className="mt-4 space-y-2 text-paper/60">
+              {disciplines.map((d) => (
+                <li key={d.slug}>
+                  <Link className="hover:text-paper" href={`/branslar/${d.slug}`}>
+                    {d.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold">Stüdyo</h2>
+            <ul className="mt-4 space-y-2 text-paper/60">
+              <li><Link className="hover:text-paper" href="/online">Online antrenman</Link></li>
+              <li><Link className="hover:text-paper" href="/paketler">Paketler</Link></li>
+              <li><Link className="hover:text-paper" href="/ders-bul">Sana uygun dersi bul</Link></li>
+              <li><Link className="hover:text-paper" href="/kayit">Ön kayıt</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold">İletişim</h2>
+            <address className="mt-4 space-y-2 text-paper/60 not-italic">
+              {studio.address && <p>{studio.address}</p>}
+              {studio.phoneDisplay && <p>{studio.phoneDisplay}</p>}
+              {studio.email && <p>{studio.email}</p>}
+              <p>
+                <Link className="hover:text-paper" href="/kvkk">KVKK aydınlatma metni</Link>
+              </p>
+            </address>
+          </div>
         </div>
-        <div>
-          <h2 className="font-display text-lg font-semibold">Stüdyo</h2>
-          <ul className="mt-4 space-y-2 text-paper/70">
-            <li><Link className="hover:text-lime" href="/online">Online antrenman</Link></li>
-            <li><Link className="hover:text-lime" href="/paketler">Paketler</Link></li>
-            <li><Link className="hover:text-lime" href="/ders-bul">Sana uygun dersi bul</Link></li>
-            <li><Link className="hover:text-lime" href="/kayit">Ön kayıt</Link></li>
-            <li><Link className="hover:text-lime" href="/kvkk">KVKK aydınlatma metni</Link></li>
-          </ul>
-        </div>
-      </div>
-      <div className="mx-auto max-w-6xl px-4 pb-8 text-sm text-paper/50 sm:px-6">
-        © {studio.name}
+        <p className="mt-14 border-t border-paper/10 pt-6 text-center text-sm text-paper/40">© {studio.name}</p>
       </div>
     </footer>
   );

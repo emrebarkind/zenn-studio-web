@@ -122,7 +122,7 @@ export function RegistrationForm() {
             </a>
           </>
         )}
-        <pre className="mt-8 rounded-2xl bg-stone p-5 font-sans text-[15px] whitespace-pre-wrap">{state.summary}</pre>
+        <pre className="mt-8 rounded-2xl bg-paper p-5 font-sans text-[15px] whitespace-pre-wrap">{state.summary}</pre>
       </div>
     );
   }

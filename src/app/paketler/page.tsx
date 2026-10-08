@@ -43,7 +43,7 @@ export default function PlansPage() {
 
       <section className="pb-24">
         <Container>
-          <div className="rounded-3xl bg-stone p-6 sm:p-8">
+          <div className="rounded-3xl bg-card p-6 sm:p-8">
             <h2 className="font-display text-2xl font-bold tracking-tight">Ödeme seçenekleri</h2>
             <ul className="mt-5 grid gap-4 md:grid-cols-3">
               {paymentMethods.map((m) => (

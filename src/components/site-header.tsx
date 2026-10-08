@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { ButtonLink } from "@/components/ui";
+import { buttonClass } from "@/components/ui";
 
 const nav = [
   { href: "/#branslar", label: "Branşlar" },
@@ -12,68 +12,71 @@ const nav = [
   { href: "/ders-bul", label: "Sana uygun ders" },
 ];
 
-export function Wordmark() {
-  return (
-    <span className="font-display text-[22px] font-extrabold tracking-[-0.04em]">
-      zenn<span className="font-medium text-ink-soft"> studio</span>
-    </span>
-  );
+export function Wordmark({ className = "" }: { className?: string }) {
+  return <span className={`text-[26px] font-bold tracking-[-0.05em] ${className}`}>zenn</span>;
 }
 
+/** Floating dark pill. It is sticky, so pages flow below it; the home hero
+ *  pulls itself up underneath with a negative margin equal to its height
+ *  (pt-3 + h-14, sm: h-16). */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" aria-label="Zenn Studio ana sayfa">
-          <Wordmark />
-        </Link>
-        <nav aria-label="Ana menü" className="hidden items-center gap-7 md:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-[15px] font-medium text-ink-soft transition-colors hover:text-ink"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <ButtonLink href="/kayit" className="min-h-10 px-4">
-            Ön kayıt yap
-          </ButtonLink>
-        </nav>
-        <button
-          type="button"
-          className="grid size-11 place-items-center rounded-xl md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="size-6" /> : <Menu className="size-6" />}
-        </button>
-      </div>
-      {open && (
-        <nav id="mobile-nav" aria-label="Mobil menü" className="border-t border-ink/10 bg-paper px-4 pb-6 md:hidden">
-          <ul className="flex flex-col">
+    <header className="on-ink sticky top-0 z-40 px-3 pt-3 sm:px-5">
+      <div className="mx-auto max-w-6xl rounded-[22px] bg-ink/80 text-paper shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150">
+        <div className="flex h-14 items-center justify-between pr-2 pl-5 sm:h-16 sm:pr-3 sm:pl-6">
+          <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)}>
+            <Wordmark />
+          </Link>
+          <nav aria-label="Ana menü" className="hidden items-center gap-7 md:flex">
             {nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block py-4 font-display text-2xl font-semibold tracking-tight"
-                >
-                  {item.label}
-                </Link>
-              </li>
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-[15px] font-medium text-paper/75 transition-colors hover:text-paper"
+              >
+                {item.label}
+              </Link>
             ))}
-          </ul>
-          <ButtonLink href="/kayit" className="mt-2 w-full">
-            Ön kayıt yap
-          </ButtonLink>
-        </nav>
-      )}
+          </nav>
+          <div className="flex items-center gap-1">
+            <Link href="/kayit" className={buttonClass("primary", "hidden min-h-10 px-5 sm:inline-flex")}>
+              Ön kayıt yap
+            </Link>
+            <button
+              type="button"
+              className="grid size-11 place-items-center rounded-full md:hidden"
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X className="size-6" /> : <Menu className="size-6" />}
+            </button>
+          </div>
+        </div>
+        {open && (
+          <nav id="mobile-nav" aria-label="Mobil menü" className="px-5 pb-5 md:hidden">
+            <ul className="border-t border-paper/10 pt-2">
+              {nav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="block py-3.5 text-2xl font-semibold tracking-tight"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href="/kayit" onClick={() => setOpen(false)} className={buttonClass("primary", "mt-3 w-full")}>
+              Ön kayıt yap
+            </Link>
+          </nav>
+        )}
+      </div>
     </header>
   );
 }

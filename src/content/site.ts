@@ -1,5 +1,8 @@
 import type { StaticImageData } from "next/image";
 import hero from "@/assets/photos/hero.jpg";
+import reformerWide from "@/assets/photos/reformer-wide.jpg";
+import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
+import birebirWide from "@/assets/photos/birebir-wide.jpg";
 import reformer from "@/assets/photos/reformer.jpg";
 import matPilates from "@/assets/photos/mat-pilates.jpg";
 import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
@@ -85,9 +88,11 @@ export type Discipline = {
 };
 
 // Studio photo shoot, September 2026.
-export const heroPhoto = {
-  src: hero,
-  alt: "Kollarını yaylı kayışlarla yukarı uzatıp merkezini çalıştıran sporcu",
+export const photos = {
+  hero: { src: reformerWide, alt: "Reformer üzerinde kollarıyla yükselip bir bacağını havaya kaldıran sporcu" },
+  straps: { src: hero, alt: "Kollarını yaylı kayışlarla yukarı uzatıp merkezini çalıştıran sporcu" },
+  kickboks: { src: kickboksWide, alt: "Kum torbasına yumruk atan kickboksçu" },
+  coaching: { src: birebirWide, alt: "Antrenörüyle birlikte matta egzersiz yapan üye" },
 };
 
 export const disciplines: Discipline[] = [

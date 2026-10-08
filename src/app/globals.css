@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
-/* Zenn Studio web — brand tokens shared with the studio's CRM and reels:
-   one ink, one natural green, one controlled lime. Lime only ever carries
-   ink text and is reserved for the primary action and "live" signals. */
+/* Zenn Studio web — photo-led monochrome: white canvas, soft grey surfaces,
+   black anchors. The brand lime survives as the single accent (primary
+   action, "live" signals) and always carries ink text. */
 :root {
-  --paper: #f7f7f2;
-  --card: #ffffff;
-  --stone: #e8e7de;
+  --paper: #ffffff;
+  --card: #f4f4f2;
+  --stone: #f4f4f2;
   --ink: #151915;
-  --ink-soft: #565b55;
+  --ink-soft: #5c5f5c;
   --moss: #2e5b41;
   --moss-soft: #dfe8e1;
   --lime: #e1ff82;
@@ -28,8 +28,8 @@
   --color-lime: var(--lime);
   --color-lime-hover: var(--lime-hover);
   --color-danger: var(--danger);
-  --font-display: var(--font-bricolage);
-  --font-sans: var(--font-instrument);
+  --font-display: var(--font-inter);
+  --font-sans: var(--font-inter);
 }
 
 body {
