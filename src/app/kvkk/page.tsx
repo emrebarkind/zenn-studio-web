@@ -27,7 +27,7 @@ const sections = [
     title: "Aktarım",
     body: [
       "Site, barındırma hizmeti sağlayıcımız Vercel Inc. altyapısında çalışır; ön kayıt formu ve Zenn Asistan mesajları bu altyapı üzerinden iletilir.",
-      "Zenn Asistan'a yazdığın mesajlar, yanıt üretilebilmesi için yapay zekâ hizmet sağlayıcımız Anthropic, PBC'ye iletilir. Kart, IBAN, TC kimlik numarası ya da sağlık konusu içeren mesajlar Anthropic'e iletilmez.",
+      "Zenn Asistan'a yazdığın mesajlar, yanıt üretilebilmesi için yapay zekâ hizmet sağlayıcımız Anthropic, PBC'ye iletilir. Asistanın kart, IBAN ya da TC kimlik numarası ya da sağlık konusu olarak tanıdığı mesajlar Anthropic'e iletilmez.",
       "Ön kaydını WhatsApp üzerinden göndermeyi seçersen mesajın WhatsApp altyapısı üzerinden iletilir.",
     ],
   },
