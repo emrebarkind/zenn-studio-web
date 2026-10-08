@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { coaches, comingSoon, disciplines, faqs, formats } from "@/content/site";
+import { coaches, comingSoon, disciplines, faqs, formats, heroPhoto } from "@/content/site";
 import { ButtonLink, Container, SectionTitle } from "@/components/ui";
 import { DisciplineIndex } from "@/components/discipline-index";
 import { SampleWeek } from "@/components/sample-week";
@@ -34,7 +35,20 @@ export default function Home() {
               </ButtonLink>
             </div>
           </div>
-          <SampleWeek />
+          {/* Photo with the sample week overlapping its lower edge. */}
+          <div>
+            <Image
+              src={heroPhoto.src}
+              alt={heroPhoto.alt}
+              placeholder="blur"
+              priority
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="aspect-[4/5] max-h-[78vh] w-full rounded-[28px] object-cover object-[50%_20%]"
+            />
+            <div className="relative -mt-24 ml-auto w-[92%] sm:w-[80%]">
+              <SampleWeek />
+            </div>
+          </div>
         </Container>
       </section>
 

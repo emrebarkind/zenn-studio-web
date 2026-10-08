@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { disciplines, formats } from "@/content/site";
@@ -21,6 +22,13 @@ export function DisciplineIndex() {
               </span>
             </summary>
             <div className="grid gap-6 pb-8 md:grid-cols-[1.3fr_1fr] md:gap-12">
+              <Image
+                src={d.photo.src}
+                alt={d.photo.alt}
+                placeholder="blur"
+                sizes="(min-width: 768px) 55vw, 100vw"
+                className="aspect-[16/10] w-full rounded-3xl object-cover md:row-span-2"
+              />
               <div>
                 <p className="font-display text-xl font-semibold tracking-tight">{d.tagline}</p>
                 <p className="mt-3 max-w-prose leading-relaxed text-ink-soft">{d.description}</p>

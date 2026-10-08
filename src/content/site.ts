@@ -1,3 +1,10 @@
+import type { StaticImageData } from "next/image";
+import hero from "@/assets/photos/hero.jpg";
+import reformer from "@/assets/photos/reformer.jpg";
+import matPilates from "@/assets/photos/mat-pilates.jpg";
+import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
+import kickboks from "@/assets/photos/kickboks.jpg";
+
 // Every piece of copy and every business fact on the site lives here, so the
 // studio can change prices, coaches or contact details without touching
 // layout code. Fields set to `null` are facts we do not have yet — the UI
@@ -74,6 +81,13 @@ export type Discipline = {
   bring: string;
   formats: FormatId[];
   coaches: string[];
+  photo: { src: StaticImageData; alt: string };
+};
+
+// Studio photo shoot, September 2026.
+export const heroPhoto = {
+  src: hero,
+  alt: "Kollarını yaylı kayışlarla yukarı uzatıp merkezini çalıştıran sporcu",
 };
 
 export const disciplines: Discipline[] = [
@@ -91,6 +105,7 @@ export const disciplines: Discipline[] = [
     bring: "Kaymaz çorap ve rahat kıyafet.",
     formats: ["studio"],
     coaches: ["Şüheda"],
+    photo: { src: reformer, alt: "Reformer üzerinde kollarıyla yükselip bir bacağını havaya kaldıran sporcu" },
   },
   {
     slug: "mat-pilates",
@@ -106,6 +121,7 @@ export const disciplines: Discipline[] = [
     bring: "Bir mat, su ve rahat kıyafet.",
     formats: ["studio", "live"],
     coaches: ["Ece", "Zeynep"],
+    photo: { src: matPilates, alt: "Mat üzerinde esneme yapan üyenin duruşunu düzelten antrenör" },
   },
   {
     slug: "kickboks",
@@ -121,6 +137,7 @@ export const disciplines: Discipline[] = [
     bring: "Bandaj ve eldiven; ilk derste stüdyodakileri kullanabilirsin.",
     formats: ["studio", "coaching"],
     coaches: ["Ali"],
+    photo: { src: kickboks, alt: "Eldivenleriyle gard alıp yumruk atan kickboksçu" },
   },
   {
     slug: "fonksiyonel-antrenman",
@@ -136,6 +153,7 @@ export const disciplines: Discipline[] = [
     bring: "Spor ayakkabı, havlu, su.",
     formats: ["studio", "live", "coaching"],
     coaches: [],
+    photo: { src: fonksiyonel, alt: "Antrenörüyle birlikte matta egzersiz yapan üye" },
   },
 ];
 
