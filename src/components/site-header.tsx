@@ -8,22 +8,22 @@ import { buttonClass } from "@/components/ui";
 
 type Mode = "landing-tr" | "landing-en" | "studio";
 
-// The company landing (/ and /en) and the studio site share one header.
+// The studio site (home) and the B2B pages (/isletmeler, /en) share one header.
 const nav: Record<Mode, { href: string; label: string }[]> = {
   "landing-tr": [
-    { href: "/#urun", label: "Ürün" },
-    { href: "/#demo", label: "Demo" },
-    { href: "/#guven", label: "Güven" },
-    { href: "/studio", label: "Zenn Studio" },
+    { href: "/isletmeler#urun", label: "Ürün" },
+    { href: "/isletmeler#demo", label: "Demo" },
+    { href: "/isletmeler#guven", label: "Güven" },
+    { href: "/", label: "Zenn Studio" },
   ],
   "landing-en": [
     { href: "/en#product", label: "Product" },
     { href: "/en#demo", label: "Demo" },
     { href: "/en#trust", label: "Trust" },
-    { href: "/studio", label: "Zenn Studio" },
+    { href: "/", label: "Zenn Studio" },
   ],
   studio: [
-    { href: "/studio#branslar", label: "Branşlar" },
+    { href: "/#branslar", label: "Branşlar" },
     { href: "/online", label: "Zenn Online" },
     { href: "/paketler", label: "Paketler" },
     { href: "/ders-bul", label: "Sana uygun ders" },
@@ -31,7 +31,7 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
 };
 
 const ctas: Record<Mode, { href: string; label: string }> = {
-  "landing-tr": { href: "/#iletisim", label: "Bize ulaşın" },
+  "landing-tr": { href: "/isletmeler#iletisim", label: "Bize ulaşın" },
   "landing-en": { href: "/en#contact", label: "Contact us" },
   studio: { href: "/kayit", label: "Ön kayıt yap" },
 };
@@ -47,13 +47,13 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() ?? "/";
   const lang = pathname.startsWith("/en") ? "en" : "tr";
-  const mode: Mode = pathname === "/" ? "landing-tr" : lang === "en" ? "landing-en" : "studio";
+  const mode: Mode = pathname.startsWith("/isletmeler") ? "landing-tr" : lang === "en" ? "landing-en" : "studio";
   const items = nav[mode];
   const cta = ctas[mode];
-  // Small language switch: TR ↔ EN (English covers the company landing only).
-  const switcher = (
+  // Small language switch: TR ↔ EN, on the B2B pages only (English covers those).
+  const switcher = mode === "studio" ? null : (
     <Link
-      href={lang === "en" ? "/" : "/en"}
+      href={lang === "en" ? "/isletmeler" : "/en"}
       hrefLang={lang === "en" ? "tr" : "en"}
       onClick={() => setOpen(false)}
       className="grid min-h-10 min-w-10 place-items-center rounded-full px-2 text-sm font-semibold text-paper/75 hover:text-paper"

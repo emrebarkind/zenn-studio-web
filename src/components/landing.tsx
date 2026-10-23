@@ -13,7 +13,7 @@ const sectionTitle = "text-[clamp(2rem,5vw,3.25rem)] leading-[1.05] font-semibol
 export function Landing({ lang }: { lang: Lang }) {
   const t = landing[lang];
   const id = t.ids;
-  const base = lang === "en" ? "/en" : "/";
+  const base = lang === "en" ? "/en" : "/isletmeler";
   const channels = contactChannels(company);
 
   return (
@@ -149,7 +149,7 @@ export function Landing({ lang }: { lang: Lang }) {
                   </li>
                 ))}
               </ul>
-              <Link href="/studio" className="mt-7 inline-block font-semibold underline decoration-2 underline-offset-4">
+              <Link href="/" className="mt-7 inline-block font-semibold underline decoration-2 underline-offset-4">
                 {t.customer.link}
               </Link>
             </div>
@@ -220,7 +220,7 @@ export function Landing({ lang }: { lang: Lang }) {
             <p className="mt-6 text-ink-soft">{t.contact.empty}</p>
           )}
           <p className="mt-8">
-            <Link href="/studio" className="font-semibold underline underline-offset-4">
+            <Link href="/" className="font-semibold underline underline-offset-4">
               {t.contact.studioLink}
             </Link>
           </p>

@@ -23,7 +23,7 @@ export function AskAssistantButton({
   // Without the live assistant, the same buttons lead to the scripted demo.
   if (!assistantLive) {
     return (
-      <Link href="/#demo" className={className}>
+      <Link href="/isletmeler#demo" className={className}>
         {children}
       </Link>
     );

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Zenn Studio",
   },
   description:
-    "Reformer pilates, mat pilates, kickboks ve fonksiyonel antrenman; stüdyoda, canlı online ya da sana özel online programla. Yapay zekâ destekli Zenn Asistan sorularını anında yanıtlar.",
+    "Reformer pilates, mat pilates, kickboks ve fonksiyonel antrenman; stüdyoda, canlı online ya da sana özel online programla.",
   openGraph: { siteName: "Zenn Studio", locale: "tr_TR", type: "website" },
 };
 

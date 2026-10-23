@@ -19,23 +19,14 @@ export function SiteFooter() {
         <div className="text-center">
           <Wordmark className="text-4xl" />
           <p className="mx-auto mt-3 max-w-sm text-paper/60">
-            Fitness stüdyoları için yapay zekâ destekli satış ve müşteri hizmetleri. İstanbul.
+            Reformer, mat pilates, kickboks ve fonksiyonel antrenman. Stüdyoda ya da online. İstanbul.
           </p>
         </div>
         <div className="mt-14 grid gap-10 text-center sm:grid-cols-3">
           <div>
-            <h2 className="text-sm font-semibold">Zenn</h2>
-            <ul className="mt-4 space-y-2 text-paper/60">
-              <li><Link className="hover:text-paper" href="/#urun">Ürün</Link></li>
-              <li><Link className="hover:text-paper" href="/#demo">Demo</Link></li>
-              <li><Link className="hover:text-paper" href="/#guven">Güven ve KVKK</Link></li>
-              <li><Link className="hover:text-paper" href="/en" hrefLang="en">English</Link></li>
-            </ul>
-          </div>
-          <div>
             <h2 className="text-sm font-semibold">Zenn Studio</h2>
             <ul className="mt-4 space-y-2 text-paper/60">
-              <li><Link className="hover:text-paper" href="/studio">Stüdyo</Link></li>
+              <li><Link className="hover:text-paper" href="/">Stüdyo</Link></li>
               {disciplines.map((d) => (
                 <li key={d.slug}>
                   <Link className="hover:text-paper" href={`/branslar/${d.slug}`}>
@@ -78,6 +69,15 @@ export function SiteFooter() {
                 <Link className="hover:text-paper" href="/kvkk">KVKK aydınlatma metni</Link>
               </p>
             </address>
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold">İşletmeler için</h2>
+            <ul className="mt-4 space-y-2 text-paper/60">
+              <li><Link className="hover:text-paper" href="/isletmeler#urun">Zenn yapay zekâ asistanı</Link></li>
+              <li><Link className="hover:text-paper" href="/isletmeler#demo">Demo</Link></li>
+              <li><Link className="hover:text-paper" href="/isletmeler#guven">Güven ve KVKK</Link></li>
+              <li><Link className="hover:text-paper" href="/en" hrefLang="en">English</Link></li>
+            </ul>
           </div>
         </div>
         <div className="mt-14 border-t border-paper/10 pt-6 text-center text-sm text-paper/40">
