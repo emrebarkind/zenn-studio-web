@@ -32,6 +32,13 @@
   --font-sans: var(--font-inter);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
   background: var(--paper);
   color: var(--ink);
@@ -80,4 +87,21 @@ body {
 }
 .live-dot {
   animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+/* Hero photographs: a slow push-in on the active frame, and the progress bar
+   that times it. Both stop under reduced motion (the global rule above). */
+@keyframes hero-push {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+.hero-push {
+  animation: hero-push 9s ease-out both;
+}
+@keyframes hero-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.hero-progress {
+  animation: hero-progress linear both;
 }

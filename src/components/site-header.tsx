@@ -24,9 +24,10 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
   ],
   studio: [
     { href: "/#branslar", label: "Branşlar" },
-    { href: "/online", label: "Zenn Online" },
-    { href: "/paketler", label: "Paketler" },
-    { href: "/ders-bul", label: "Sana uygun ders" },
+    { href: "/#ders-bul", label: "Sana uygun ders" },
+    { href: "/#paketler", label: "Paketler" },
+    { href: "/#online", label: "Zenn Online" },
+    { href: "/#sss", label: "Sorular" },
   ],
 };
 

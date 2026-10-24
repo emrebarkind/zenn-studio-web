@@ -181,6 +181,10 @@ export type Plan = {
   includes: string[];
   /** TRY, VAT included. `null` = shared during registration. */
   price: number | null;
+  /** Group packages: the weekdays of the group (1 = Monday … 7 = Sunday). */
+  groupDays?: number[];
+  /** One line on how the week looks, for packages without fixed group days. */
+  weekNote?: string;
 };
 
 export const plans: Plan[] = [
@@ -191,6 +195,7 @@ export const plans: Plan[] = [
     detail: "4 hafta, haftada 2 grup dersi",
     includes: ["Sabah ya da akşam grubu", "Pazartesi ve çarşamba"],
     price: null,
+    groupDays: [1, 3],
   },
   {
     id: "studio-12",
@@ -199,6 +204,7 @@ export const plans: Plan[] = [
     detail: "4 hafta, haftada 3 grup dersi",
     includes: ["Sabah ya da akşam grubu", "Pazartesi, çarşamba ve cuma"],
     price: null,
+    groupDays: [1, 3, 5],
   },
   {
     id: "private-8",
@@ -207,6 +213,7 @@ export const plans: Plan[] = [
     detail: "Antrenörünle birlikte belirlediğin saatlerde",
     includes: ["Reformer, kickboks ya da fonksiyonel", "Düet olarak da alınabilir"],
     price: null,
+    weekNote: "Günleri ve saati antrenörünle birlikte belirlersin.",
   },
   {
     id: "live-8",
@@ -215,6 +222,7 @@ export const plans: Plan[] = [
     detail: "4 hafta, haftada 2 canlı ders",
     includes: ["Kamera açık küçük grup", "Ders bağlantısı SMS ile"],
     price: null,
+    weekNote: "Haftada 2 canlı ders; günler ön kayıtta netleşir.",
   },
   {
     id: "coaching-month",
@@ -227,6 +235,7 @@ export const plans: Plan[] = [
       "Haftalık görüntülü değerlendirme",
     ],
     price: null,
+    weekNote: "Program her hafta güncellenir; antrenmanı kendi saatinde yaparsın.",
   },
 ];
 
