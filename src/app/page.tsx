@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronsDown } from "lucide-react";
 import { coaches, disciplines, faqs, studioLocation } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { company } from "@/content/company";
 import { DisciplineVisual } from "@/components/discipline-visual";
-import { HeroPhotos, type HeroSlide } from "@/components/home/hero-photos";
+import { HeroVideo } from "@/components/home/hero-video";
 import { RequestWizard } from "@/components/home/request-wizard";
 import { Planner } from "@/components/home/planner";
 import { CoachGrid, type CoachCard } from "@/components/home/coach-grid";
@@ -13,12 +13,6 @@ import { MobileRequestBar } from "@/components/home/mobile-request-bar";
 import { jsonLdScript, studioJsonLd } from "@/lib/structured-data";
 import { SectionSnap } from "@/components/home/section-snap";
 import { FindUs } from "@/components/home/find-us";
-import reformerWide from "@/assets/photos/reformer-wide.jpg";
-import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
-import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
-import kickboksTorba from "@/assets/photos/kickboks-torba.jpg";
-import birebirWide from "@/assets/photos/birebir-wide.jpg";
-import matDersWide from "@/assets/photos/mat-ders-wide.jpg";
 
 export const metadata: Metadata = {
   title: { absolute: "Tekirdağ Pilates, Reformer ve Kickboks | Zenn Studio" },
@@ -27,14 +21,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-// One big photograph at a time: landscape crops for wide screens, portrait for phones.
-const slides: HeroSlide[] = [
-  { wide: { src: reformerWide, alt: "", position: "60% 40%" }, tall: { src: reformerTeaser, alt: "", position: "50% 55%" } },
-  { wide: { src: kickboksWide, alt: "", position: "55% 35%" }, tall: { src: kickboksTorba, alt: "", position: "45% 30%" } },
-  // The same photograph on both: the phone shows a portrait crop of the landscape shot.
-  { wide: { src: birebirWide, alt: "", position: "50% 45%" }, tall: { src: birebirWide, alt: "", position: "22% 50%" } },
-  { wide: { src: matDersWide, alt: "", position: "50% 50%" }, tall: { src: matDersWide, alt: "", position: "28% 50%" } },
-];
 
 const disciplineName = Object.fromEntries(disciplines.map((d) => [d.slug, d.name]));
 
@@ -56,32 +42,29 @@ const screen = "lg:flex lg:min-h-svh lg:snap-start lg:scroll-mt-0 lg:flex-col lg
 export default function StudioHome() {
   return (
     <>
-      {/* Hero: one big photograph, changing on its own, the name and the request over it. */}
+      {/* Hero: a looping pilates video, the slogan large and centred near the bottom, the way down (owner, 2026-10-25). */}
       <section id="top" className="on-ink relative isolate -mt-[68px] flex min-h-[100svh] snap-start items-end overflow-hidden bg-ink text-paper sm:-mt-[76px]">
         <div className="hero-drift absolute inset-0">
-          <HeroPhotos slides={slides} />
+          <HeroVideo />
         </div>
-        <div aria-hidden className="absolute inset-0 bg-black/25" />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/30 to-transparent" />
-        <Container className="hero-out relative z-10 pt-32 pb-16 sm:pb-20">
-          <div className="settle max-w-4xl">
-            {/* The slogan leads (owner, 2026-10-25); the name is already in the header. */}
-            <h1 className="text-[clamp(2.35rem,7vw,5.75rem)] leading-[0.98] font-bold tracking-[-0.045em]">
-              Bugün daha güçlü,
-              <span className="block text-lime">yarın daha iyi.</span>
+        <div aria-hidden className="absolute inset-0 bg-black/30" />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+        <Container className="hero-out relative z-10 pt-32 pb-8 text-center sm:pb-10">
+          <div className="settle mx-auto max-w-6xl">
+            <h1 className="text-[clamp(2.1rem,8vw,3rem)] leading-[0.95] font-extrabold tracking-[-0.035em] text-balance text-lime uppercase sm:text-[clamp(2rem,4.9vw,4.5rem)] sm:whitespace-nowrap">
+              Her gün, daha güçlü bir sen.
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-paper/90 sm:text-xl">
               Tekirdağ Süleymanpaşa&apos;da pilates, spinning, kickboks ve fonksiyonel antrenman. Seviyen ne olursa olsun seni tanıyor,
               kendi temponda ve adım adım ilerletiyoruz.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="#talep" className="min-h-14 px-8 text-base">
-                Ders talebi
-              </ButtonLink>
-              <ButtonLink href="#hizmetler" variant="outline" className="min-h-14 px-8 text-base">
-                Hizmetlerimiz
-              </ButtonLink>
-            </div>
+            {/* Phones have no request button in the header; the hero carries it. */}
+            <ButtonLink href="#talep" className="mt-7 min-h-13 px-8 text-base sm:hidden">
+              Ders talebi
+            </ButtonLink>
+            <a href="#hizmetler" aria-label="Hizmetlerimize in" className="mx-auto mt-6 grid size-12 place-items-center text-lime sm:mt-8">
+              <ChevronsDown className="size-8 motion-safe:animate-bounce" strokeWidth={2.25} aria-hidden />
+            </a>
           </div>
         </Container>
       </section>
