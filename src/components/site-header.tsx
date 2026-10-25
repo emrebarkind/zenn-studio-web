@@ -40,7 +40,8 @@ const ctas: Record<Mode, { href: string; label: string }> = {
 
 /** Floating dark pill. It is sticky, so pages flow below it; the home hero
  *  pulls itself up underneath with a negative margin equal to its height
- *  (pt-3 + h-14, sm: h-16). Over the home hero it is an open, full-width bar
+ *  (pt-2 + h-12, sm: pt-2.5 + h-13). Kept slim: on a laptop at 125–150%
+ *  display scaling a taller bar ate the screen (owner, 2026-10-25). Over the home hero it is an open, full-width bar
  *  instead (owner, 2026-10-25, after a reference): logo left, links centred,
  *  two lime dot links right; past the hero the same bar gets its dark glass. */
 export function SiteHeader() {
@@ -79,23 +80,23 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="on-ink sticky top-0 z-40 px-3 pt-3 sm:px-5" style={{ viewTransitionName: "site-header" }}>
+    <header className="on-ink sticky top-0 z-40 px-3 pt-2 sm:px-5 sm:pt-2.5" style={{ viewTransitionName: "site-header" }}>
       <div
         // Same bar all the way down (owner, 2026-10-25): only its dark glass fades in past the hero.
-        className={`mx-auto max-w-[88rem] rounded-[22px] text-paper transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out ${
+        className={`mx-auto max-w-[88rem] rounded-[18px] text-paper transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out ${
           onHero ? "bg-transparent shadow-none" : "bg-ink/80 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150"
         }`}
       >
-        <div className="grid h-14 grid-cols-[1fr_auto_1fr] items-center pr-2 pl-5 sm:h-16 sm:pr-3 sm:pl-6">
+        <div className="grid h-12 grid-cols-[1fr_auto_1fr] items-center pr-1.5 pl-4 sm:h-13 sm:pr-2 sm:pl-5">
           <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)} className="min-h-11 content-center justify-self-start">
-            <ZennWordmark className="text-[19px] sm:text-[21px]" />
+            <ZennWordmark className="text-[18px] sm:text-[19px]" />
           </Link>
           <nav aria-label="Ana menü" className="hidden items-center gap-6 lg:flex xl:gap-7">
             {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[15px] font-medium whitespace-nowrap text-paper/85 transition-colors hover:text-paper"
+                className="text-[14px] font-medium whitespace-nowrap text-paper/85 transition-colors hover:text-paper"
               >
                 {item.label}
               </Link>
@@ -107,7 +108,7 @@ export function SiteHeader() {
             {mode === "studio" ? (
               <span className="hidden items-center gap-6 pr-3 sm:flex">
                 {[cta, { href: "/#konum", label: "İletişim" }].map((l) => (
-                  <Link key={l.href} href={l.href} className="inline-flex min-h-10 items-center gap-2 text-[14px] font-semibold tracking-[0.04em] whitespace-nowrap text-lime uppercase transition-opacity hover:opacity-80">
+                  <Link key={l.href} href={l.href} className="inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold tracking-[0.04em] whitespace-nowrap text-lime uppercase transition-opacity hover:opacity-80">
                     <span aria-hidden className="size-1.5 rounded-full bg-lime" />
                     {l.label}
                   </Link>

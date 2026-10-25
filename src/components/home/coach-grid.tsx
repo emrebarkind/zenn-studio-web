@@ -24,14 +24,14 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
         onClick={() => setSecond((v) => !v)}
         onPointerEnter={(e) => e.pointerType === "mouse" && setSecond(true)}
         onPointerLeave={(e) => e.pointerType === "mouse" && setSecond(false)}
-        className="relative -mt-px block aspect-[4/5] w-full overflow-hidden rounded-2xl lg:aspect-[5/4]"
+        className="relative -mt-px block aspect-[4/5] w-full overflow-hidden rounded-2xl"
       >
         <Image
           src={coach.portrait.src}
           alt={coach.portrait.alt}
           fill
           placeholder="blur"
-          sizes="(min-width: 1024px) 260px, (min-width: 640px) 33vw, 50vw"
+          sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
           className={`${fade} ${second ? "scale-105 opacity-0" : "scale-100 opacity-100"}`}
           style={{ objectPosition: coach.portrait.position }}
         />
@@ -40,27 +40,23 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
           alt={coach.action.alt}
           fill
           placeholder="blur"
-          sizes="(min-width: 1024px) 370px, (min-width: 640px) 33vw, 50vw"
+          sizes="(min-width: 1280px) 400px, (min-width: 640px) 33vw, 50vw"
           className={`${fade} ${second ? "scale-105 opacity-100" : "scale-100 opacity-0"}`}
           style={{ objectPosition: coach.action.position }}
         />
-        {/* The photo melts into the card; what they work in sits on it. */}
+        {/* The photo melts into the card; what they work in sits on it as plain text, no chips (owner, 2026-10-25). */}
         <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink to-transparent" />
-        <span className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
-          {coach.areas.map((a) => (
-            <span key={a} className="rounded-full bg-paper/15 px-2 py-1 text-[11px] leading-none font-semibold whitespace-nowrap text-paper backdrop-blur-md sm:px-2.5 sm:text-[12px]">
-              {a}
-            </span>
-          ))}
+        <span className="absolute inset-x-3 bottom-2.5 text-left text-[12px] leading-snug font-medium text-paper/85 sm:inset-x-5 sm:bottom-3 sm:text-[14px]">
+          {coach.areas.join(" · ")}
         </span>
       </button>
       {/* First name small, surname large (owner, 2026-10-25); sized so the longest surname fits a phone card. */}
-      <div className="px-2.5 pt-3 pb-4 sm:px-4">
-        {coach.surname && <p className="text-[14px] leading-tight font-medium text-paper/60">{coach.name}</p>}
+      <div className="px-3 pt-2 pb-4 sm:px-5 sm:pb-5">
+        {coach.surname && <p className="text-[14px] leading-tight font-medium text-paper/60 sm:text-[15px]">{coach.name}</p>}
         {/* A long surname (Pekmezcioğulları) steps down a size on a phone card rather than breaking mid-word. */}
         <p
           className={`mt-0.5 leading-[1.05] font-semibold tracking-[-0.03em] whitespace-nowrap ${
-            (coach.surname ?? coach.name).length > 12 ? "text-[0.9rem] sm:text-[1.2rem] lg:text-[1.3rem]" : "text-[1.2rem] sm:text-[1.45rem]"
+            (coach.surname ?? coach.name).length > 12 ? "text-[0.9rem] sm:text-[1.2rem] lg:text-[1.6rem]" : "text-[1.2rem] sm:text-[1.45rem] lg:text-[1.9rem]"
           }`}
         >
           {coach.surname ?? coach.name}
@@ -72,8 +68,8 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
 
 export function CoachGrid({ coaches }: { coaches: CoachCard[] }) {
   return (
-    // Three to a row and the last two centred under them (six columns, two each), owner 2026-10-25.
-    <ul className="mx-auto grid grid-cols-2 gap-3 sm:grid-cols-6 sm:gap-5 lg:max-w-[52rem]">
+    // Three to a row across the full width, the last two centred under them (six columns, two each), owner 2026-10-25.
+    <ul className="grid grid-cols-2 gap-3 sm:grid-cols-6 sm:gap-5 lg:gap-6">
       {coaches.map((c, i) => {
         const rest = coaches.length % 3;
         const lastRow = i >= coaches.length - rest;

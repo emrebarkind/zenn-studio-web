@@ -40,7 +40,7 @@ export default function StudioHome() {
   return (
     <>
       {/* Hero: a looping pilates video, the slogan large and centred near the bottom, the way down (owner, 2026-10-25). */}
-      <section id="top" className="on-ink relative isolate -mt-[68px] flex min-h-[100svh] items-end overflow-hidden bg-ink text-paper sm:-mt-[76px]">
+      <section id="top" className="on-ink relative isolate -mt-[56px] flex min-h-[100svh] items-end overflow-hidden bg-ink text-paper sm:-mt-[62px]">
         <div className="absolute inset-0">
           <HeroVideo />
         </div>
@@ -89,7 +89,7 @@ export default function StudioHome() {
 
       {/* Coaches: big portraits, three to a row; hover or tap for a second one. */}
       <section id="antrenorler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
-        <Container className="fit">
+        <Container className="lg:max-w-7xl">
           <SectionHeading title="Eğitmen Kadromuz" lead="Derslerimizi bu ekip veriyor. Fotoğrafın üzerine gel ya da dokun." />
           <div className="mt-14 lg:mt-10">
             <CoachGrid coaches={coachCards} />
