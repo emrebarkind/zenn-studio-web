@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { crmPayload, inStudioFormat, registrationSchema, summarize } from "./registration";
+import { crmPayload, inStudioFormat, registrationSchema, summarize, whatsappMessage } from "./registration";
 
 const base = {
   discipline: "reformer-pilates",
@@ -65,5 +65,29 @@ describe("lesson request", () => {
   it("names the group package when one was chosen", () => {
     const r = registrationSchema.parse({ ...base, discipline: "mat-pilates", format: "group", plan: "group-12" });
     expect(crmPayload(r, { ...meta, form: "detailed" }).plan).toEqual({ id: "group-12", name: "12 ders" });
+  });
+});
+
+describe("whatsappMessage", () => {
+  const who = { firstName: "Ayşe", lastName: "Kaya" };
+
+  it("reads like a person wrote it: who, which lesson, which days and hours", () => {
+    expect(
+      whatsappMessage({ ...who, discipline: "spinning", format: "group", days: ["per", "pzt"], timeFrom: "18:00", timeTo: "21:00" }),
+    ).toBe(
+      "Merhaba Zenn Studio, ben Ayşe Kaya. Spinning grup dersine katılmak istiyorum. Pazartesi ve Perşembe günleri saat 18:00 ile 21:00 arası gelebilirim. Bilgi verebilir misiniz? Teşekkürler.",
+    );
+  });
+
+  it("leaves out the time when none was chosen and adds the extra line", () => {
+    expect(
+      whatsappMessage({ ...who, discipline: "kickboks", format: "private", days: ["sal"], timeFrom: "", timeTo: "" }, "Arkadaşımla geleceğim."),
+    ).toBe("Merhaba Zenn Studio, ben Ayşe Kaya. Kickboks özel dersi almak istiyorum. Salı günleri gelebilirim. Arkadaşımla geleceğim. Bilgi verebilir misiniz? Teşekkürler.");
+  });
+
+  it("starts the sentence with Saat when only an hour was chosen", () => {
+    expect(whatsappMessage({ ...who, discipline: "kickboks", format: "private", days: [], timeFrom: "18:00", timeTo: "" })).toContain(
+      "Saat 18:00 sonrası gelebilirim.",
+    );
   });
 });

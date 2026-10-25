@@ -171,8 +171,7 @@ export function RequestFinish({
           </button>
         )}
         <button type="submit" disabled={pending} className={buttonClass("primary", "min-h-14 w-full px-8 text-base sm:w-auto")}>
-          {wa && <MessageCircle className="size-5" aria-hidden />}
-          {pending ? "Gönderiliyor…" : wa ? "WhatsApp'tan ders talebi gönder" : "Ders talebini gönder"}
+          {pending ? "Gönderiliyor…" : "Talebi gönder"}
         </button>
       </div>
     </form>

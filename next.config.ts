@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [{ source: "/studio", destination: "/", permanent: true }];
   },
+  // Dev only: lets a phone on the same Wi-Fi open the dev server for review.
+  allowedDevOrigins: ["192.168.*.*"],
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

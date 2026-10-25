@@ -23,13 +23,13 @@ const disciplineSlugs = disciplines.map((d) => d.slug) as [string, ...string[]];
 
 /** Days a visitor can say suit them, Monday first. */
 export const WEEKDAYS = [
-  { id: "pzt", label: "Pzt" },
-  { id: "sal", label: "Sal" },
-  { id: "car", label: "Çar" },
-  { id: "per", label: "Per" },
-  { id: "cum", label: "Cum" },
-  { id: "cmt", label: "Cmt" },
-  { id: "paz", label: "Paz" },
+  { id: "pzt", label: "Pzt", long: "Pazartesi" },
+  { id: "sal", label: "Sal", long: "Salı" },
+  { id: "car", label: "Çar", long: "Çarşamba" },
+  { id: "per", label: "Per", long: "Perşembe" },
+  { id: "cum", label: "Cum", long: "Cuma" },
+  { id: "cmt", label: "Cmt", long: "Cumartesi" },
+  { id: "paz", label: "Paz", long: "Pazar" },
 ] as const;
 export type WeekdayId = (typeof WEEKDAYS)[number]["id"];
 const weekdayIds = WEEKDAYS.map((d) => d.id) as [WeekdayId, ...WeekdayId[]];
@@ -122,20 +122,42 @@ export function summarize(r: Registration, reference: string): string {
 
 export type RequestForm = "quick" | "detailed" | "wizard" | "planner";
 
-/** The message the visitor sends the studio on WhatsApp: who, what, when. */
+/** "a", "a ve b", "a, b ve c". */
+function joinTr(words: string[]): string {
+  return words.length <= 1 ? (words[0] ?? "") : `${words.slice(0, -1).join(", ")} ve ${words.at(-1)}`;
+}
+
+/**
+ * The message the visitor sends the studio on WhatsApp, written the way a
+ * person would write it (owner, 2026-10-25): who, which lesson, when.
+ */
 export function whatsappMessage(r: Pick<Registration, "firstName" | "lastName" | "discipline" | "format" | "days" | "timeFrom" | "timeTo">, extra?: string): string {
   const discipline = disciplines.find((d) => d.slug === r.discipline)?.name ?? r.discipline;
-  const way = r.format === "group" ? "grup dersi" : r.format === "online" ? "online ders" : "özel ders";
+  const want =
+    r.format === "group"
+      ? `${discipline} grup dersine katılmak istiyorum.`
+      : r.format === "online"
+        ? `Online ${discipline} dersi almak istiyorum.`
+        : `${discipline} özel dersi almak istiyorum.`;
+  const days = WEEKDAYS.filter((d) => r.days.includes(d.id)).map((d) => d.long);
+  const time =
+    r.timeFrom && r.timeTo
+      ? `saat ${r.timeFrom} ile ${r.timeTo} arası`
+      : r.timeFrom
+        ? `saat ${r.timeFrom} sonrası`
+        : r.timeTo
+          ? `saat ${r.timeTo} öncesi`
+          : "";
+  const when = [days.length ? `${joinTr(days)} günleri` : "", time].filter(Boolean).join(" ");
   return [
-    `Merhaba Zenn Studio, ders talebim var.`,
-    `Ad soyad: ${r.firstName} ${r.lastName}`,
-    `Ders: ${discipline} (${way})`,
-    daysLabel(r.days) && `Uygun günler: ${daysLabel(r.days)}`,
-    timeRangeLabel(r.timeFrom, r.timeTo) && `Saat: ${timeRangeLabel(r.timeFrom, r.timeTo)}`,
+    `Merhaba Zenn Studio, ben ${r.firstName} ${r.lastName}.`,
+    want,
+    when && `${when.charAt(0).toLocaleUpperCase("tr")}${when.slice(1)} gelebilirim.`,
     extra,
+    "Bilgi verebilir misiniz? Teşekkürler.",
   ]
     .filter(Boolean)
-    .join("\n");
+    .join(" ");
 }
 
 /** The quick form only asks the discipline: group disciplines go to a group, the rest to a private lesson. */

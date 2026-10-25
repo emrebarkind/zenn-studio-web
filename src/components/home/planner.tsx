@@ -35,7 +35,7 @@ export function Planner() {
     const plan = makePlan(a);
     const d = disciplines.find((x) => x.slug === plan.discipline)!;
     const [from, to] = TIME_RANGE[a.time];
-    const summary = `Önerilen plan: ${d.name}, ${plan.detail}, ${plan.rhythm.toLocaleLowerCase("tr")}.`;
+    const summary = `Sitedeki kısa testte bana ${plan.detail.toLocaleLowerCase("tr")} önerildi.`;
     return (
       <div className="step-in mx-auto max-w-4xl overflow-hidden rounded-[32px] bg-paper text-ink shadow-[0_30px_80px_-40px_rgba(0,0,0,0.6)]">
         <div className="grid md:grid-cols-2">

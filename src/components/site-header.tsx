@@ -65,7 +65,7 @@ export function SiteHeader() {
       <div className="mx-auto max-w-6xl rounded-[22px] bg-ink/80 text-paper shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150">
         <div className="flex h-14 items-center justify-between pr-2 pl-5 sm:h-16 sm:pr-3 sm:pl-6">
           <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)} className="min-h-11 content-center">
-            <ZennWordmark className="text-[22px] sm:text-2xl" />
+            <ZennWordmark className="text-[19px] sm:text-[21px]" />
           </Link>
           <nav aria-label="Ana menü" className="hidden items-center gap-7 md:flex">
             {items.map((item) => (
@@ -80,9 +80,12 @@ export function SiteHeader() {
           </nav>
           <div className="flex items-center gap-1">
             {switcher}
-            <Link href={cta.href} className={buttonClass("primary", "hidden min-h-10 px-5 sm:inline-flex")}>
-              {cta.label}
-            </Link>
+            {/* On phones the menu (and on the studio pages the bottom bar) carries it. */}
+            <span className="hidden sm:block">
+              <Link href={cta.href} className={buttonClass("primary", "min-h-10 px-5")}>
+                {cta.label}
+              </Link>
+            </span>
             <button
               type="button"
               className="grid size-11 place-items-center rounded-full md:hidden"
