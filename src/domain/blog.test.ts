@@ -22,11 +22,11 @@ function post(body: string, front: Record<string, string> = {}) {
 const good = `## Bir\n${words(300)}\n\n## İki\n${words(300)}\n\n## Üç\n${words(150)} [Reformer](/branslar/reformer-pilates) ve [talep](/#talep).`;
 
 describe("parsePost", () => {
-  it("reads the frontmatter, lists included, and treats an unreviewed post as a draft", () => {
+  it("reads the frontmatter, lists included; a post is live unless it says draft: true", () => {
     const p = post(good);
     expect(p.keywords).toEqual(["tekirdağ reformer pilates", "reformer pilates nedir"]);
-    expect(p.draft).toBe(true);
-    expect(post(good, { reviewedBy: "Şüheda" }).draft).toBe(false);
+    expect(p.draft).toBe(false);
+    expect(post(good, { draft: "true" }).draft).toBe(true);
   });
 
   it("refuses a reviewer who is not one of our coaches", () => {

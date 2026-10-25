@@ -6,8 +6,8 @@ import { parsePost, type Post } from "@/domain/blog";
 const DIR = path.join(process.cwd(), "content", "blog");
 
 /**
- * Every post in content/blog, newest first. Drafts (no `reviewedBy` yet) are
- * shown in development only, so nothing unreviewed reaches the live site.
+ * Every post in content/blog, newest first. Drafts (`draft: true`) are shown
+ * in development only.
  * Files starting with "_" (the keyword plan) are not posts.
  */
 export function allPosts({ includeDrafts = process.env.NODE_ENV === "development" } = {}): Post[] {

@@ -4,10 +4,11 @@ import { coaches, disciplines } from "@/content/site";
 /**
  * Blog posts (2026-10-25): Markdown files in content/blog, written to answer
  * what people in Tekirdağ search for (pilates, reformer, kickboks, spor
- * salonu ...). Every post is checked by `postProblems` in a test, so a draft
- * that breaks the house rules cannot be merged, and a post is only published
- * once one of our coaches has read it (`reviewedBy`). Google treats mass,
- * unreviewed pages as spam; one good post a week is the pace.
+ * salonu ...). Every post is checked by `postProblems` in a test, so a post
+ * that breaks the house rules cannot be merged. Posts go live without a human
+ * review for now (owner, 2026-10-25), which makes those rules the only gate;
+ * `draft: true` holds one back. Google treats mass, low-value pages as spam,
+ * so the pace stays at two careful posts a week.
  */
 
 const date = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "YYYY-MM-DD biçiminde olmalı");
@@ -21,12 +22,14 @@ export const frontmatterSchema = z.object({
   keywords: z.array(z.string().min(3)).min(1).max(6),
   /** The lesson the post is about, for the related-lesson card and links. */
   discipline: z.enum(disciplines.map((d) => d.slug) as [string, ...string[]]).optional(),
-  /** The coach who read and approved the post; without it the post stays a draft. */
+  /** A coach who read the post, shown under the title when set. */
   reviewedBy: z.enum(coaches.map((c) => c.name) as [string, ...string[]]).optional(),
+  /** "true" keeps the post off the live site. */
+  draft: z.enum(["true", "false"]).optional(),
 });
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;
-export type Post = Frontmatter & { slug: string; body: string; draft: boolean; readingMinutes: number };
+export type Post = Omit<Frontmatter, "draft"> & { slug: string; body: string; draft: boolean; readingMinutes: number };
 
 /** Splits "---\nkey: value\n---\nbody". Values are plain text, or [a, b] lists. */
 export function parsePost(slug: string, source: string): Post {
@@ -55,7 +58,7 @@ export function parsePost(slug: string, source: string): Post {
     throw new Error(`${slug}: ${parsed.error.issues.map((x) => `${x.path.join(".")}: ${x.message}`).join("; ")}`);
   }
   const body = m[2].trim();
-  return { ...parsed.data, slug, body, draft: !parsed.data.reviewedBy, readingMinutes: Math.max(1, Math.round(wordCount(body) / 200)) };
+  return { ...parsed.data, slug, body, draft: parsed.data.draft === "true", readingMinutes: Math.max(1, Math.round(wordCount(body) / 200)) };
 }
 
 function unquote(v: string): string {

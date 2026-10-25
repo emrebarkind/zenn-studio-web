@@ -1,6 +1,6 @@
 ---
 name: seo-blog
-description: Write the next Zenn Studio blog post for local search (Tekirdağ pilates, reformer, kickboks, spor salonu ...) from content/blog/_plan.md, check it against the house rules, and open a pull request for a coach to review. Use when asked to write a blog post, run the SEO agent, or plan blog topics.
+description: Write and publish the next Zenn Studio blog post for local search (Tekirdağ pilates, reformer, kickboks, spor salonu ...) from content/blog/_plan.md, after checking it against the house rules. Use when asked to write a blog post, run the SEO agent, or plan blog topics.
 ---
 
 # Zenn Studio SEO blog agent
@@ -10,8 +10,9 @@ Tekirdağ Süleymanpaşa. The goal is to be the most useful answer for people in
 pilates, kickboks, spinning, fonksiyonel antrenman or a spor salonu, so they find us and leave a lesson request.
 
 Google's spam policy treats many pages made mainly to manipulate rankings as *scaled content abuse*, whatever wrote
-them. So: one careful post per run, only facts we can stand behind, and a coach reads every post before it goes live.
-Quality over volume, always.
+them. So: one careful post per run, only facts we can stand behind. Posts go live **without a human review** for now
+(owner's decision, 2026-10-25), so you are the editor: read your post back as a member of the studio would before
+you publish it. Quality over volume, always.
 
 ## Inputs to read first
 
@@ -28,13 +29,24 @@ Quality over volume, always.
 - Do not name or compare other businesses. Never mention "Mehtap Durak" (an old Google listing name at our address).
 - General exercise knowledge is fine when it is uncontroversial. Anything about us (days, packages, coaches, what to
   bring, address) must come from `site.ts`. If a fact you need is not there (prices, opening hours, coach
-  certificates, parking), leave it out and mention it in the PR so the owner can add it.
+  certificates, parking), leave it out and add it to the `## Eksik bilgiler` list at the end of `_plan.md` so the owner can fill it in.
 
 ## Writing rules
 
+The owner's brief: posts must be **consistent, well made and logical; easy to read, not tiring; teaching is good.**
+
 - Turkish. We speak as the studio ("veriyoruz", "çalışıyoruz", "seni arıyoruz"); the reader is "sen".
-- Plain, warm, specific. Short paragraphs. No filler intros ("Günümüzde ..."), no hype words.
-- 900–1500 words (the test allows 700–2200). At least three `##` sections; a `## Sık sorulanlar` section with 3–5
+- Write like a coach explaining something to a new member at the front desk: friendly, clear, a little teaching.
+  Short sentences (mostly under 20 words), short paragraphs (2–4 sentences), everyday words. When a term is needed
+  (merkez bölge, nötr omurga, interval), explain it in one plain sentence the first time.
+- Teach with something concrete: a simple example, a "dene" moment (a movement or a habit the reader can picture),
+  or a short step-by-step list. One idea per section; the section heading says what the reader will learn.
+- No filler intros ("Günümüzde ..."), no hype words, no walls of text, no repeating the same point in new words.
+- Logical order: what it is → who it suits → how it feels / what happens → practical tips → FAQ → where we are.
+- Consistent: never contradict `site.ts` or an earlier post (same package rules, same coaches per lesson, same
+  wording for our services). Reuse the terms the site uses (grup dersi, 1-6 kişi, sabah/akşam grubu).
+- Read it back once before publishing: cut anything tiring, fix anything that sounds translated.
+- 800–1300 words (the test allows 700–2200). At least three `##` sections; a `## Sık sorulanlar` section with 3–5
   `###` questions; a short paragraph on where we are (Süleymanpaşa, Hürriyet Mahallesi, Şehit Mesut Bakan Cd. No:2)
   linking to `/#konum`.
 - Links: at least one to the matching `/branslar/<slug>` page, at least one to `/#talep` (the lesson request), and to
@@ -59,8 +71,8 @@ discipline: reformer-pilates             # mat-pilates | spinning | reformer-pil
 Body in Markdown. No "# " heading (the title is the page's h1).
 ```
 
-Leave `reviewedBy` out. Without it the post is a draft: visible in development, not published. The coach who reads
-it adds `reviewedBy: <name>` (one of Zeynep, Ece, Şüheda, Barış, Ali, Sude), and only then does it go live.
+The post is published as soon as it reaches `main`. Do not add `reviewedBy` (it is for when a coach has actually read
+a post). `draft: true` keeps a post off the live site; use it only if you are told to.
 
 ## Checks (all must pass)
 
@@ -73,13 +85,12 @@ npm run build
 
 `src/domain/blog.test.ts` enforces the rules above on every post. Fix the post, never the test.
 
-## Hand-off
+## Hand-off (publish)
 
 1. In `_plan.md`, mark the row `yazıldı`. If fewer than five rows are `sırada`, add one or two new ideas from what
    you learned in research (a real question people search, not a keyword variant of an existing post).
-2. Create a branch `blog/<slug>` from the current base branch, commit the post and the plan
-   (`blog: <title>`), push the branch, and open a pull request into the base branch.
-3. The PR body: the main search and why this topic, the questions it answers, facts you could not confirm or left
-   out, and a checklist for the reviewer: [ ] facts about the studio are right, [ ] tone sounds like us,
-   [ ] add `reviewedBy` and merge.
-4. Never merge, never push to `main`, never publish a post without a reviewer, never write more than one post per run.
+2. Commit the post and the plan on `main` (`blog: <title>`), only files under `content/blog/`. Run the checks again,
+   then `git pull --ff-only` and `git push origin main` (fast-forward only). Vercel publishes it.
+3. If the push is rejected because `main` moved, pull with `--ff-only`, re-run the checks, and push again. Never
+   force-push, never rewrite history, never touch files outside `content/blog/`.
+4. One post per run. If any check fails and you cannot fix the post, publish nothing and say why.

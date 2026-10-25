@@ -6,7 +6,9 @@ keywords: [tekirdağ pilates, tekirdağ reformer pilates, mat pilates mı reform
 discipline: reformer-pilates
 ---
 
-Stüdyomuzda en sık duyduğumuz soru şu: "Pilatese başlamak istiyorum ama mat mı, reformer mı seçmeliyim?" İkisi de aynı yöntemden geliyor, ikisi de merkez gücünü, duruşu ve nefesi çalışıyor. Fark, neyle ve nasıl çalıştığında. Bu yazıda iki dersi Süleymanpaşa'daki stüdyomuzda nasıl verdiğimizi anlatıyor, hangisinin sana daha uygun olabileceğini birlikte düşünüyoruz.
+Stüdyomuzda en sık duyduğumuz soru şu: "Pilatese başlamak istiyorum. Mat mı seçmeliyim, reformer mı?"
+
+İkisi de aynı yöntemden geliyor. İkisi de merkez bölgeyi (karın, bel ve kalça kaslarının birlikte çalıştığı orta kısım), duruşu ve nefesi çalışıyor. Fark, neyle ve nasıl çalıştığında. Bu yazıda iki dersi Süleymanpaşa'daki stüdyomuzda nasıl verdiğimizi anlatıyoruz. Sonunda hangisinin sana uyduğunu daha kolay seçebileceksin.
 
 ## Mat pilates: tek ekipman, kendi vücudun
 

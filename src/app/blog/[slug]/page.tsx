@@ -10,7 +10,7 @@ import { formatPostDate } from "@/lib/blog-format";
 import { jsonLdScript } from "@/lib/structured-data";
 
 // Drafts are listed too, so the build always has a page to check, but on the
-// live site findPost() skips them and the page is a 404 until a coach approves.
+// live site findPost() skips them and the page is a 404.
 export function generateStaticParams() {
   const slugs = allPosts({ includeDrafts: true }).map((p) => ({
     slug: p.slug,
@@ -108,7 +108,7 @@ async function PostContent({
               {post.reviewedBy && <> · Antrenörümüz {post.reviewedBy} okudu</>}
               {post.draft && (
                 <span className="ml-2 rounded-full bg-danger/15 px-2 py-0.5 font-semibold text-danger">
-                  Taslak: bir antrenörün okuması bekleniyor
+                  Taslak: canlı sitede görünmez
                 </span>
               )}
             </p>

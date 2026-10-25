@@ -1,8 +1,8 @@
 # Blog planı: anahtar kelimeler ve sıradaki yazılar
 
 SEO ajanı (`.claude/skills/seo-blog`) her çalıştığında bu dosyayı okur, en üstteki
-`sırada` satırını yazar, satırı `yazıldı` olarak işaretler ve gerekirse listeye yeni
-fikir ekler. Sıra elle değiştirilebilir; ajan sıraya uyar.
+`sırada` satırını yazar ve yayına alır, satırı `yazıldı` olarak işaretler ve gerekirse
+listeye yeni fikir ekler. Sıra elle değiştirilebilir; ajan sıraya uyar.
 
 Arama hacimleri tahminidir. Google Search Console bağlandığında gerçek sorgular buraya
 eklenecek ve sıra ona göre düzenlenecek.
@@ -38,3 +38,11 @@ eklenecek ve sıra ona göre düzenlenecek.
 | sırada | Grup paketleri nasıl işler? 8 ve 12 derslik paketler, sabah ve akşam grupları | tekirdağ pilates kursu | mat-pilates |
 | sırada | Evden online mat pilates: nasıl hazırlanılır | online pilates dersi | mat-pilates |
 | sırada | Haftada kaç gün antrenman? Yeni başlayanlar için gerçekçi bir plan | tekirdağ spor | fonksiyonel-antrenman |
+
+## Eksik bilgiler
+
+Ajanın yazarken ihtiyaç duyup sitede bulamadığı bilgiler. Doldurulursa (src/content/site.ts)
+yazılarda kullanılabilir.
+
+- Çalışma saatleri (stüdyonun açık olduğu saatler)
+- Otopark ya da ulaşım bilgisi
