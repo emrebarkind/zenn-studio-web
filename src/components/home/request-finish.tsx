@@ -34,12 +34,15 @@ export function RequestFinish({
   form,
   onBack,
   onDone,
+  waText,
 }: {
   choice: RequestChoice;
   form: "wizard" | "planner";
   onBack?: () => void;
   /** Called once the request is sent (or WhatsApp opened), so the parent can drop its own heading. */
   onDone?: () => void;
+  /** The WhatsApp text, when the flow writes its own (the intake); otherwise built from the choice. */
+  waText?: (firstName: string, lastName: string) => string;
 }) {
   const [state, action, pending] = useActionState<RegistrationState, FormData>(submitStudioRequest, { status: "idle" });
   const [firstName, setFirstName] = useState("");
@@ -92,10 +95,13 @@ export function RequestFinish({
     setLocal(missing);
     if (Object.keys(missing).length) return;
     if (wa) {
-      const text = whatsappMessage(
-        { firstName: firstName.trim(), lastName: lastName.trim(), discipline: choice.discipline, format: choice.format, days: choice.days, timeFrom: choice.timeFrom, timeTo: choice.timeTo },
-        choice.note,
-      );
+      const who = { firstName: firstName.trim(), lastName: lastName.trim() };
+      const text = waText
+        ? waText(who.firstName, who.lastName)
+        : whatsappMessage(
+            { ...who, discipline: choice.discipline, format: choice.format, days: choice.days, timeFrom: choice.timeFrom, timeTo: choice.timeTo },
+            choice.note,
+          );
       const url = `https://wa.me/${wa}?text=${encodeURIComponent(text)}`;
       window.open(url, "_blank", "noopener");
       setChatUrl(url);

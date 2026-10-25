@@ -57,7 +57,7 @@ Yanına kaymaz çorap ve rahat kıyafet al. Reformer derslerimizi Şüheda, Ece 
 | Takip | Grup içinde antrenör takibi | Küçük grupta daha yakından takip |
 | Yanına al | Rahat kıyafet ve su | Kaymaz çorap ve rahat kıyafet |
 
-İkisinden biri "daha iyi" değil. Hangisinin sana iyi geleceği hedefine, programına ve nasıl çalışmayı sevdiğine bağlı. Kararsız kaldıysan sitemizdeki kısa [sana uygun ders testini](/ders-bul) çözebilir ya da talebini bırakıp bize sorabilirsin.
+İkisinden biri "daha iyi" değil. Hangisinin sana iyi geleceği hedefine, programına ve nasıl çalışmayı sevdiğine bağlı. Kararsız kaldıysan sitemizdeki [kısa soruları](/ders-bul) cevaplayabilirsin. Cevaplarını antrenörlerimiz okuyor; sana uygun dersi seninle birlikte seçiyoruz.
 
 ## İlk derste neler oluyor
 

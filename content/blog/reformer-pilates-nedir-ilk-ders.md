@@ -72,7 +72,7 @@ Düzenli gelmek, tek bir dersten daha çok fark yaratıyor. Bu yüzden haftanın
 
 Bireysel ve küçük grup derslerinde ders sayısını ve saatleri seninle birlikte belirliyoruz. Haftada kaç gün gelmek istediğini, hangi saatlerin sana uyduğunu ve hedefini konuşuyoruz; programı bunlara göre kuruyoruz. Arkadaşlarınla geliyorsan 6 kişiye kadar aynı derste çalışabilirsiniz. Sabah ve akşam grupları ise mat pilates ve spinning gibi grup derslerimiz için geçerli; reformer'da saat konusunda esneğiz.
 
-Reformer'ın sana uyup uymadığından emin değilsen, sitemizdeki kısa [sana uygun ders testini](/ders-bul) çözebilirsin. İki soruda hedefine göre bir ders öneriyor.
+Reformer'ın sana uyup uymadığından emin değilsen, sitemizdeki [kısa soruları](/ders-bul) cevaplayabilirsin. Cevaplarını antrenörlerimiz okuyor ve dersi seninle birlikte seçiyoruz.
 
 ## Sık sorulanlar
 

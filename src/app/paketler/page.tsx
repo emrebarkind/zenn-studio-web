@@ -46,7 +46,7 @@ export default function PlansPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/#talep">Ders talebi</ButtonLink>
               <ButtonLink href="/ders-bul" variant="outline">
-                2 soruda bul
+                Birlikte seçelim
               </ButtonLink>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, ChevronDown } from "lucide-react";
-import { disciplines, formats } from "@/content/site";
+import { disciplines } from "@/content/site";
 import { company } from "@/content/company";
 import { DisciplineVisual } from "@/components/discipline-visual";
 import { HOURS, WEEKDAYS, type WeekdayId } from "@/domain/registration";
@@ -10,7 +10,6 @@ import { buttonClass } from "@/components/ui";
 import { RequestFinish } from "./request-finish";
 
 const STEPS = ["Gün", "Ders", "Bilgilerin"] as const;
-const SHORT = Object.fromEntries(formats.map((f) => [f.id, f.short]));
 
 function TimeSelect({ label, value, onChange, hours }: { label: string; value: string; onChange: (v: string) => void; hours: string[] }) {
   return (
@@ -149,9 +148,7 @@ export function RequestWizard() {
                       </span>
                     )}
                     <span className="absolute inset-x-0 bottom-0 p-4">
-                      <span className="block text-[12px] font-semibold text-paper/75">
-                        {x.formats.filter((f) => f !== "online").map((f) => SHORT[f]).join(", ")}
-                      </span>
+                      {x.formats.every((f) => f === "group") && <span className="block text-[12px] font-semibold text-paper/75">Grup dersi</span>}
                       <span className="mt-0.5 block text-lg leading-tight font-semibold tracking-tight sm:text-xl">{x.name}</span>
                     </span>
                   </button>

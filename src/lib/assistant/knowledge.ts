@@ -68,7 +68,7 @@ export function buildKnowledge(): string {
   h("Sık sorulanlar");
   for (const f of faqs) lines.push(`S: ${f.q}`, `C: ${f.a}`);
 
-  h("Branş önerme mantığı (Sana uygun ders testi)");
+  h("Branş önerme mantığı (yalnız asistan için)");
   lines.push("Sorular: " + questions.map((q) => `${q.title} [${q.options.map((o) => o.label).join(" / ")}]`).join(" "));
   const goalLabel = Object.fromEntries(questions[0].options.map((o) => [o.value, o.label]));
   for (const [goal, slugs] of Object.entries(goalFit)) {

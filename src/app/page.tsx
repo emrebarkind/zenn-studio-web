@@ -105,6 +105,10 @@ export default function StudioHome() {
                   />
                   <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/0" />
                   <div className="absolute inset-x-0 bottom-0 p-6 text-center lg:p-5">
+                    {/* Only a lesson that runs solely as a group class says so (Spinning). */}
+                    {d.formats.every((f) => f === "group") && (
+                      <p className="mx-auto mb-3 w-fit rounded-full bg-paper/15 px-3 py-1 text-[13px] font-semibold backdrop-blur">Grup dersi</p>
+                    )}
                     <h3 className="text-[2rem] leading-[1.02] font-semibold tracking-[-0.035em]">{d.name}</h3>
                     <p className="mt-1.5 text-[15px] text-paper/80">{d.tagline}</p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-lime">
@@ -139,13 +143,13 @@ export default function StudioHome() {
         </Container>
       </section>
 
-      {/* Six questions, one plan: the right lesson and way to train, then WhatsApp. */}
+      {/* The intake: short questions to get to know the visitor, their answers said back, then the request on their say-so. */}
       <section id="plan" className={`on-ink scroll-mt-24 bg-ink py-24 text-paper sm:py-32 ${screen}`}>
         <Container className="fit leave">
           <SectionHeading
             tone="paper"
-            title="İlk dersini birlikte planlayalım."
-            lead="Altı kısa soru. Cevaplarına göre sana uygun dersi ve çalışma biçimini önerelim."
+            title="Sana uygun dersi birlikte seçelim."
+            lead="Birkaç kısa soruyla seni tanıyalım. Cevaplarını antrenörlerimiz okuyor; ilk dersini seninle birlikte planlıyoruz."
           />
           <div className="rise mt-12 lg:mt-8">
             <Planner />

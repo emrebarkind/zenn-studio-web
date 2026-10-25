@@ -166,9 +166,9 @@ export const disciplines: Discipline[] = [
   {
     slug: "kickboks",
     name: "Kickboks",
-    tagline: "Tempo, teknik, kafayı boşaltmak.",
+    tagline: "Doğru teknik, yüksek enerji.",
     description:
-      "Yumruk ve tekme kombinasyonları, ayak hareketi ve kondisyon blokları. Teknikle başlıyoruz, tempoyu seviyene göre artırıyoruz. Pad çalışmasıyla, tek başına ya da 6 kişiye kadar.",
+      "Gard, ayak hareketi, yumruk ve tekme: tekniği temelden, adım adım öğretiyoruz. Antrenörünün tuttuğu pedlere vurarak kombinasyonlar çalışıyorsun; kısa kondisyon bloklarıyla temponu artırıyoruz. Tempoyu her zaman seviyene göre ayarlıyoruz; ilk kez eldiven giyenle yıllardır çalışan aynı özeni görüyor.",
     goodFor: ["Kondisyon ve yağ yakımı", "Stres atmak", "Koordinasyon ve refleks"],
     bring: "Bandaj ve eldiven; ilk derste bizimkileri kullanabilirsin.",
     formats: ["private"],
@@ -178,9 +178,9 @@ export const disciplines: Discipline[] = [
   {
     slug: "fonksiyonel-antrenman",
     name: "Fonksiyonel antrenman",
-    tagline: "Günlük hayatta işe yarayan güç.",
+    tagline: "Gerçek hareketlerle güç ve denge.",
     description:
-      "Çekme, itme, çömelme, taşıma: vücudun gerçek hayatta yaptığı hareketlerle güç ve dayanıklılık. Programı hedefine göre birlikte kuruyoruz; istersen 6 kişiye kadar küçük grupla.",
+      "Çömelmek, eğilip kaldırmak, itmek, çekmek, taşımak: vücudunun her gün yaptığı hareketleri güçlendiriyoruz. Programı hedefine ve seviyene göre seninle birlikte kuruyor, ağırlığı ve tekrarı adım adım artırıyoruz. Amaç sadece daha güçlü olmak değil; günlük hayatta daha rahat ve dengeli hareket etmek.",
     goodFor: ["Kişisel hedefe göre program", "Güç ve dayanıklılık", "Bireysel takip isteyenler"],
     bring: "Spor ayakkabı, havlu, su.",
     formats: ["private"],
@@ -307,7 +307,7 @@ export const comingSoon = [
 export const faqs = [
   {
     q: "Hiç pilates ya da kickboks yapmadım, hangi dersle başlamalıyım?",
-    a: "Talep formuna hedefini not et; antrenörümüz seni arayıp sana uygun dersi birlikte seçer. İstersen iki soruluk \"Sana uygun ders\" testini de çözebilirsin.",
+    a: "Talep formuna hedefini not et; antrenörümüz seni arayıp sana uygun dersi birlikte seçer. İstersen \"Sana uygun ders\" bölümündeki kısa soruları da cevaplayabilirsin.",
   },
   {
     q: "Grup dersi ile bireysel ders arasındaki fark ne?",

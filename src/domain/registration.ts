@@ -123,7 +123,7 @@ export function summarize(r: Registration, reference: string): string {
 export type RequestForm = "quick" | "detailed" | "wizard" | "planner";
 
 /** "a", "a ve b", "a, b ve c". */
-function joinTr(words: string[]): string {
+export function joinTr(words: string[]): string {
   return words.length <= 1 ? (words[0] ?? "") : `${words.slice(0, -1).join(", ")} ve ${words.at(-1)}`;
 }
 

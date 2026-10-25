@@ -1,98 +1,64 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowLeft, RotateCcw } from "lucide-react";
-import { disciplines } from "@/content/site";
-import { DisciplineVisual } from "@/components/discipline-visual";
-import { makePlan, plannerQuestions, type PlannerAnswers } from "@/domain/planner";
+import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, PencilLine } from "lucide-react";
+import { buttonClass } from "@/components/ui";
+import { WEEKDAYS } from "@/domain/registration";
+import {
+  assessIntake,
+  intakeCrmNote,
+  intakeNotes,
+  intakeSteps,
+  intakeWhatsApp,
+  WINDOWS,
+  type IntakeAnswers,
+  type IntakeStep,
+} from "@/domain/intake";
 import { RequestFinish } from "./request-finish";
 
-const TIME_RANGE: Record<PlannerAnswers["time"], [string, string]> = {
-  sabah: ["07:00", "12:00"],
-  öğle: ["12:00", "16:00"],
-  akşam: ["17:00", "22:00"],
-};
+type Draft = Partial<IntakeAnswers> & Pick<IntakeAnswers, "goals" | "tried" | "interests" | "days" | "windows">;
+const EMPTY: Draft = { goals: [], tried: [], interests: [], days: [], windows: [] };
+
+const tile = (on: boolean) =>
+  `relative min-h-[4.5rem] rounded-[20px] px-4 py-3.5 text-center transition-[background-color,color,transform] duration-200 active:scale-[0.98] ${
+    on ? "bg-lime text-ink" : "bg-paper/10 text-paper hover:bg-paper/20"
+  }`;
 
 /**
- * "İlk dersini birlikte planlayalım": six questions, one tap each, then the
- * plan (discipline, way, days, time) and the same last step as the request:
- * name, then WhatsApp with the plan written out.
+ * "Sana uygun dersi birlikte seçelim": eleven short questions (ranges and
+ * choices, never "group or private?"), then the visitor's own answers said
+ * back, and the request goes to our coaches only when they send it. We do
+ * not tell them which sport suits them; the coaches see our first take in
+ * the CRM note. Rules and words live in src/domain/intake.ts.
  */
 export function Planner() {
   const [index, setIndex] = useState(0);
-  const [answers, setAnswers] = useState<Partial<PlannerAnswers>>({});
-  const total = plannerQuestions.length;
-  const done = index >= total;
-  const q = plannerQuestions[Math.min(index, total - 1)];
+  const [a, setA] = useState<Draft>(EMPTY);
+  const box = useRef<HTMLDivElement>(null);
+  const total = intakeSteps.length;
 
-  function choose(value: string) {
-    setAnswers((a) => ({ ...a, [q.key]: value }));
-    setIndex((i) => i + 1);
-  }
+  // On a phone the next question (or the summary) can start above the screen; bring it back.
+  useEffect(() => {
+    const el = box.current;
+    if (index > 0 && el && el.getBoundingClientRect().top < 80) el.scrollIntoView({ block: "start" });
+  }, [index]);
 
-  if (done) {
-    const a = answers as PlannerAnswers;
-    const plan = makePlan(a);
-    const d = disciplines.find((x) => x.slug === plan.discipline)!;
-    const [from, to] = TIME_RANGE[a.time];
-    const summary = `Sitedeki kısa testte bana ${plan.detail.toLocaleLowerCase("tr")} önerildi.`;
+  if (index >= total)
     return (
-      <div className="step-in mx-auto max-w-4xl overflow-hidden rounded-[32px] bg-paper text-ink shadow-[0_30px_80px_-40px_rgba(0,0,0,0.6)]">
-        <div className="grid md:grid-cols-2">
-          <div className="on-ink @container relative min-h-[260px] bg-ink text-paper md:min-h-full">
-            <DisciplineVisual d={d} sizes="(min-width: 768px) 450px, 100vw" />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/0" />
-            <div className="absolute inset-x-0 bottom-0 p-6 text-center">
-              <p className="text-sm font-semibold text-lime">Sana uygun ders</p>
-              <p className="mt-1 text-[2.25rem] leading-none font-semibold tracking-[-0.04em]">{d.name}</p>
-            </div>
-          </div>
-          <div className="p-6 text-center sm:p-9">
-            <dl className="space-y-3 text-left">
-              <div className="rounded-2xl bg-card px-4 py-3">
-                <dt className="text-sm text-ink-soft">Nasıl</dt>
-                <dd className="font-semibold">{plan.detail}</dd>
-              </div>
-              <div className="rounded-2xl bg-card px-4 py-3">
-                <dt className="text-sm text-ink-soft">Ne zaman</dt>
-                <dd className="font-semibold">{plan.rhythm}</dd>
-              </div>
-            </dl>
-            <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">{plan.why}</p>
-            <div className="mt-6 border-t border-ink/10 pt-6">
-              <RequestFinish
-                form="planner"
-                choice={{
-                  discipline: d.slug,
-                  format: plan.format,
-                  plan: plan.format === "group" ? (a.frequency === "3" ? "group-12" : "group-8") : undefined,
-                  slot: plan.format === "group" ? (a.time === "sabah" ? "sabah" : "akşam") : undefined,
-                  days: plan.days,
-                  timeFrom: from,
-                  timeTo: to,
-                  note: summary,
-                }}
-              />
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setAnswers({});
-                setIndex(0);
-              }}
-              className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink-soft hover:text-ink"
-            >
-              <RotateCcw className="size-4" aria-hidden />
-              Baştan başla
-            </button>
-          </div>
-        </div>
+      <div ref={box} className="scroll-mt-24">
+        <Summary answers={a as IntakeAnswers} onEdit={() => setIndex(0)} />
       </div>
     );
-  }
+
+  const step = intakeSteps[index];
+  const advance = () => setIndex((i) => i + 1);
+  const pick = (key: string, value: string) => {
+    setA((cur) => ({ ...cur, [key]: value }));
+    window.setTimeout(advance, 180);
+  };
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div ref={box} className="mx-auto max-w-3xl scroll-mt-24">
       <div className="flex items-center justify-between gap-4 text-sm font-semibold text-paper/70">
         <button
           type="button"
@@ -111,25 +77,210 @@ export function Planner() {
         <div className="h-full rounded-full bg-lime transition-[width] duration-500" style={{ width: `${(index / total) * 100}%` }} />
       </div>
 
-      <div key={index} className="step-in mt-10 text-center">
-        <h3 className="text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.08] font-semibold tracking-[-0.035em] text-balance">{q.title}</h3>
-        <div className={`mt-8 grid gap-3 ${q.options.length === 4 ? "sm:grid-cols-2" : q.options.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
-          {q.options.map((o) => {
-            const on = answers[q.key] === o.value;
+      <div key={index} className="step-in mt-9 text-center">
+        <h3 className="text-[clamp(1.6rem,4vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.035em] text-balance">{step.title}</h3>
+        {step.hint && <p className="mt-2 text-paper/65">{step.hint}</p>}
+        <div className="mt-7">
+          <StepBody step={step} a={a} setA={setA} pick={pick} advance={advance} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StepBody({
+  step,
+  a,
+  setA,
+  pick,
+  advance,
+}: {
+  step: IntakeStep;
+  a: Draft;
+  setA: React.Dispatch<React.SetStateAction<Draft>>;
+  pick: (key: string, value: string) => void;
+  advance: () => void;
+}) {
+  if (step.kind === "single") {
+    const cols = step.options.length === 3 ? "sm:grid-cols-3" : step.options.length === 4 ? "sm:grid-cols-4" : "sm:grid-cols-3";
+    return (
+      <div className={`grid grid-cols-2 gap-3 ${cols}`}>
+        {step.options.map((o) => {
+          const on = a[step.key] === o.value;
+          return (
+            <button key={o.value} type="button" aria-pressed={on} onClick={() => pick(step.key, o.value)} className={tile(on)}>
+              <span className="block text-[17px] leading-snug font-semibold">{o.label}</span>
+              {o.hint && <span className={`mt-0.5 block text-[13px] ${on ? "text-ink/70" : "text-paper/60"}`}>{o.hint}</span>}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (step.kind === "multi") {
+    const chosen = a[step.key] as string[];
+    const toggle = (v: string) =>
+      setA((cur) => {
+        const list = cur[step.key] as string[];
+        if (list.includes(v)) return { ...cur, [step.key]: list.filter((x) => x !== v) };
+        if (v === step.exclusive) return { ...cur, [step.key]: [v] };
+        const rest = list.filter((x) => x !== step.exclusive);
+        // Over the limit, the oldest pick makes room for the new one.
+        const next = step.max && rest.length >= step.max ? [...rest.slice(1), v] : [...rest, v];
+        return { ...cur, [step.key]: next };
+      });
+    return (
+      <>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {step.options.map((o) => {
+            const on = chosen.includes(o.value);
             return (
-              <button
-                key={o.value}
-                type="button"
-                onClick={() => choose(o.value)}
-                className={`min-h-20 rounded-[22px] px-5 py-4 text-center transition-[background-color,color,transform] duration-200 active:scale-[0.98] ${
-                  on ? "bg-lime text-ink" : "bg-paper/10 text-paper hover:bg-paper/20"
-                }`}
-              >
-                <span className="block text-lg font-semibold">{o.label}</span>
-                {o.hint && <span className={`mt-0.5 block text-sm ${on ? "text-ink/70" : "text-paper/65"}`}>{o.hint}</span>}
+              <button key={o.value} type="button" aria-pressed={on} onClick={() => toggle(o.value)} className={tile(on)}>
+                {on && (
+                  <span className="absolute top-2.5 right-2.5 grid size-5 place-items-center rounded-full bg-ink text-lime">
+                    <Check className="size-3" strokeWidth={3} aria-hidden />
+                  </span>
+                )}
+                <span className="block text-[17px] leading-snug font-semibold">{o.label}</span>
+                {o.hint && <span className={`mt-0.5 block text-[13px] ${on ? "text-ink/70" : "text-paper/60"}`}>{o.hint}</span>}
               </button>
             );
           })}
+        </div>
+        <Next disabled={chosen.length === 0} onClick={advance} />
+      </>
+    );
+  }
+
+  if (step.kind === "scale") {
+    return (
+      <div className="mx-auto max-w-xl">
+        <div className="grid grid-cols-5 gap-2 sm:gap-3">
+          {(["1", "2", "3", "4", "5"] as const).map((v) => {
+            const on = a.pace === v;
+            return (
+              <button
+                key={v}
+                type="button"
+                aria-pressed={on}
+                aria-label={`${v} / 5`}
+                onClick={() => pick("pace", v)}
+                className={`grid aspect-square place-items-center rounded-full text-xl font-semibold transition-[background-color,color,transform] duration-200 active:scale-95 ${
+                  on ? "bg-lime text-ink" : "bg-paper/10 hover:bg-paper/20"
+                }`}
+              >
+                {v}
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-3 flex justify-between text-sm text-paper/65">
+          <span>{step.low}</span>
+          <span>{step.high}</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Days and time windows on one screen.
+  const toggleIn = (key: "days" | "windows", v: string) =>
+    setA((cur) => {
+      const list = cur[key] as string[];
+      return { ...cur, [key]: list.includes(v) ? list.filter((x) => x !== v) : [...list, v] };
+    });
+  return (
+    <>
+      <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
+        {WEEKDAYS.map((w) => {
+          const on = a.days.includes(w.id);
+          return (
+            <button
+              key={w.id}
+              type="button"
+              aria-pressed={on}
+              aria-label={w.long}
+              onClick={() => toggleIn("days", w.id)}
+              className={`grid min-h-14 place-items-center rounded-2xl font-semibold transition-colors duration-200 ${on ? "bg-lime text-ink" : "bg-paper/10 hover:bg-paper/20"}`}
+            >
+              {w.label}
+            </button>
+          );
+        })}
+      </div>
+      <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {WINDOWS.map((w) => {
+          const on = a.windows.includes(w.id);
+          return (
+            <button key={w.id} type="button" aria-pressed={on} onClick={() => toggleIn("windows", w.id)} className={tile(on)}>
+              <span className="block font-semibold">{w.label}</span>
+              <span className={`block text-[13px] tabular-nums ${on ? "text-ink/70" : "text-paper/60"}`}>
+                {w.from}-{w.to}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+      <Next disabled={a.days.length === 0 || a.windows.length === 0} onClick={advance} />
+    </>
+  );
+}
+
+function Next({ disabled, onClick }: { disabled: boolean; onClick: () => void }) {
+  return (
+    <button type="button" disabled={disabled} onClick={onClick} className={buttonClass("primary", "mt-7 min-h-13 px-8 disabled:opacity-40")}>
+      Devam
+      <ArrowRight className="size-5" aria-hidden />
+    </button>
+  );
+}
+
+/** The answers said back, and the request, which reaches us only if the visitor sends it. */
+function Summary({ answers, onEdit }: { answers: IntakeAnswers; onEdit: () => void }) {
+  const x = assessIntake(answers);
+  const notes = intakeNotes(answers);
+  return (
+    <div className="step-in mx-auto max-w-6xl overflow-hidden rounded-[32px] bg-paper text-ink shadow-[0_30px_80px_-40px_rgba(0,0,0,0.6)]">
+      <div className="grid md:grid-cols-2">
+        <div className="bg-card p-6 sm:p-9 lg:p-8">
+          <h3 className="text-[1.75rem] leading-tight font-semibold tracking-[-0.03em]">Senin için not aldıklarımız</h3>
+          <ul className="mt-5 space-y-2.5 lg:mt-4 lg:space-y-1.5">
+            {notes.map((n) => (
+              <li key={n} className="flex gap-3 text-[15px] leading-relaxed lg:leading-snug">
+                <Check className="mt-1 size-4 shrink-0 text-moss" strokeWidth={2.5} aria-hidden />
+                {n}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-5 text-sm leading-relaxed text-ink-soft lg:mt-4">
+            Bir sağlık durumun ya da sakatlığın varsa görüşmede antrenörümüze anlatabilirsin; dersi buna göre hazırlarız.
+          </p>
+          <button type="button" onClick={onEdit} className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink-soft hover:text-ink">
+            <PencilLine className="size-4" aria-hidden />
+            Cevaplarımı düzenle
+          </button>
+        </div>
+        <div className="p-6 sm:p-9 lg:p-8">
+          <h3 className="text-[1.75rem] leading-tight font-semibold tracking-[-0.03em]">Talebini bize gönder</h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
+            Onaylarsan bu notlar antrenörlerimize ulaşır. Seninle konuşup sana uygun dersi ve saati birlikte belirleriz.
+          </p>
+          <div className="mt-6">
+            <RequestFinish
+              form="planner"
+              waText={(first, last) => intakeWhatsApp(answers, first, last)}
+              choice={{
+                discipline: x.discipline,
+                format: x.format,
+                plan: x.plan,
+                slot: x.slot,
+                days: answers.days,
+                timeFrom: x.timeFrom,
+                timeTo: x.timeTo,
+                note: intakeCrmNote(answers, x),
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

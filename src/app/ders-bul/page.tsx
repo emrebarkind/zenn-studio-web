@@ -1,24 +1,29 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui";
-import { Quiz } from "./quiz";
+import { Planner } from "@/components/home/planner";
 
 export const metadata: Metadata = {
-  title: "Sana uygun dersi bul",
-  description: "İki soruda hedefine ve çalışma şekline uyan branşı öğren.",
+  title: "Sana uygun dersi birlikte seçelim",
+  description:
+    "Birkaç kısa soruyla seni tanıyalım: hedefin, temponu, programın, gelebileceğin gün ve saatler. Cevaplarını antrenörlerimiz okuyor; ilk dersini seninle birlikte planlıyoruz.",
+  alternates: { canonical: "/ders-bul" },
 };
 
+/** "/ders-bul": the same intake as the home page, on its own page (linked from lessons, packages and posts). */
 export default function FindClassPage() {
   return (
-    <section className="pt-12 pb-24 sm:pt-20">
-      <Container className="max-w-3xl">
-        <h1 className="font-display text-[clamp(2.75rem,8vw,5rem)] leading-[0.92] font-extrabold tracking-[-0.05em]">
-          Sana uygun dersi bul
-        </h1>
-        <p className="mt-5 max-w-xl text-lg text-ink-soft">
-          İki soru. Hedefine ve nasıl çalışmak istediğine göre sana bir branş öneriyoruz.
-        </p>
+    <section className="on-ink bg-ink pt-12 pb-24 text-paper sm:pt-20 sm:pb-32">
+      <Container>
+        <div className="mx-auto max-w-3xl text-center">
+          <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] leading-[0.98] font-semibold tracking-[-0.045em] text-balance">
+            Sana uygun dersi birlikte seçelim.
+          </h1>
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-paper/75">
+            Birkaç kısa soruyla seni tanıyalım. Cevaplarını antrenörlerimiz okuyor; ilk dersini seninle birlikte planlıyoruz.
+          </p>
+        </div>
         <div className="mt-12">
-          <Quiz />
+          <Planner />
         </div>
       </Container>
     </section>

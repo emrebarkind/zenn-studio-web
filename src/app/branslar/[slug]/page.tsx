@@ -60,7 +60,7 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href={`/kayit?brans=${d.slug}`}>Ders talebi</ButtonLink>
               <ButtonLink href="/ders-bul" variant="ghost">
-                Bana uygun mu?
+                Birlikte seçelim
               </ButtonLink>
             </div>
           </div>
