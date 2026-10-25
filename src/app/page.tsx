@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
-import { coaches, disciplines, faqs, formats, studioLocation } from "@/content/site";
+import { coaches, disciplines, faqs, studioLocation } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { ZennWordmark } from "@/components/brand";
 import { company } from "@/content/company";
@@ -38,7 +38,6 @@ const slides: HeroSlide[] = [
   { wide: { src: fonksiyonel, alt: "", position: "50% 45%" }, tall: { src: zeynepDers, alt: "", position: "50% 40%" } },
 ];
 
-const SHORT = Object.fromEntries(formats.map((f) => [f.id, f.short])) as Record<(typeof formats)[number]["id"], string>;
 const disciplineName = Object.fromEntries(disciplines.map((d) => [d.slug, d.name]));
 
 const coachCards: CoachCard[] = coaches.flatMap((c) =>
@@ -90,7 +89,7 @@ export default function StudioHome() {
       {/* Hizmetlerimiz: five big photo cards, centred (3 + 2 on a wide screen); on a phone a row to swipe through. */}
       <section id="hizmetler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
         <Container className="fit leave lg:max-w-7xl">
-          <SectionHeading title="Hizmetlerimiz" lead="Beş branşta ders veriyoruz: belli günlerde grup dersleri, tek başına ya da 6 kişiye kadar özel dersler." />
+          <SectionHeading title="Hizmetlerimiz" lead="Beş branşta ders veriyoruz. Birine dokun, nasıl çalıştığımızı gör." />
           <ul className="rise -mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:mt-10 lg:grid-cols-5 [&::-webkit-scrollbar]:hidden">
             {disciplines.map((d, i) => (
               <li key={d.slug} className={`w-[80%] shrink-0 snap-start sm:w-auto ${i === 4 ? "sm:col-span-2 lg:col-span-1" : ""}`}>
@@ -106,10 +105,7 @@ export default function StudioHome() {
                   />
                   <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/0" />
                   <div className="absolute inset-x-0 bottom-0 p-6 text-center lg:p-5">
-                    <p className="mx-auto w-fit rounded-full bg-paper/15 px-3 py-1 text-[13px] font-semibold backdrop-blur">
-                      {d.formats.filter((f) => f !== "online").map((f) => SHORT[f]).join(", ")}
-                    </p>
-                    <h3 className="mt-3 text-[2rem] leading-[1.02] font-semibold tracking-[-0.035em]">{d.name}</h3>
+                    <h3 className="text-[2rem] leading-[1.02] font-semibold tracking-[-0.035em]">{d.name}</h3>
                     <p className="mt-1.5 text-[15px] text-paper/80">{d.tagline}</p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-lime">
                       İncele
