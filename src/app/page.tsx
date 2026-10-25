@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Check, Minus } from "lucide-react";
-import { coaches, disciplines, faqs, formats, photos, PRIVATE_GROUP_MAX } from "@/content/site";
+import { coaches, disciplines, faqs, formats, photos, PRIVATE_GROUP_MAX, studioFormats } from "@/content/site";
 import { company, contactChannels } from "@/content/company";
 import { ButtonLink, Container } from "@/components/ui";
 import { HeroSlideshow, type HeroSlide } from "@/components/home/hero-slideshow";
@@ -10,7 +11,7 @@ import { PackagesPicker } from "@/components/home/packages-picker";
 import { Quiz } from "@/app/ders-bul/quiz";
 import { DisciplineVisual } from "@/components/discipline-visual";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
-import reformerStraps from "@/assets/photos/hero.jpg";
+import reformerKollar from "@/assets/photos/reformer-kollar.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
 import kickboksPortre from "@/assets/photos/kickboks-portre.jpg";
 import birebirWide from "@/assets/photos/birebir-wide.jpg";
@@ -18,7 +19,7 @@ import matPilates from "@/assets/photos/mat-pilates.jpg";
 import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
 
 export const metadata: Metadata = {
-  title: { absolute: "Zenn Studio — Reformer, Mat Pilates, Kickboks ve online antrenman | İstanbul" },
+  title: { absolute: "Zenn Studio — Reformer, Mat Pilates, Kickboks ve Fonksiyonel antrenman | İstanbul" },
   alternates: { canonical: "/" },
 };
 
@@ -34,7 +35,7 @@ const slides: HeroSlide[] = [
     label: "Reformer Pilates",
     href: "/branslar/reformer-pilates",
     wide: { src: reformerWide, alt: photos.hero.alt, position: "60% 40%" },
-    tall: { src: reformerStraps, alt: photos.straps.alt, position: "50% 30%" },
+    tall: { src: reformerKollar, alt: "Reformer üzerinde kollarını kayışlarla yukarı uzatan sporcu", position: "50% 30%" },
   },
   {
     key: "kickboks",
@@ -123,7 +124,7 @@ export default function StudioHome() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/0" aria-hidden />
                   <div className="absolute inset-x-0 bottom-0 p-5">
-                    <p className="text-xs font-semibold text-paper/70">{d.formats.map((f) => SHORT[f]).join(", ")}</p>
+                    <p className="text-xs font-semibold text-paper/70">{d.formats.filter((f) => f !== "online").map((f) => SHORT[f]).join(", ")}</p>
                     <h3 className="mt-1 text-3xl font-semibold tracking-[-0.035em]">{d.name}</h3>
                     <p className="mt-1 text-[15px] text-paper/75">{d.tagline}</p>
                   </div>
@@ -140,17 +141,17 @@ export default function StudioHome() {
           <h2 className={sectionTitle}>Grupla ya da kendi grubunla</h2>
           <p className="mt-3 max-w-xl text-lg text-paper/70">
             Mat Pilates ve Spinning belli günlerde grup dersi. Reformer Pilates, Kickboks ve Fonksiyonel antrenman tek başına
-            ya da {PRIVATE_GROUP_MAX} kişiye kadar küçük grupla. İstersen online da çalışırız.
+            ya da {PRIVATE_GROUP_MAX} kişiye kadar küçük grupla.
           </p>
           <div className="mt-10 overflow-x-auto rounded-[24px] bg-paper/[0.06] ring-1 ring-paper/10">
-            <table className="w-full min-w-[34rem] text-left">
-              <caption className="sr-only">Branşların grup dersi, bireysel ve küçük grup ya da online olarak yapılabilmesi</caption>
+            <table className="w-full min-w-[26rem] text-left">
+              <caption className="sr-only">Branşların grup dersi ya da bireysel ve küçük grup olarak yapılabilmesi</caption>
               <thead>
                 <tr className="text-sm text-paper/55">
                   <th scope="col" className="px-5 py-4 font-medium">
                     Branş
                   </th>
-                  {formats.map((f) => (
+                  {studioFormats.map((f) => (
                     <th key={f.id} scope="col" className="px-3 py-4 text-center font-medium">
                       {SHORT[f.id]}
                     </th>
@@ -166,7 +167,7 @@ export default function StudioHome() {
                       </Link>
                       {d.coaches.length ? <span className="block text-sm text-paper/55">{d.coaches.join(", ")}</span> : null}
                     </th>
-                    {formats.map((f) => {
+                    {studioFormats.map((f) => {
                       const yes = d.formats.includes(f.id);
                       return (
                         <td key={f.id} className="px-3 py-4 text-center">
@@ -211,22 +212,42 @@ export default function StudioHome() {
         </Container>
       </section>
 
-      {/* The coaches, as type. */}
+      {/* The coaches: portraits where we have them, their initial until then. */}
       <section id="antrenorler" className="scroll-mt-24 py-20 sm:py-28">
-        <Container className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        <Container className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
           <div>
             <h2 className={sectionTitle}>Antrenörlerin</h2>
             <p className="mt-3 max-w-md text-lg text-ink-soft">
-              Her branşın kendi antrenörü var; derslerin hep aynı kişiyle.
+              Talebini bıraktığında branşının antrenörü seni arar; ilk dersi birlikte planlarsınız.
             </p>
           </div>
-          <ul>
+          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
             {coaches.map((c) => (
-              <li key={c.name} className="flex items-baseline justify-between gap-4 border-b border-ink/10 py-4 first:border-t">
-                <span className="text-[clamp(2.25rem,6vw,4rem)] leading-none font-semibold tracking-[-0.045em]">{c.name}</span>
-                <span className="text-right text-sm font-medium text-ink-soft">
-                  {c.disciplines.map((s) => disciplineName[s]).join(", ")}
-                </span>
+              <li key={c.name} className="on-ink relative aspect-[4/5] overflow-hidden rounded-[24px] bg-ink text-paper">
+                {c.photo ? (
+                  <Image
+                    src={c.photo}
+                    alt={`Antrenör ${c.name}`}
+                    placeholder="blur"
+                    fill
+                    sizes="(min-width: 1024px) 240px, (min-width: 640px) 33vw, 50vw"
+                    className="object-cover object-[50%_20%]"
+                  />
+                ) : (
+                  <span
+                    aria-hidden
+                    className="absolute -top-4 -right-2 text-[clamp(8rem,22vw,12rem)] leading-none font-bold tracking-[-0.06em] text-lime/90 select-none"
+                  >
+                    {c.name.charAt(0)}
+                  </span>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/0" aria-hidden />
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <h3 className="text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">{c.name}</h3>
+                  <p className="mt-1 text-[13px] leading-snug text-paper/75 sm:text-sm">
+                    {c.disciplines.map((s) => disciplineName[s]).join(", ")}
+                  </p>
+                </div>
               </li>
             ))}
           </ul>
@@ -241,24 +262,6 @@ export default function StudioHome() {
             Nasıl çalışmak istediğini seç, haftanın nasıl geçeceğini gör; talep formu o seçimle açılsın.
           </p>
           <PackagesPicker />
-        </Container>
-      </section>
-
-      {/* Online: on request, not the focus. */}
-      <section id="online" className="scroll-mt-24 pb-20 sm:pb-28">
-        <Container>
-          <div className="flex flex-col gap-5 rounded-[28px] bg-card p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-            <div className="max-w-xl">
-              <h2 className="text-2xl font-semibold tracking-tight">Online ders de veriyoruz</h2>
-              <p className="mt-2 text-ink-soft">
-                Mat Pilates, Kickboks ve Fonksiyonel antrenmanı evden, antrenörün seni ekranda görerek yapabilirsin. Talebini
-                bırak, uygun saati birlikte planlayalım.
-              </p>
-            </div>
-            <ButtonLink href="/kayit?format=online" variant="ink" className="shrink-0">
-              Online ders talebi
-            </ButtonLink>
-          </div>
         </Container>
       </section>
 

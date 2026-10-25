@@ -25,7 +25,6 @@ export const questions = [
     options: [
       { value: "group", label: "Grupla, belli gün ve saatlerde" },
       { value: "private", label: "Tek başıma ya da birkaç arkadaşımla (en fazla 6 kişi)" },
-      { value: "online", label: "Evden, online" },
     ],
   },
 ] as const;
@@ -43,8 +42,8 @@ export const disciplineFormats: Record<DisciplineSlug, FormatId[]> = {
   "mat-pilates": ["group", "online"],
   spinning: ["group"],
   "reformer-pilates": ["private"],
-  kickboks: ["private", "online"],
-  "fonksiyonel-antrenman": ["private", "online"],
+  kickboks: ["private"],
+  "fonksiyonel-antrenman": ["private"],
 };
 
 export type Recommendation = { discipline: DisciplineSlug; format: FormatId };

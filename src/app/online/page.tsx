@@ -4,13 +4,13 @@ import { coachingFlow, formats, photos } from "@/content/site";
 import { ButtonLink, Container } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Online ders",
-  description: "Zenn Studio online ders: Mat Pilates, Kickboks ve Fonksiyonel antrenman evden, talep üzerine.",
+  title: "Online Mat Pilates",
+  description: "Zenn Studio online Mat Pilates: evden canlı ders, talep üzerine.",
 };
 
 const online = formats.find((f) => f.id === "online")!;
 
-/** "/online" — online lessons, on request (2026-10-25: the studio's focus is in-studio; online is offered, not sold). */
+/** "/online" — online Mat Pilates, on request (2026-10-25: the studio's focus is in-studio; online is offered, not promoted). */
 export default function OnlinePage() {
   return (
     <>
@@ -30,11 +30,11 @@ export default function OnlinePage() {
             <div className="relative flex min-h-[480px] flex-col justify-end p-6 sm:min-h-[560px] sm:p-10">
               <span className="w-fit rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-paper/40">Talep üzerine</span>
               <h1 className="mt-4 max-w-3xl text-[clamp(2.5rem,7vw,5rem)] leading-[0.98] font-semibold tracking-[-0.045em]">
-                Online ders
+                Online Mat Pilates
               </h1>
               <p className="mt-4 max-w-xl text-lg text-paper/80">{online.summary}</p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href="/kayit?format=online">Online ders talebi</ButtonLink>
+                <ButtonLink href="/kayit?format=online&brans=mat-pilates">Online ders talebi</ButtonLink>
                 <ButtonLink href="/" variant="light">
                   Stüdyoya dön
                 </ButtonLink>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { formats, planRules, plans, PRIVATE_GROUP_MAX, type FormatId, type PlanId } from "@/content/site";
+import { planRules, studioFormats, plans, PRIVATE_GROUP_MAX, type FormatId, type PlanId } from "@/content/site";
 import { ButtonLink } from "@/components/ui";
 
 const DAYS = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
@@ -13,7 +13,7 @@ function joinTr(words: string[]): string {
 }
 
 /**
- * Lessons and packages, chosen in place: how (group / 1–6 people / online),
+ * Lessons and packages, chosen in place: how (group / 1–6 people),
  * then for a group class the package and the week it makes — the days light
  * up for the morning or evening group — and for individual training how many
  * people. The request link carries the choice. Prices are shared when we call
@@ -36,7 +36,7 @@ export function PackagesPicker() {
     <div className="mt-10 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
       <div className="space-y-3">
         <div role="tablist" aria-label="Format" className="flex w-fit gap-1 rounded-full bg-card p-1">
-          {formats.map((f) => (
+          {studioFormats.map((f) => (
             <button
               key={f.id}
               type="button"
@@ -145,7 +145,7 @@ export function PackagesPicker() {
               </ul>
             </details>
           </>
-        ) : plan.format === "private" ? (
+        ) : (
           <>
             <h3 className="text-xl font-semibold tracking-tight">Kaç kişi olacaksınız?</h3>
             <div role="radiogroup" aria-label="Kişi sayısı" className="mt-5 grid grid-cols-6 gap-1.5">
@@ -169,15 +169,10 @@ export function PackagesPicker() {
               {people === 1 ? "Antrenörünle birebir." : `${people} kişilik küçük grup; arkadaşlarınla grubu sen kurarsın.`} {plan.weekNote}
             </p>
           </>
-        ) : (
-          <>
-            <h3 className="text-xl font-semibold tracking-tight">Online ders</h3>
-            <p className="mt-3 text-lg text-ink-soft">{plan.weekNote}</p>
-          </>
         )}
         <div className="mt-auto pt-6">
           <ButtonLink
-            href={plan.format === "private" ? `/kayit?format=private&kisi=${people}` : `/kayit?format=${plan.format}${plan.format === "group" ? `&paket=${plan.id}` : ""}`}
+            href={plan.format === "group" ? `/kayit?format=group&paket=${plan.id}` : `/kayit?format=private&kisi=${people}`}
             variant="ink"
             className="w-full"
           >

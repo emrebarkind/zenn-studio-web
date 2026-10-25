@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { formats, planRules, plans } from "@/content/site";
+import { planRules, plans, studioFormats } from "@/content/site";
 import { Container } from "@/components/ui";
 import { PlanCard } from "@/components/plan-card";
 
 export const metadata: Metadata = {
   title: "Dersler ve paketler",
-  description: "Mat Pilates ve Spinning grup paketleri; Reformer, Kickboks ve Fonksiyonel antrenmanda 1–6 kişilik dersler; talep üzerine online ders.",
+  description: "Mat Pilates ve Spinning grup paketleri; Reformer, Kickboks ve Fonksiyonel antrenmanda 1–6 kişilik dersler; talep üzerine online Mat Pilates.",
 };
 
 export default function PlansPage() {
@@ -24,7 +24,7 @@ export default function PlansPage() {
         </Container>
       </section>
 
-      {formats.map((f) => {
+      {studioFormats.map((f) => {
         const list = plans.filter((p) => p.format === f.id);
         return (
           <section key={f.id} className="pb-14">

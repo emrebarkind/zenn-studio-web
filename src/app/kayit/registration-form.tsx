@@ -6,8 +6,8 @@ import { startTransition, useActionState, useState } from "react";
 import { Check, MessageCircle } from "lucide-react";
 import {
   disciplines,
-  formats,
   plans,
+  studioFormats,
   PRIVATE_GROUP_MAX,
   type DisciplineSlug,
   type FormatId,
@@ -73,7 +73,9 @@ export function RegistrationForm() {
     (initialPlan ? "group" : pick<FormatId>(params.get("paket"), ["private", "online"]));
 
   const [discipline, setDiscipline] = useState<DisciplineSlug | null>(
-    pick(params.get("brans"), disciplines.map((d) => d.slug)),
+    () =>
+      pick(params.get("brans"), disciplines.map((d) => d.slug)) ??
+      (initialFormat === "online" ? (disciplines.find((d) => d.formats.includes("online"))?.slug ?? null) : null),
   );
   const [format, setFormat] = useState<FormatId | null>(initialFormat);
   const [plan, setPlan] = useState<PlanId | null>(initialPlan);
@@ -87,8 +89,21 @@ export function RegistrationForm() {
 
   const selected = disciplines.find((d) => d.slug === discipline);
   // Only the ways this discipline is offered; picking a discipline first narrows them.
-  const availableFormats = formats.filter((f) => !selected || selected.formats.includes(f.id));
+  const availableFormats = studioFormats.filter((f) => !selected || selected.formats.includes(f.id));
   const availableDisciplines = disciplines.filter((d) => !format || d.formats.includes(format));
+  // Online is Mat Pilates only, so it is a tick box rather than a third way.
+  const onlineOffered = !selected || selected.formats.includes("online");
+  const onlineDiscipline = disciplines.find((d) => d.formats.includes("online"))!;
+
+  function toggleOnline(on: boolean) {
+    if (on) {
+      setFormat("online");
+      setDiscipline(onlineDiscipline.slug);
+    } else {
+      // Back to every branş; the visitor picks the way again.
+      setFormat(null);
+    }
+  }
 
   function chooseDiscipline(slug: DisciplineSlug) {
     setDiscipline(slug);
@@ -160,7 +175,7 @@ export function RegistrationForm() {
       </Step>
 
       <Step n={2} title="Nasıl" error={errors.format}>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className={`grid gap-3 sm:grid-cols-2 ${format === "online" ? "hidden" : ""}`}>
           {availableFormats.map((f) => (
             <label key={f.id} className={optionClass}>
               <input
@@ -176,6 +191,22 @@ export function RegistrationForm() {
             </label>
           ))}
         </div>
+        {onlineOffered && (
+          <label className={`flex cursor-pointer items-start gap-3 ${format === "online" ? "" : "mt-4"}`}>
+            <input
+              type="checkbox"
+              name="format"
+              value="online"
+              checked={format === "online"}
+              onChange={(e) => toggleOnline(e.target.checked)}
+              className="mt-0.5 size-5 accent-ink"
+            />
+            <span>
+              <span className="font-semibold">Online ders talebi</span>
+              <span className="block text-sm text-ink-soft">Yalnız Mat Pilates; evden, canlı ders.</span>
+            </span>
+          </label>
+        )}
       </Step>
 
       <Step n={3} title="Ayrıntı" error={errors.plan ?? errors.people}>
@@ -213,7 +244,7 @@ export function RegistrationForm() {
             </div>
           </div>
         ) : format === "online" ? (
-          <p className="text-ink-soft">Antrenörümüz canlı ders mi kişisel program mı istediğini ve uygun saatleri seninle konuşur.</p>
+          <p className="text-ink-soft">Online Mat Pilates: antrenörümüz uygun gün ve saati seninle konuşur.</p>
         ) : (
           <p className="text-ink-soft">Önce nasıl çalışmak istediğini seç.</p>
         )}

@@ -1,21 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { formats, type FormatId } from "@/content/site";
+import { studioFormats, type FormatId } from "@/content/site";
 import { ButtonLink } from "@/components/ui";
 
 /**
- * The hero's ways to train: group classes, individual / small group (1–6),
- * and online on request. Tabs switch the line and the points; the request
- * link carries the choice.
+ * The hero's ways to train: group classes and individual / small group (1–6).
+ * Tabs switch the line and the points; the request link carries the choice.
  */
 export function FormatTabs() {
   const [id, setId] = useState<FormatId>("group");
-  const f = formats.find((x) => x.id === id)!;
+  const f = studioFormats.find((x) => x.id === id)!;
   return (
     <div className="w-full max-w-md rounded-[28px] bg-ink/55 p-3 text-paper ring-1 ring-paper/10 backdrop-blur-xl sm:p-4">
-      <div role="tablist" aria-label="Antrenman formatı" className="grid grid-cols-3 gap-1 rounded-full bg-paper/10 p-1">
-        {formats.map((x) => (
+      <div role="tablist" aria-label="Antrenman formatı" className="grid grid-cols-2 gap-1 rounded-full bg-paper/10 p-1">
+        {studioFormats.map((x) => (
           <button
             key={x.id}
             type="button"

@@ -3,10 +3,13 @@ import hero from "@/assets/photos/hero.jpg";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
 import birebirWide from "@/assets/photos/birebir-wide.jpg";
-import reformer from "@/assets/photos/reformer.jpg";
 import matPilates from "@/assets/photos/mat-pilates.jpg";
 import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
 import kickboks from "@/assets/photos/kickboks.jpg";
+import reformerKollar from "@/assets/photos/reformer-kollar.jpg";
+import antrenorAli from "@/assets/photos/antrenor-ali.jpg";
+import antrenorSuheda from "@/assets/photos/antrenor-suheda.jpg";
+import antrenorBaris from "@/assets/photos/antrenor-baris.jpg";
 
 // Every piece of copy and every business fact on the site lives here, so the
 // studio can change prices, coaches or contact details without touching
@@ -23,8 +26,9 @@ export const studio = {
 
 /**
  * How we work (2026-10-25): the studio's own services first — group classes
- * and individual / small-group training for 1–6 people — and online lessons
- * on request. The site informs and takes requests; it does not sell online.
+ * and individual / small-group training for 1–6 people. Online is Mat Pilates
+ * only, on request, and kept low-key: a tick box on the request form, not a
+ * third way shown everywhere. The site informs and takes requests.
  */
 export type FormatId = "group" | "private" | "online";
 
@@ -56,10 +60,13 @@ export const formats: Format[] = [
     id: "online",
     name: "Online ders",
     short: "Online",
-    summary: "Evden canlı ders ya da kişisel program; talep üzerine.",
-    points: ["Antrenörün seni ekranda görür", "Evdeki ekipmanına göre program", "Talebini bırak, birlikte planlayalım"],
+    summary: "Mat Pilates, evden canlı ders; talep üzerine.",
+    points: ["Yalnız Mat Pilates", "Antrenörün seni ekranda görür", "Gün ve saati birlikte planlarız"],
   },
 ];
+
+/** The ways to train in the studio; online (Mat Pilates only) is a tick box on the request form. */
+export const studioFormats = formats.filter((f) => f.id !== "online");
 
 /** Group size for individual / small-group training. */
 export const PRIVATE_GROUP_MAX = 6;
@@ -126,8 +133,8 @@ export const disciplines: Discipline[] = [
     goodFor: ["Duruş ve bel-sırt sağlığı", "Güç kaybetmeden esneklik", "Pilatese yeni başlayanlar"],
     bring: "Kaymaz çorap ve rahat kıyafet.",
     formats: ["private"],
-    coaches: ["Şüheda"],
-    photo: { src: reformer, alt: "Reformer üzerinde kollarıyla yükselip bir bacağını havaya kaldıran sporcu" },
+    coaches: ["Şüheda", "Ece", "Sude"],
+    photo: { src: reformerKollar, alt: "Reformer üzerinde kollarını kayışlarla yukarı uzatan sporcu" },
   },
   {
     slug: "kickboks",
@@ -137,7 +144,7 @@ export const disciplines: Discipline[] = [
       "Yumruk ve tekme kombinasyonları, ayak hareketi ve kondisyon blokları. Teknik önce gelir; tempo seviyene göre artar. Pad çalışmasıyla, tek başına ya da 6 kişiye kadar.",
     goodFor: ["Kondisyon ve yağ yakımı", "Stres atmak", "Koordinasyon ve refleks"],
     bring: "Bandaj ve eldiven; ilk derste stüdyodakileri kullanabilirsin.",
-    formats: ["private", "online"],
+    formats: ["private"],
     coaches: ["Ali"],
     photo: { src: kickboks, alt: "Eldivenleriyle gard alıp yumruk atan kickboksçu" },
   },
@@ -149,20 +156,28 @@ export const disciplines: Discipline[] = [
       "Çekme, itme, çömelme, taşıma: vücudun gerçek hayatta yaptığı hareketlerle güç ve dayanıklılık. Hedefine göre kurulan bireysel antrenman; istersen 6 kişiye kadar küçük grupla.",
     goodFor: ["Kişisel hedefe göre program", "Güç ve dayanıklılık", "Bireysel takip isteyenler"],
     bring: "Spor ayakkabı, havlu, su.",
-    formats: ["private", "online"],
-    coaches: [],
+    formats: ["private"],
+    coaches: ["Barış", "Ece", "Zeynep", "Sude"],
     photo: { src: fonksiyonel, alt: "Antrenörüyle birlikte matta egzersiz yapan üye" },
   },
 ];
 
-export type Coach = { name: string; disciplines: DisciplineSlug[] };
+export type Coach = {
+  name: string;
+  disciplines: DisciplineSlug[];
+  /** null until the coach has sent a portrait (the UI then shows their initial). */
+  photo: StaticImageData | null;
+};
 
-// TODO(studio): add surnames, photos and short bios once the coaches approve them.
+// Branşlar follow what each coach actually teaches in the CRM (2026-10-25).
+// TODO(studio): portraits for Ece, Zeynep and Sude; surnames and short bios once approved.
 export const coaches: Coach[] = [
-  { name: "Şüheda", disciplines: ["reformer-pilates"] },
-  { name: "Ece", disciplines: ["mat-pilates"] },
-  { name: "Zeynep", disciplines: ["mat-pilates"] },
-  { name: "Ali", disciplines: ["kickboks"] },
+  { name: "Şüheda", disciplines: ["reformer-pilates"], photo: antrenorSuheda },
+  { name: "Ece", disciplines: ["mat-pilates", "reformer-pilates", "fonksiyonel-antrenman"], photo: null },
+  { name: "Zeynep", disciplines: ["mat-pilates", "fonksiyonel-antrenman"], photo: null },
+  { name: "Barış", disciplines: ["fonksiyonel-antrenman"], photo: antrenorBaris },
+  { name: "Sude", disciplines: ["reformer-pilates", "fonksiyonel-antrenman"], photo: null },
+  { name: "Ali", disciplines: ["kickboks"], photo: antrenorAli },
 ];
 
 export type PlanId = "group-8" | "group-12" | "private" | "online";
@@ -213,8 +228,8 @@ export const plans: Plan[] = [
     id: "online",
     name: "Online ders",
     format: "online",
-    detail: "Canlı ders ya da kişisel program, talep üzerine",
-    includes: ["Antrenörün seni ekranda görür", "Evdeki ekipmanına göre program"],
+    detail: "Mat Pilates, evden canlı ders; talep üzerine",
+    includes: ["Yalnız Mat Pilates", "Antrenörün seni ekranda görür"],
     price: null,
     weekNote: "Talebini bırak; uygun gün ve saati birlikte planlayalım.",
   },
@@ -254,7 +269,7 @@ export const faqs = [
   },
   {
     q: "Online ders de veriyor musunuz?",
-    a: "Evet, talep üzerine. Mat Pilates, Kickboks ve Fonksiyonel antrenmanı evden canlı ders ya da kişisel programla yapabilirsin; talep formunda online'ı seç.",
+    a: "Yalnız Mat Pilates için ve talep üzerine. Talep formunda \"Online ders talebi\" kutusunu işaretle; antrenörümüz uygun saati seninle konuşur.",
   },
   {
     q: "Fiyatları nereden öğrenirim?",
@@ -270,10 +285,9 @@ export const planRules = [
   "Stüdyonun iptal ettiği ders paketinin sonuna eklenir.",
 ];
 
-/** How online personal training works, step by step (shown on /online). */
+/** How an online Mat Pilates lesson works, step by step (shown on /online). */
 export const coachingFlow = [
-  { title: "Tanışma görüşmesi", text: "Hedefini, sağlık geçmişini, programını ve evdeki ekipmanını konuşuyoruz." },
-  { title: "Programın yazılır", text: "Antrenörün sana özel haftalık programı hazırlar; her hareketin anlatımı yanında." },
-  { title: "Videonu gönder", text: "Zorlandığın hareketi çek, gönder. Antrenörün formunu düzeltip geri döner." },
-  { title: "Haftalık değerlendirme", text: "Görüntülü görüşmede haftayı konuşur, programı bir sonraki haftaya göre güncellersiniz." },
+  { title: "Talebini bırak", text: "Talep formunda \"Online ders talebi\" kutusunu işaretle; uygun olduğun günleri nota yaz." },
+  { title: "Tanışma görüşmesi", text: "Antrenörün seni arar; seviyeni, hedefini ve evdeki alanını konuşursunuz." },
+  { title: "Canlı ders", text: "Görüntülü bağlantıyla matta birlikte çalışırsınız; antrenörün seni ekranda görüp düzeltir." },
 ];
