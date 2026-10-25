@@ -30,6 +30,7 @@
   --color-danger: var(--danger);
   --font-display: var(--font-inter);
   --font-sans: var(--font-inter);
+  --font-logo: var(--font-geist);
 }
 
 html {
