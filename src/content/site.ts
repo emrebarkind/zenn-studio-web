@@ -7,7 +7,7 @@ import birebirWide from "@/assets/photos/birebir-wide.jpg";
 import reformerKollar from "@/assets/photos/reformer-kollar.jpg";
 import matGrup from "@/assets/photos/mat-grup.jpg";
 import kickboksTorba from "@/assets/photos/kickboks-torba.jpg";
-import barisDambil from "@/assets/photos/baris-dambil.jpg";
+import fonksiyonelBaris from "@/assets/photos/fonksiyonel-baris.jpg";
 import antrenorAli from "@/assets/photos/antrenor-ali.jpg";
 import antrenorSuheda from "@/assets/photos/antrenor-suheda.jpg";
 import antrenorBaris from "@/assets/photos/antrenor-baris.jpg";
@@ -185,7 +185,7 @@ export const disciplines: Discipline[] = [
     bring: "Spor ayakkabı, havlu, su.",
     formats: ["private"],
     coaches: ["Barış", "Ece", "Zeynep", "Sude"],
-    photo: { src: barisDambil, alt: "Dambılla çalışan fonksiyonel antrenman antrenörü", position: "50% 35%" },
+    photo: { src: fonksiyonelBaris, alt: "Makinede çalışan antrenörümüz Barış", position: "45% 42%" },
   },
 ];
 
