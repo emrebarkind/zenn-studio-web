@@ -16,7 +16,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/branslar/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const d = disciplines.find((x) => x.slug === slug);
-  return d ? { title: d.name, description: `${d.tagline} ${d.description}` } : {};
+  // "Tekirdağ Reformer Pilates": what people type, and true of the page.
+  return d
+    ? { title: `Tekirdağ ${d.name}`, description: `Tekirdağ Süleymanpaşa'da ${d.name}. ${d.tagline} ${d.description}`.slice(0, 300), alternates: { canonical: `/branslar/${d.slug}` } }
+    : {};
 }
 
 export default function DisciplinePage({ params }: PageProps<"/branslar/[slug]">) {

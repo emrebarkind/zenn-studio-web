@@ -58,6 +58,7 @@ export function SiteFooter() {
                 <li><Link className={link} href="/#antrenorler">Antrenörler</Link></li>
                 <li><Link className={link} href="/ders-bul">Sana uygun ders</Link></li>
                 <li><Link className={link} href="/#sss">Sık sorulanlar</Link></li>
+                <li><Link className={link} href="/blog">Blog</Link></li>
                 <li><Link className={link} href="/kayit">Ayrıntılı talep formu</Link></li>
               </ul>
             </div>

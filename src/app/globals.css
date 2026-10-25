@@ -234,3 +234,50 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .map-ping { animation: none; opacity: 0; }
 }
+
+/* Blog post body (Markdown rendered in src/app/blog/[slug]). */
+.prose-zenn {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--ink);
+}
+.prose-zenn > * + * { margin-top: 1.15em; }
+.prose-zenn h2 {
+  margin-top: 2.4em;
+  font-size: clamp(1.5rem, 3.2vw, 1.875rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.prose-zenn h3 {
+  margin-top: 1.8em;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.prose-zenn h2 + *, .prose-zenn h3 + * { margin-top: 0.6em; }
+.prose-zenn p, .prose-zenn li { color: color-mix(in oklab, var(--ink) 82%, var(--paper)); }
+.prose-zenn a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--lime-hover);
+}
+.prose-zenn a:hover { text-decoration-color: var(--ink); }
+.prose-zenn ul, .prose-zenn ol { padding-left: 1.3em; }
+.prose-zenn ul { list-style: disc; }
+.prose-zenn ol { list-style: decimal; }
+.prose-zenn li + li { margin-top: 0.4em; }
+.prose-zenn li::marker { color: var(--moss); }
+.prose-zenn strong { font-weight: 600; color: var(--ink); }
+.prose-zenn blockquote {
+  border-left: 3px solid var(--lime-hover);
+  padding-left: 1em;
+  font-style: italic;
+}
+.prose-zenn table { width: 100%; border-collapse: collapse; font-size: 1rem; display: block; overflow-x: auto; }
+.prose-zenn th, .prose-zenn td { border-bottom: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); padding: 0.6em 0.8em 0.6em 0; text-align: left; vertical-align: top; }
+.prose-zenn th { font-weight: 600; }

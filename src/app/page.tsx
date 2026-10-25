@@ -11,6 +11,7 @@ import { RequestWizard } from "@/components/home/request-wizard";
 import { Planner } from "@/components/home/planner";
 import { CoachGrid, type CoachCard } from "@/components/home/coach-grid";
 import { MobileRequestBar } from "@/components/home/mobile-request-bar";
+import { jsonLdScript, studioJsonLd } from "@/lib/structured-data";
 import { SectionSnap } from "@/components/home/section-snap";
 import { FindUs } from "@/components/home/find-us";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
@@ -23,7 +24,9 @@ import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
 import zeynepDers from "@/assets/photos/zeynep-ders.jpg";
 
 export const metadata: Metadata = {
-  title: { absolute: "Zenn Studio | Pilates, Kickboks ve Fonksiyonel antrenman, Tekirdağ" },
+  title: { absolute: "Tekirdağ Pilates, Reformer ve Kickboks | Zenn Studio" },
+  description:
+    "Tekirdağ Süleymanpaşa'da pilates ve spor stüdyosu: Mat Pilates ve Spinning grup dersleri; Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda 1-6 kişilik dersler. Ders talebini bırak, seni arayalım.",
   alternates: { canonical: "/" },
 };
 
@@ -190,6 +193,7 @@ export default function StudioHome() {
         </Container>
       </section>
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(studioJsonLd()) }} />
       <MobileRequestBar />
       <SectionSnap />
     </>
