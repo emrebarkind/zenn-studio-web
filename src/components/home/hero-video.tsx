@@ -1,6 +1,6 @@
 /**
  * The hero's moving background (owner, 2026-10-25): ten seconds of a pilates
- * session, looped and silent. Wide screens get a landscape cut of the
+ * session (from the original 1080×1920 file), looped and silent. Wide screens get a landscape cut of the
  * portrait video (each scene cropped around the action), phones the portrait
  * original. The still underneath shows while the video loads and is all
  * that shows under reduced motion. Files: public/video/hero-{wide,tall}.*
