@@ -28,8 +28,8 @@ const coachCards: CoachCard[] = coaches.flatMap((c) =>
     : [],
 );
 // On a wide screen every section is one screen tall and the page settles on
-// each one as you scroll (globals.css), so each reads like a page of its own.
-const screen = "lg:flex lg:min-h-svh lg:snap-start lg:scroll-mt-0 lg:flex-col lg:justify-center lg:pt-24 lg:pb-12";
+// each one when scrolling stops (SectionSnap), so each reads like a page of its own.
+const screen = "lg:flex lg:min-h-svh lg:scroll-mt-0 lg:flex-col lg:justify-center lg:pt-24 lg:pb-12";
 
 /**
  * "/": the studio on one page, down the middle. One big photograph with the
@@ -41,7 +41,7 @@ export default function StudioHome() {
   return (
     <>
       {/* Hero: a looping pilates video, the slogan large and centred near the bottom, the way down (owner, 2026-10-25). */}
-      <section id="top" className="on-ink relative isolate -mt-[68px] flex min-h-[100svh] snap-start items-end overflow-hidden bg-ink text-paper sm:-mt-[76px]">
+      <section id="top" className="on-ink relative isolate -mt-[68px] flex min-h-[100svh] items-end overflow-hidden bg-ink text-paper sm:-mt-[76px]">
         <div className="hero-drift absolute inset-0">
           <HeroVideo />
         </div>
