@@ -19,9 +19,7 @@ import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
 import kickboksTorba from "@/assets/photos/kickboks-torba.jpg";
 import birebirWide from "@/assets/photos/birebir-wide.jpg";
-import matGrup from "@/assets/photos/mat-grup.jpg";
-import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
-import zeynepDers from "@/assets/photos/zeynep-ders.jpg";
+import matDersWide from "@/assets/photos/mat-ders-wide.jpg";
 
 export const metadata: Metadata = {
   title: { absolute: "Tekirdağ Pilates, Reformer ve Kickboks | Zenn Studio" },
@@ -34,8 +32,9 @@ export const metadata: Metadata = {
 const slides: HeroSlide[] = [
   { wide: { src: reformerWide, alt: "", position: "60% 40%" }, tall: { src: reformerTeaser, alt: "", position: "50% 55%" } },
   { wide: { src: kickboksWide, alt: "", position: "55% 35%" }, tall: { src: kickboksTorba, alt: "", position: "45% 30%" } },
-  { wide: { src: birebirWide, alt: "", position: "50% 45%" }, tall: { src: matGrup, alt: "", position: "50% 55%" } },
-  { wide: { src: fonksiyonel, alt: "", position: "50% 45%" }, tall: { src: zeynepDers, alt: "", position: "50% 40%" } },
+  // The same photograph on both: the phone shows a portrait crop of the landscape shot.
+  { wide: { src: birebirWide, alt: "", position: "50% 45%" }, tall: { src: birebirWide, alt: "", position: "22% 50%" } },
+  { wide: { src: matDersWide, alt: "", position: "50% 50%" }, tall: { src: matDersWide, alt: "", position: "28% 50%" } },
 ];
 
 const disciplineName = Object.fromEntries(disciplines.map((d) => [d.slug, d.name]));
