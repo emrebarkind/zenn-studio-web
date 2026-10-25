@@ -40,7 +40,12 @@ const nextConfig: NextConfig = {
   },
   // The studio site was briefly at /studio while "/" was the B2B page.
   async redirects() {
-    return [{ source: "/studio", destination: "/", permanent: true }];
+    return [
+      { source: "/studio", destination: "/", permanent: true },
+      // The B2B product pages were removed (owner, 2026-10-25); old links land on the studio.
+      { source: "/isletmeler", destination: "/", permanent: true },
+      { source: "/en", destination: "/", permanent: true },
+    ];
   },
   // Dev only: lets a phone on the same Wi-Fi open the dev server for review.
   allowedDevOrigins: ["192.168.*.*"],

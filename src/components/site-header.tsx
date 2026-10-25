@@ -7,36 +7,14 @@ import { Menu, X } from "lucide-react";
 import { buttonClass } from "@/components/ui";
 import { ZennWordmark } from "@/components/brand";
 
-type Mode = "landing-tr" | "landing-en" | "studio";
-
-// The studio site (home) and the B2B pages (/isletmeler, /en) share one header.
-const nav: Record<Mode, { href: string; label: string }[]> = {
-  "landing-tr": [
-    { href: "/isletmeler#urun", label: "Ürün" },
-    { href: "/isletmeler#demo", label: "Demo" },
-    { href: "/isletmeler#guven", label: "Güven" },
-    { href: "/", label: "Zenn Studio" },
-  ],
-  "landing-en": [
-    { href: "/en#product", label: "Product" },
-    { href: "/en#demo", label: "Demo" },
-    { href: "/en#trust", label: "Trust" },
-    { href: "/", label: "Zenn Studio" },
-  ],
-  studio: [
-    { href: "/#hizmetler", label: "Hizmetlerimiz" },
-    { href: "/#antrenorler", label: "Eğitmen Kadromuz" },
-    { href: "/#plan", label: "Sana uygun ders" },
-    { href: "/#konum", label: "Konum" },
-    { href: "/blog", label: "Blog" },
-  ],
-};
-
-const ctas: Record<Mode, { href: string; label: string }> = {
-  "landing-tr": { href: "/isletmeler#iletisim", label: "Bize ulaşın" },
-  "landing-en": { href: "/en#contact", label: "Contact us" },
-  studio: { href: "/#talep", label: "Ders talebi" },
-};
+const items = [
+  { href: "/#hizmetler", label: "Hizmetlerimiz" },
+  { href: "/#antrenorler", label: "Eğitmen Kadromuz" },
+  { href: "/#plan", label: "Sana uygun ders" },
+  { href: "/#konum", label: "Konum" },
+  { href: "/blog", label: "Blog" },
+];
+const cta = { href: "/#talep", label: "Ders talebi" };
 
 /** Floating dark pill. It is sticky, so pages flow below it; the home hero
  *  pulls itself up underneath with a negative margin equal to its height
@@ -47,10 +25,6 @@ const ctas: Record<Mode, { href: string; label: string }> = {
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() ?? "/";
-  const lang = pathname.startsWith("/en") ? "en" : "tr";
-  const mode: Mode = pathname.startsWith("/isletmeler") ? "landing-tr" : lang === "en" ? "landing-en" : "studio";
-  const items = nav[mode];
-  const cta = ctas[mode];
   const home = pathname === "/";
   const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
@@ -66,18 +40,6 @@ export function SiteHeader() {
     };
   }, [home]);
   const onHero = home && !pastHero && !open;
-  // Small language switch: TR ↔ EN, on the B2B pages only (English covers those).
-  const switcher = mode === "studio" ? null : (
-    <Link
-      href={lang === "en" ? "/isletmeler" : "/en"}
-      hrefLang={lang === "en" ? "tr" : "en"}
-      onClick={() => setOpen(false)}
-      className="grid min-h-10 min-w-10 place-items-center rounded-full px-2 text-sm font-semibold text-paper/75 hover:text-paper"
-      aria-label={lang === "en" ? "Türkçe" : "English"}
-    >
-      {lang === "en" ? "TR" : "EN"}
-    </Link>
-  );
 
   return (
     <header className="on-ink sticky top-0 z-40 px-3 pt-2 sm:px-5 sm:pt-2.5" style={{ viewTransitionName: "site-header" }}>
@@ -104,31 +66,21 @@ export function SiteHeader() {
             ))}
           </nav>
           <div className="col-start-3 flex items-center justify-end gap-1">
-            {switcher}
-            {/* The studio site: two lime dot links, as in the reference. */}
-            {mode === "studio" ? (
-              <span className="hidden items-center gap-6 pr-3 sm:flex">
-                {[cta, { href: "/#konum", label: "İletişim" }].map((l) => (
-                  <Link key={l.href} href={l.href} className="inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold tracking-[0.04em] whitespace-nowrap text-lime uppercase transition-opacity hover:opacity-80">
-                    <span aria-hidden className="size-1.5 rounded-full bg-lime" />
-                    {l.label}
-                  </Link>
-                ))}
-              </span>
-            ) : (
-              /* On phones the menu (and on the studio pages the bottom bar) carries it. */
-              <span className="hidden sm:block">
-                <Link href={cta.href} className={buttonClass("primary", "min-h-10 px-5")}>
-                  {cta.label}
+            {/* Two lime dot links, as in the reference; on phones the menu and the bottom bar carry them. */}
+            <span className="hidden items-center gap-6 pr-3 sm:flex">
+              {[cta, { href: "/#konum", label: "İletişim" }].map((l) => (
+                <Link key={l.href} href={l.href} className="inline-flex min-h-10 items-center gap-2 text-[13px] font-semibold tracking-[0.04em] whitespace-nowrap text-lime uppercase transition-opacity hover:opacity-80">
+                  <span aria-hidden className="size-1.5 rounded-full bg-lime" />
+                  {l.label}
                 </Link>
-              </span>
-            )}
+              ))}
+            </span>
             <button
               type="button"
               className="grid size-11 place-items-center rounded-full lg:hidden"
               aria-expanded={open}
               aria-controls="mobile-nav"
-              aria-label={open ? (lang === "en" ? "Close menu" : "Menüyü kapat") : lang === "en" ? "Open menu" : "Menüyü aç"}
+              aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
               onClick={() => setOpen((v) => !v)}
             >
               {open ? <X className="size-6" /> : <Menu className="size-6" />}

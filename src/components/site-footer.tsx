@@ -112,14 +112,6 @@ export function SiteFooter() {
             ))}
             <p>© Zenn Studio</p>
           </div>
-          <p className="flex flex-wrap gap-x-5 gap-y-2">
-            <Link className={link} href="/isletmeler">
-              İşletmeler için Zenn
-            </Link>
-            <Link className={link} href="/en" hrefLang="en">
-              English
-            </Link>
-          </p>
         </div>
       </div>
     </footer>
