@@ -10,13 +10,17 @@ import {
   type RequestForm,
 } from "@/domain/registration";
 import { sendRequestToCrm } from "@/lib/crm-request";
+import { company } from "@/content/company";
 
 export type RegistrationState =
   | { status: "idle" }
   | { status: "error"; errors: Record<string, string>; message: string; values: Record<string, string> }
   | { status: "ok"; reference: string; summary: string };
 
-const FAILED = "Talebin şu an iletilemedi. Birkaç dakika sonra yeniden dene.";
+// When the CRM cannot take the request, the visitor still has a way to reach us.
+const FAILED = company.whatsapp
+  ? `Talebin şu an iletilemedi. Birkaç dakika sonra yeniden dene ya da bize WhatsApp'tan yaz: +${company.whatsapp.replace(/^(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})$/, "$1 $2 $3 $4 $5")}`
+  : "Talebin şu an iletilemedi. Birkaç dakika sonra yeniden dene.";
 
 function makeReference(): string {
   const n = crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000;
