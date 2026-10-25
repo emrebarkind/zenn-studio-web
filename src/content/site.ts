@@ -7,13 +7,24 @@ import matPilates from "@/assets/photos/mat-pilates.jpg";
 import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
 import kickboks from "@/assets/photos/kickboks.jpg";
 import reformerKollar from "@/assets/photos/reformer-kollar.jpg";
+import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
+import cadillac from "@/assets/photos/cadillac.jpg";
+import amut from "@/assets/photos/amut.jpg";
+import matGrup from "@/assets/photos/mat-grup.jpg";
+import zeynepDers from "@/assets/photos/zeynep-ders.jpg";
+import zeynepSalon from "@/assets/photos/zeynep-salon.jpg";
+import kickboksTorba from "@/assets/photos/kickboks-torba.jpg";
+import kickboksGard from "@/assets/photos/kickboks-gard.jpg";
+import kickboksPortre from "@/assets/photos/kickboks-portre.jpg";
+import barisDambil from "@/assets/photos/baris-dambil.jpg";
 import antrenorAli from "@/assets/photos/antrenor-ali.jpg";
 import antrenorSuheda from "@/assets/photos/antrenor-suheda.jpg";
 import antrenorBaris from "@/assets/photos/antrenor-baris.jpg";
+import antrenorZeynep from "@/assets/photos/antrenor-zeynep.jpg";
 
 // Every piece of copy and every business fact on the site lives here, so the
 // studio can change prices, coaches or contact details without touching
-// layout code. Fields set to `null` are facts we do not have yet — the UI
+// layout code. Fields set to `null` are facts we do not have yet; the UI
 // renders a neutral fallback for them instead of inventing a value.
 
 export const studio = {
@@ -25,8 +36,8 @@ export const studio = {
 // Contact and legal details live in ./company.ts.
 
 /**
- * How we work (2026-10-25): the studio's own services first — group classes
- * and individual / small-group training for 1–6 people. Online is Mat Pilates
+ * How we work (2026-10-25): the studio's own services first, group classes
+ * and individual / small-group training for 1-6 people. Online is Mat Pilates
  * only, on request, and kept low-key: a tick box on the request form, not a
  * third way shown everywhere. The site informs and takes requests.
  */
@@ -35,7 +46,7 @@ export type FormatId = "group" | "private" | "online";
 export type Format = {
   id: FormatId;
   name: string;
-  /** Short label for tabs and tables. */
+  /** Short label for chips and tables. */
   short: string;
   summary: string;
   points: string[];
@@ -52,7 +63,7 @@ export const formats: Format[] = [
   {
     id: "private",
     name: "Bireysel ve küçük grup",
-    short: "1–6 kişi",
+    short: "1-6 kişi",
     summary: "Tek başına ya da 6 kişiye kadar; gün ve saati antrenörünle belirlersin.",
     points: ["Reformer Pilates, Kickboks, Fonksiyonel antrenman", "Tek başına, eşinle ya da arkadaşlarınla", "Saat ve günler sana göre"],
   },
@@ -78,6 +89,8 @@ export type DisciplineSlug =
   | "kickboks"
   | "fonksiyonel-antrenman";
 
+export type Photo = { src: StaticImageData; alt: string; position?: string };
+
 export type Discipline = {
   slug: DisciplineSlug;
   name: string;
@@ -88,7 +101,7 @@ export type Discipline = {
   formats: FormatId[];
   coaches: string[];
   /** null until the studio has a real photo (the UI then shows a typographic card). */
-  photo: { src: StaticImageData; alt: string } | null;
+  photo: Photo | null;
 };
 
 // Studio photo shoot, September 2026.
@@ -110,7 +123,7 @@ export const disciplines: Discipline[] = [
     bring: "Rahat kıyafet ve su.",
     formats: ["group", "online"],
     coaches: ["Ece", "Zeynep"],
-    photo: { src: matPilates, alt: "Mat üzerinde esneme yapan üyenin duruşunu düzelten antrenör" },
+    photo: { src: matGrup, alt: "Mat Pilates dersinde üyenin duruşunu düzelten antrenör", position: "50% 60%" },
   },
   {
     slug: "spinning",
@@ -134,7 +147,7 @@ export const disciplines: Discipline[] = [
     bring: "Kaymaz çorap ve rahat kıyafet.",
     formats: ["private"],
     coaches: ["Şüheda", "Ece", "Sude"],
-    photo: { src: reformerKollar, alt: "Reformer üzerinde kollarını kayışlarla yukarı uzatan sporcu" },
+    photo: { src: reformerTeaser, alt: "Reformer üzerinde bacaklarını kaldırıp dengede duran antrenör", position: "50% 55%" },
   },
   {
     slug: "kickboks",
@@ -146,7 +159,7 @@ export const disciplines: Discipline[] = [
     bring: "Bandaj ve eldiven; ilk derste stüdyodakileri kullanabilirsin.",
     formats: ["private"],
     coaches: ["Ali"],
-    photo: { src: kickboks, alt: "Eldivenleriyle gard alıp yumruk atan kickboksçu" },
+    photo: { src: kickboksTorba, alt: "Kum torbasına yumruk atan kickboks antrenörü", position: "45% 30%" },
   },
   {
     slug: "fonksiyonel-antrenman",
@@ -158,26 +171,65 @@ export const disciplines: Discipline[] = [
     bring: "Spor ayakkabı, havlu, su.",
     formats: ["private"],
     coaches: ["Barış", "Ece", "Zeynep", "Sude"],
-    photo: { src: fonksiyonel, alt: "Antrenörüyle birlikte matta egzersiz yapan üye" },
+    photo: { src: barisDambil, alt: "Dambılla çalışan fonksiyonel antrenman antrenörü", position: "50% 35%" },
   },
 ];
 
 export type Coach = {
   name: string;
   disciplines: DisciplineSlug[];
-  /** null until the coach has sent a portrait (the UI then shows their initial). */
-  photo: StaticImageData | null;
+  /** Portrait, then a photo from a lesson; hovering (or tapping) the card swaps them. null until sent. */
+  portrait: Photo | null;
+  action: Photo | null;
 };
 
 // Branşlar follow what each coach actually teaches in the CRM (2026-10-25).
-// TODO(studio): portraits for Ece, Zeynep and Sude; surnames and short bios once approved.
+// TODO(studio): portraits for Ece and Sude; surnames and short bios once approved.
 export const coaches: Coach[] = [
-  { name: "Şüheda", disciplines: ["reformer-pilates"], photo: antrenorSuheda },
-  { name: "Ece", disciplines: ["mat-pilates", "reformer-pilates", "fonksiyonel-antrenman"], photo: null },
-  { name: "Zeynep", disciplines: ["mat-pilates", "fonksiyonel-antrenman"], photo: null },
-  { name: "Barış", disciplines: ["fonksiyonel-antrenman"], photo: antrenorBaris },
-  { name: "Sude", disciplines: ["reformer-pilates", "fonksiyonel-antrenman"], photo: null },
-  { name: "Ali", disciplines: ["kickboks"], photo: antrenorAli },
+  {
+    name: "Zeynep",
+    disciplines: ["mat-pilates", "fonksiyonel-antrenman"],
+    portrait: { src: antrenorZeynep, alt: "Antrenör Zeynep", position: "50% 20%" },
+    action: { src: zeynepDers, alt: "Zeynep derste üyenin duruşunu düzeltirken", position: "50% 40%" },
+  },
+  {
+    name: "Şüheda",
+    disciplines: ["reformer-pilates"],
+    portrait: { src: antrenorSuheda, alt: "Antrenör Şüheda", position: "50% 20%" },
+    action: { src: reformerTeaser, alt: "Şüheda reformer üzerinde", position: "50% 50%" },
+  },
+  {
+    name: "Barış",
+    disciplines: ["fonksiyonel-antrenman"],
+    portrait: { src: antrenorBaris, alt: "Antrenör Barış", position: "50% 20%" },
+    action: { src: barisDambil, alt: "Barış dambılla çalışırken", position: "50% 30%" },
+  },
+  {
+    name: "Ali",
+    disciplines: ["kickboks"],
+    portrait: { src: antrenorAli, alt: "Antrenör Ali", position: "50% 20%" },
+    action: { src: kickboksTorba, alt: "Ali kum torbasında", position: "45% 30%" },
+  },
+  { name: "Ece", disciplines: ["mat-pilates", "reformer-pilates", "fonksiyonel-antrenman"], portrait: null, action: null },
+  { name: "Sude", disciplines: ["reformer-pilates", "fonksiyonel-antrenman"], portrait: null, action: null },
+];
+
+/** The hero's flowing ring: one photo per card, disciplines interleaved so neighbours differ. */
+export const ringPhotos: Photo[] = [
+  { src: reformerTeaser, alt: "Reformer Pilates", position: "50% 55%" },
+  { src: kickboksTorba, alt: "Kickboks", position: "45% 30%" },
+  { src: matGrup, alt: "Mat Pilates dersi", position: "50% 60%" },
+  { src: cadillac, alt: "Cadillac üzerinde pilates", position: "50% 45%" },
+  { src: barisDambil, alt: "Fonksiyonel antrenman", position: "50% 30%" },
+  { src: zeynepDers, alt: "Mat Pilates, antrenör düzeltmesi", position: "50% 45%" },
+  { src: kickboksGard, alt: "Kickboks gardı", position: "50% 30%" },
+  { src: amut, alt: "Pilates aletinde amut", position: "50% 50%" },
+  { src: matPilates, alt: "Mat üzerinde esneme", position: "50% 40%" },
+  { src: kickboksPortre, alt: "Eldivenli kickboksçu", position: "50% 25%" },
+  { src: reformerKollar, alt: "Reformer kayışlarıyla çalışma", position: "50% 35%" },
+  { src: zeynepSalon, alt: "Salonda antrenör", position: "50% 30%" },
+  { src: kickboks, alt: "Kickboks yumruğu", position: "50% 30%" },
+  { src: fonksiyonel, alt: "Matta fonksiyonel çalışma", position: "50% 45%" },
 ];
 
 export type PlanId = "group-8" | "group-12" | "private" | "online";
@@ -219,7 +271,7 @@ export const plans: Plan[] = [
     id: "private",
     name: "Bireysel ya da küçük grup",
     format: "private",
-    detail: "1–6 kişi; ders sayısını ve saatleri birlikte belirleriz",
+    detail: "1-6 kişi; ders sayısını ve saatleri birlikte belirleriz",
     includes: ["Reformer Pilates, Kickboks ya da Fonksiyonel", "Tek başına ya da en fazla 6 kişi"],
     price: null,
     weekNote: "Günleri ve saati antrenörünle birlikte belirlersin; arkadaşlarınla gelirsen grubu sen kurarsın.",
@@ -253,7 +305,7 @@ export const comingSoon = [
 export const faqs = [
   {
     q: "Hiç pilates ya da kickboks yapmadım, hangi dersle başlamalıyım?",
-    a: "Sana uygun ders testini çöz; iki soruda hedefine ve çalışma şekline uyan branşı öneriyoruz. Kararsız kalırsan talep formuna not bırak, antrenörümüz seni arasın.",
+    a: "Talep formuna hedefini not et; antrenörümüz seni arayıp sana uygun dersi birlikte seçer. İstersen iki soruluk \"Sana uygun ders\" testini de çözebilirsin.",
   },
   {
     q: "Grup dersi ile bireysel ders arasındaki fark ne?",
@@ -261,7 +313,7 @@ export const faqs = [
   },
   {
     q: "Arkadaşlarımla birlikte gelebilir miyim?",
-    a: "Evet. Bireysel derslerde 6 kişiye kadar küçük grup kurabilirsin; talep formunda kaç kişi olacağınızı seçmen yeterli.",
+    a: "Evet. Bireysel derslerde 6 kişiye kadar küçük grup kurabilirsin; ayrıntılı talep formunda kaç kişi olacağınızı seçmen yeterli.",
   },
   {
     q: "Kaçırdığım grup dersinin yerine başka gün gelebilir miyim?",

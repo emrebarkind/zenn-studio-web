@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { buttonClass } from "@/components/ui";
+import { ZennWordmark } from "@/components/brand";
 
 type Mode = "landing-tr" | "landing-en" | "studio";
 
@@ -23,9 +24,8 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
     { href: "/", label: "Zenn Studio" },
   ],
   studio: [
-    { href: "/#branslar", label: "Branşlar" },
-    { href: "/#ders-bul", label: "Sana uygun ders" },
-    { href: "/#paketler", label: "Dersler ve paketler" },
+    { href: "/#dersler", label: "Dersler" },
+    { href: "/#paketler", label: "Paketler" },
     { href: "/#antrenorler", label: "Antrenörler" },
     { href: "/#sss", label: "Sorular" },
   ],
@@ -34,12 +34,8 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
 const ctas: Record<Mode, { href: string; label: string }> = {
   "landing-tr": { href: "/isletmeler#iletisim", label: "Bize ulaşın" },
   "landing-en": { href: "/en#contact", label: "Contact us" },
-  studio: { href: "/kayit", label: "Ders talebi" },
+  studio: { href: "/#talep", label: "Ders talebi" },
 };
-
-export function Wordmark({ className = "" }: { className?: string }) {
-  return <span className={`text-[26px] font-bold tracking-[-0.05em] ${className}`}>zenn</span>;
-}
 
 /** Floating dark pill. It is sticky, so pages flow below it; the home hero
  *  pulls itself up underneath with a negative margin equal to its height
@@ -68,8 +64,8 @@ export function SiteHeader() {
     <header className="on-ink sticky top-0 z-40 px-3 pt-3 sm:px-5">
       <div className="mx-auto max-w-6xl rounded-[22px] bg-ink/80 text-paper shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150">
         <div className="flex h-14 items-center justify-between pr-2 pl-5 sm:h-16 sm:pr-3 sm:pl-6">
-          <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)}>
-            <Wordmark />
+          <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)} className="min-h-11 content-center">
+            <ZennWordmark className="text-[22px] sm:text-2xl" />
           </Link>
           <nav aria-label="Ana menü" className="hidden items-center gap-7 md:flex">
             {items.map((item) => (

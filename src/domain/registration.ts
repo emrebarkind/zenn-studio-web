@@ -24,8 +24,9 @@ const groupPlanIds = plans.filter((p) => p.format === "group").map((p) => p.id) 
 
 /**
  * A lesson request (2026-10-25): which discipline, how (group class,
- * individual / small group of 1–6, or online), and for a group class which
- * package and group. No payment is taken; the studio calls back.
+ * individual / small group of 1-6, or online), and for a group class which
+ * package and group; the package may be left for the call (the short form on
+ * the home page never asks). No payment is taken; the studio calls back.
  */
 export const registrationSchema = z
   .object({
@@ -49,9 +50,6 @@ export const registrationSchema = z
     if (discipline && !discipline.formats.includes(v.format as FormatId)) {
       ctx.addIssue({ code: "custom", path: ["format"], message: "Bu branş bu şekilde verilmiyor." });
     }
-    if (v.format === "group" && !v.plan) {
-      ctx.addIssue({ code: "custom", path: ["plan"], message: "8 ya da 12 derslik paketi seç." });
-    }
   });
 
 export type Registration = z.infer<typeof registrationSchema>;
@@ -68,11 +66,51 @@ export function summarize(r: Registration, reference: string): string {
     r.email && `E-posta: ${r.email}`,
     `Branş: ${discipline}`,
     `Şekil: ${way}`,
-    r.format === "group" && plan && `Paket: ${plan}`,
+    r.format === "group" && `Paket: ${plan ?? "görüşmede belirlenecek"}`,
     r.format === "private" && `Kişi sayısı: ${r.people}`,
     r.format !== "online" && `Saat tercihi: ${r.slot === "farketmez" ? "fark etmez" : r.slot}`,
     r.note && `Not: ${r.note}`,
   ]
     .filter(Boolean)
     .join("\n");
+}
+
+export type RequestForm = "quick" | "detailed";
+
+/** The quick form only asks the discipline: group disciplines go to a group, the rest to a private lesson. */
+export function inStudioFormat(slug: string): FormatId {
+  const d = disciplines.find((x) => x.slug === slug);
+  return d?.formats.find((f) => f !== "online") ?? "private";
+}
+
+/**
+ * The request as the CRM receives it (POST /api/webhooks/web-request, see the
+ * CRM's src/lib/web-request-lead.ts): ids and labels, never the site's form
+ * internals. `requestId` makes a retried delivery land on the same row.
+ */
+export function crmPayload(
+  r: Registration,
+  meta: { requestId: string; reference: string; submittedAt: string; form: RequestForm },
+) {
+  const discipline = disciplines.find((d) => d.slug === r.discipline);
+  const format = formats.find((f) => f.id === r.format);
+  const plan = r.format === "group" && r.plan ? plans.find((p) => p.id === r.plan) : undefined;
+  return {
+    version: 1 as const,
+    requestId: meta.requestId,
+    reference: meta.reference,
+    submittedAt: meta.submittedAt,
+    form: meta.form,
+    firstName: r.firstName,
+    lastName: r.lastName,
+    phone: r.phone,
+    email: r.email,
+    discipline: { slug: r.discipline, name: discipline?.name ?? r.discipline },
+    format: { id: r.format, name: format?.name ?? r.format },
+    plan: plan ? { id: plan.id, name: plan.name } : null,
+    // The quick form never asks how many or when; say nothing rather than "1 kişi, fark etmez".
+    people: r.format === "private" && meta.form === "detailed" ? r.people : null,
+    slot: r.format === "online" || meta.form === "quick" ? null : r.slot,
+    note: r.note,
+  };
 }

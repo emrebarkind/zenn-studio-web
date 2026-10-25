@@ -81,27 +81,45 @@ body {
 .settle > *:nth-child(3) { animation-delay: 180ms; }
 .settle > *:nth-child(4) { animation-delay: 270ms; }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+/* The hero's ring: photos on the inside wall of a slowly turning cylinder,
+   seen from just outside it, so the far wall faces you and the sides curve
+   toward you. Pure CSS (one animated transform); stops under reduced motion
+   and with the pause button. */
+.ring-stage {
+  --card-w: clamp(205px, min(22vw, 33vh), 300px);
+  --card-h: calc(var(--card-w) * 1.4);
+  --ring-r: calc(var(--card-w) * 2.6);
+  perspective: calc(var(--card-w) * 6);
+  perspective-origin: 50% 50%;
+  overflow: hidden;
 }
-.live-dot {
-  animation: pulse-dot 1.8s ease-in-out infinite;
+.ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+  transform: translateZ(var(--ring-r)) rotateY(0deg);
+  animation: ring-spin 110s linear infinite;
 }
-
-/* Hero photographs: a slow push-in on the active frame, and the progress bar
-   that times it. Both stop under reduced motion (the global rule above). */
-@keyframes hero-push {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
+.ring[data-paused="true"] {
+  animation-play-state: paused;
 }
-.hero-push {
-  animation: hero-push 9s ease-out both;
+.ring-card {
+  position: absolute;
+  left: calc(var(--card-w) * -0.5);
+  top: calc(var(--card-h) * -0.5);
+  width: var(--card-w);
+  height: var(--card-h);
+  overflow: hidden;
+  border-radius: 26px;
+  background: #232823;
+  backface-visibility: hidden;
+  transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(calc(var(--ring-r) * -1));
 }
-@keyframes hero-progress {
-  from { width: 0; }
-  to { width: 100%; }
+@keyframes ring-spin {
+  from { transform: translateZ(var(--ring-r)) rotateY(0deg); }
+  to { transform: translateZ(var(--ring-r)) rotateY(360deg); }
 }
-.hero-progress {
-  animation: hero-progress linear both;
+@media (prefers-reduced-motion: reduce) {
+  .ring { animation: none; }
 }

@@ -3,8 +3,9 @@ import type { Discipline } from "@/content/site";
 
 /**
  * A discipline's picture. Until the studio has a real photo of a discipline
- * (Spinning, October 2026) it is a typographic card instead — never a stock or
- * generated image standing in for the studio.
+ * (Spinning, October 2026) it is a typographic card instead, the discipline's
+ * own line set large; never a stock or generated image standing in for the
+ * studio.
  */
 export function DisciplineVisual({ d, sizes, priority, className = "" }: { d: Discipline; sizes: string; priority?: boolean; className?: string }) {
   if (d.photo) {
@@ -17,14 +18,19 @@ export function DisciplineVisual({ d, sizes, priority, className = "" }: { d: Di
         fill
         sizes={sizes}
         className={`object-cover ${className}`}
+        style={{ objectPosition: d.photo.position }}
       />
     );
   }
   return (
     <div aria-hidden className={`absolute inset-0 overflow-hidden bg-ink ${className}`}>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(225,255,130,0.28),transparent_55%)]" />
-      <p className="absolute -right-[0.06em] -bottom-[0.18em] text-[clamp(5rem,30vw,9rem)] leading-none font-bold tracking-[-0.06em] text-lime/90 select-none [writing-mode:vertical-rl] rotate-180">
-        {d.name.toLocaleLowerCase("tr")}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(225,255,130,0.22),transparent_60%)]" />
+      <p className="absolute top-5 right-5 left-5 text-[clamp(1.25rem,12cqw,3.25rem)] leading-[0.95] font-bold tracking-[-0.045em] text-lime">
+        {d.tagline.split(/,\s*/).map((word) => (
+          <span key={word} className="block">
+            {word}
+          </span>
+        ))}
       </p>
     </div>
   );

@@ -1,17 +1,19 @@
 import Link from "next/link";
 import type { ComponentProps } from "react";
 
-type Variant = "primary" | "ink" | "ghost" | "light";
+type Variant = "primary" | "ink" | "ghost" | "light" | "outline";
 
 const variants: Record<Variant, string> = {
   primary: "bg-lime text-ink hover:bg-lime-hover",
   ink: "bg-ink text-paper hover:bg-moss",
   ghost: "text-ink ring-1 ring-ink/20 hover:ring-ink/50",
   light: "bg-paper text-ink hover:bg-stone",
+  // Secondary action on a dark band or over a photograph.
+  outline: "text-paper ring-1 ring-paper/35 hover:bg-paper/10 hover:ring-paper/60",
 };
 
 export function buttonClass(variant: Variant = "primary", extra = "") {
-  return `inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${extra}`;
+  return `inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold whitespace-nowrap transition-[color,background-color,box-shadow,transform] duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${extra}`;
 }
 
 export function ButtonLink({
@@ -33,6 +35,37 @@ export function SectionTitle({ children, lead }: { children: React.ReactNode; le
         {children}
       </h2>
       {lead && <p className="mt-4 text-lg leading-relaxed text-ink-soft">{lead}</p>}
+    </div>
+  );
+}
+
+/** Home-page section heading: one big line, an optional short line under it. */
+export function SectionHeading({
+  title,
+  lead,
+  tone = "ink",
+  size = "lg",
+  className = "",
+}: {
+  title: React.ReactNode;
+  lead?: React.ReactNode;
+  tone?: "ink" | "paper";
+  /** "md" for a heading that shares its row with a form or a picture. */
+  size?: "lg" | "md";
+  className?: string;
+}) {
+  return (
+    <div className={`max-w-3xl ${className}`}>
+      <h2
+        className={`font-semibold tracking-[-0.045em] text-balance ${
+          size === "lg" ? "text-[clamp(2.5rem,6.5vw,5rem)] leading-[0.98]" : "text-[clamp(2.25rem,4.2vw,3.5rem)] leading-[1.02]"
+        }`}
+      >
+        {title}
+      </h2>
+      {lead && (
+        <p className={`mt-4 max-w-xl text-lg leading-relaxed ${tone === "paper" ? "text-paper/70" : "text-ink-soft"}`}>{lead}</p>
+      )}
     </div>
   );
 }

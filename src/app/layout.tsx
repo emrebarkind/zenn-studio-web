@@ -15,11 +15,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(studio.url),
   title: {
-    default: "Zenn Studio — Reformer, Mat Pilates, Kickboks ve online antrenman",
+    default: "Zenn Studio | Pilates, Kickboks ve Fonksiyonel antrenman, İstanbul",
     template: "%s | Zenn Studio",
   },
   description:
-    "Reformer pilates, mat pilates, kickboks ve fonksiyonel antrenman; stüdyoda, canlı online ya da sana özel online programla.",
+    "Mat Pilates ve Spinning grup dersleri; Reformer Pilates, Kickboks ve Fonksiyonel antrenman tek başına ya da 6 kişiye kadar. Ders talebini bırak, antrenörün seni arasın.",
   openGraph: { siteName: "Zenn Studio", locale: "tr_TR", type: "website" },
 };
 

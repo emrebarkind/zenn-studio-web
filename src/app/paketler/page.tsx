@@ -1,46 +1,57 @@
 import type { Metadata } from "next";
-import { planRules, plans, studioFormats } from "@/content/site";
-import { Container } from "@/components/ui";
-import { PlanCard } from "@/components/plan-card";
+import { planRules } from "@/content/site";
+import { ButtonLink, Container } from "@/components/ui";
+import { WaysToTrain } from "@/components/home/ways-to-train";
 
 export const metadata: Metadata = {
   title: "Dersler ve paketler",
-  description: "Mat Pilates ve Spinning grup paketleri; Reformer, Kickboks ve Fonksiyonel antrenmanda 1–6 kişilik dersler; talep üzerine online Mat Pilates.",
+  description: "Mat Pilates ve Spinning grup paketleri; Reformer, Kickboks ve Fonksiyonel antrenmanda 1-6 kişilik dersler; talep üzerine online Mat Pilates.",
 };
 
+/** "/paketler": the two ways to train (the same cards as the home page) and the group package rules. */
 export default function PlansPage() {
   return (
     <>
-      <section className="pt-12 pb-10 sm:pt-20">
+      <section className="pt-10 pb-12 sm:pt-16">
         <Container>
-          <h1 className="font-display text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.92] font-extrabold tracking-[-0.05em]">
-            Dersler ve paketler
-          </h1>
-          <ul className="mt-6 max-w-xl space-y-1.5 text-lg text-ink-soft">
-            {planRules.map((rule) => (
-              <li key={rule}>{rule}</li>
-            ))}
-          </ul>
+          <h1 className="text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.92] font-bold tracking-[-0.05em] text-balance">Dersler ve paketler</h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+            Grup dersinde haftanın günleri pakete göre bellidir; özel derste günü ve saati antrenörünle belirlersin. Fiyatı seni
+            aradığımızda paylaşırız, ödeme alınmaz.
+          </p>
         </Container>
       </section>
 
-      {studioFormats.map((f) => {
-        const list = plans.filter((p) => p.format === f.id);
-        return (
-          <section key={f.id} className="pb-14">
-            <Container>
-              <h2 className="font-display text-3xl font-bold tracking-tight">{f.name}</h2>
-              <p className="mt-1 text-ink-soft">{f.summary}</p>
-              <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {list.map((p) => (
-                  <PlanCard key={p.id} plan={p} />
-                ))}
-              </div>
-            </Container>
-          </section>
-        );
-      })}
+      <section className="pb-16">
+        <Container>
+          <WaysToTrain />
+        </Container>
+      </section>
 
+      <section className="pb-24 sm:pb-32">
+        <Container className="grid gap-4 lg:grid-cols-12">
+          <div className="rounded-[28px] bg-card p-7 sm:p-9 lg:col-span-8">
+            <h2 className="text-2xl font-semibold tracking-tight">Grup paketi kuralları</h2>
+            <ul className="mt-5 space-y-3 text-[17px] leading-relaxed text-ink-soft">
+              {planRules.map((rule) => (
+                <li key={rule} className="flex gap-3">
+                  <span aria-hidden className="mt-2.5 size-1.5 shrink-0 rounded-full bg-moss" />
+                  {rule}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="on-ink flex flex-col justify-between rounded-[28px] bg-ink p-7 text-paper sm:p-9 lg:col-span-4">
+            <p className="text-2xl leading-snug font-semibold tracking-tight">Hangi dersin sana uyduğundan emin değil misin?</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="/#talep">Ders talebi</ButtonLink>
+              <ButtonLink href="/ders-bul" variant="outline">
+                2 soruda bul
+              </ButtonLink>
+            </div>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

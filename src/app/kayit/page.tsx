@@ -16,7 +16,7 @@ export default function RegistrationPage() {
           Ders talebi
         </h1>
         <p className="mt-5 max-w-xl text-lg text-ink-soft">
-          Grup dersi, bireysel ya da 6 kişiye kadar küçük grup; istersen online. İki dakika sürer, ödeme alınmaz; antrenörümüz seni arar.
+          Grup dersi ya da 6 kişiye kadar özel ders. İki dakika sürer, ödeme alınmaz; antrenörümüz seni arar.
         </p>
         <div className="mt-12">
           <Suspense fallback={<div className="h-96 rounded-3xl bg-stone" aria-busy />}>
