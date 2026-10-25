@@ -13,9 +13,9 @@ export const demoScenarios: Record<Lang, DemoScenario[]> = {
     {
       id: "sales",
       label: "Satış",
-      user: "Evden çalışmak istiyorum, duruşumu düzeltmek istiyorum. Ne önerirsin?",
+      user: "Duruşumu düzeltmek istiyorum, bir arkadaşımla birlikte gelmek istiyoruz. Ne önerirsin?",
       assistant:
-        "Duruş için en uygun branşımız mat pilates; evden çalışmak istediğin için canlı online formatını öneririm. Kamera açık küçük gruplarda antrenörün seni ekranda görür ve hareketini anında düzeltir. Canlı online 8 ders paketi 4 hafta sürer, haftada 2 ders. Fiyat ön kayıtta paylaşılıyor.\n<<KAYIT brans=mat-pilates format=live paket=live-8>>",
+        "Duruş için en uygun branşımız Reformer Pilates. Reformer'ı tek başına ya da 6 kişiye kadar küçük grupla yapıyoruz; arkadaşınla 2 kişilik grup olarak gelebilirsiniz, gün ve saati antrenörünüzle birlikte belirlersiniz. Fiyatı talep bıraktığınızda antrenörümüz paylaşıyor.\n<<KAYIT brans=reformer-pilates format=private paket=private>>",
     },
     {
       id: "support",
@@ -43,9 +43,9 @@ export const demoScenarios: Record<Lang, DemoScenario[]> = {
     {
       id: "sales",
       label: "Sales",
-      user: "I want to train from home and fix my posture. What do you suggest?",
+      user: "I want to fix my posture, and a friend wants to come with me. What do you suggest?",
       assistant:
-        "For posture, Mat Pilates is our best fit, and since you want to train from home I'd suggest the live online format. Small groups keep cameras on, so your coach sees you on screen and corrects you in real time. The live online 8-class package runs for 4 weeks, 2 classes a week. The price is shared at pre-registration.\n<<KAYIT brans=mat-pilates format=live paket=live-8>>",
+        "For posture, Reformer Pilates is our best fit. We teach Reformer one-to-one or in small groups of up to 6, so you and your friend can come as a group of two and pick the days and times with your coach. The price is shared once you leave a request.\n<<KAYIT brans=reformer-pilates format=private paket=private>>",
     },
     {
       id: "support",

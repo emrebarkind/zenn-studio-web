@@ -26,7 +26,7 @@ export function buildKnowledge(): string {
 
   lines.push(`# ${studio.name} (${studio.domain})`);
   lines.push(
-    `İstanbul'da bir stüdyo. Reformer pilates, mat pilates, kickboks ve fonksiyonel antrenman; stüdyoda, canlı online ya da online personal training olarak.`,
+    `İstanbul'da bir stüdyo. Mat Pilates ve Spinning grup dersleri; Reformer Pilates, Kickboks ve Fonksiyonel antrenman tek başına ya da 6 kişiye kadar küçük grupla; talep üzerine online ders.`,
   );
 
   h("Formatlar");
@@ -74,7 +74,7 @@ export function buildKnowledge(): string {
     lines.push(`- Hedef "${goalLabel[goal]}": öncelik sırasıyla ${slugs.join(", ")}.`);
   }
   lines.push(
-    "Yer tercihi: stüdyo → studio; ev → grup isteyene live, kişisel takip isteyene coaching; ikisi de → grup isteyene studio, kişisel isteyene coaching. Seçilen branşın verilmediği formatı önerme.",
+    "Çalışma şekli: grupla → group (Mat Pilates, Spinning); tek başına ya da en fazla 6 kişi → private (Reformer Pilates, Kickboks, Fonksiyonel); evden → online (talep üzerine). Seçilen branşın verilmediği şekli önerme.",
   );
 
   h("İletişim (insana bağlanma)");

@@ -4,7 +4,7 @@ import { Quiz } from "./quiz";
 
 export const metadata: Metadata = {
   title: "Sana uygun dersi bul",
-  description: "Üç soruda hedefine ve programına uyan branşı ve formatı öğren.",
+  description: "İki soruda hedefine ve çalışma şekline uyan branşı öğren.",
 };
 
 export default function FindClassPage() {
@@ -15,7 +15,7 @@ export default function FindClassPage() {
           Sana uygun dersi bul
         </h1>
         <p className="mt-5 max-w-xl text-lg text-ink-soft">
-          Üç soru. Hedefine, nerede çalışmak istediğine ve nasıl çalışmayı sevdiğine göre bir branş ve format öneriyoruz.
+          İki soru. Hedefine ve nasıl çalışmak istediğine göre sana bir branş öneriyoruz.
         </p>
         <div className="mt-12">
           <Quiz />

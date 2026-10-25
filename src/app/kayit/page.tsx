@@ -4,8 +4,8 @@ import { Container } from "@/components/ui";
 import { RegistrationForm } from "./registration-form";
 
 export const metadata: Metadata = {
-  title: "Ön kayıt",
-  description: "Branşını, formatını ve paketini seç; antrenörümüz ilk dersini planlamak için seni arasın.",
+  title: "Ders talebi",
+  description: "Branşını ve nasıl çalışmak istediğini seç; antrenörümüz uygun gün ve saati konuşmak için seni arasın.",
 };
 
 export default function RegistrationPage() {
@@ -13,10 +13,10 @@ export default function RegistrationPage() {
     <section className="pt-12 pb-24 sm:pt-20">
       <Container className="max-w-3xl">
         <h1 className="font-display text-[clamp(2.75rem,8vw,5rem)] leading-[0.92] font-extrabold tracking-[-0.05em]">
-          Ön kayıt
+          Ders talebi
         </h1>
         <p className="mt-5 max-w-xl text-lg text-ink-soft">
-          İki dakika sürer. Ödeme şimdi alınmaz; antrenörümüz seni arayıp ilk dersini birlikte planlar.
+          Grup dersi, bireysel ya da 6 kişiye kadar küçük grup; istersen online. İki dakika sürer, ödeme alınmaz; antrenörümüz seni arar.
         </p>
         <div className="mt-12">
           <Suspense fallback={<div className="h-96 rounded-3xl bg-stone" aria-busy />}>

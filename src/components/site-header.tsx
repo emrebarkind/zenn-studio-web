@@ -25,8 +25,8 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
   studio: [
     { href: "/#branslar", label: "Branşlar" },
     { href: "/#ders-bul", label: "Sana uygun ders" },
-    { href: "/#paketler", label: "Paketler" },
-    { href: "/#online", label: "Zenn Online" },
+    { href: "/#paketler", label: "Dersler ve paketler" },
+    { href: "/#antrenorler", label: "Antrenörler" },
     { href: "/#sss", label: "Sorular" },
   ],
 };
@@ -34,7 +34,7 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
 const ctas: Record<Mode, { href: string; label: string }> = {
   "landing-tr": { href: "/isletmeler#iletisim", label: "Bize ulaşın" },
   "landing-en": { href: "/en#contact", label: "Contact us" },
-  studio: { href: "/kayit", label: "Ön kayıt yap" },
+  studio: { href: "/kayit", label: "Ders talebi" },
 };
 
 export function Wordmark({ className = "" }: { className?: string }) {

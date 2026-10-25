@@ -23,7 +23,7 @@ export function Quiz() {
         <p className="mt-3 text-xl font-semibold text-lime">{f.name}</p>
         <p className="mt-5 max-w-prose text-paper/75">{d.description}</p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <ButtonLink href={`/kayit?brans=${d.slug}&format=${f.id}`}>Bu dersle ön kayıt yap</ButtonLink>
+          <ButtonLink href={`/kayit?brans=${d.slug}&format=${f.id}`}>Bu ders için talep bırak</ButtonLink>
           <button
             type="button"
             onClick={() => setAnswers({})}

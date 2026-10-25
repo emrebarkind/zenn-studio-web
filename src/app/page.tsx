@@ -1,14 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Check, Minus } from "lucide-react";
-import { coaches, coachingFlow, comingSoon, disciplines, faqs, formats, photos, type FormatId } from "@/content/site";
+import { coaches, disciplines, faqs, formats, photos, PRIVATE_GROUP_MAX } from "@/content/site";
 import { company, contactChannels } from "@/content/company";
 import { ButtonLink, Container } from "@/components/ui";
 import { HeroSlideshow, type HeroSlide } from "@/components/home/hero-slideshow";
 import { FormatTabs } from "@/components/home/format-tabs";
 import { PackagesPicker } from "@/components/home/packages-picker";
 import { Quiz } from "@/app/ders-bul/quiz";
+import { DisciplineVisual } from "@/components/discipline-visual";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
 import reformerStraps from "@/assets/photos/hero.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
@@ -22,8 +22,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const formatName = Object.fromEntries(formats.map((f) => [f.id, f.name])) as Record<FormatId, string>;
-const SHORT: Record<FormatId, string> = { studio: "Stüdyoda", live: "Canlı online", coaching: "Program" };
+const SHORT = Object.fromEntries(formats.map((f) => [f.id, f.short])) as Record<(typeof formats)[number]["id"], string>;
 const disciplineName = Object.fromEntries(disciplines.map((d) => [d.slug, d.name]));
 
 const sectionTitle = "text-[clamp(2rem,5vw,3.25rem)] leading-[1.05] font-semibold tracking-[-0.035em] text-balance";
@@ -46,7 +45,7 @@ const slides: HeroSlide[] = [
   },
   {
     key: "mat",
-    label: "Mat Pilates ve birebir",
+    label: "Mat Pilates",
     href: "/branslar/mat-pilates",
     wide: { src: birebirWide, alt: photos.coaching.alt, position: "50% 45%" },
     tall: { src: matPilates, alt: "Mat üzerinde esneme yapan üyenin duruşunu düzelten antrenör", position: "50% 40%" },
@@ -66,16 +65,16 @@ const reasons = [
     text: "Gruplarımız küçük. Antrenörün adını, seviyeni ve hedefini bilir; hareketini yerinde düzeltir.",
   },
   {
-    title: "Ekipmanla ya da ekipmansız",
-    text: "Reformer stüdyoda. Mat pilates, kickboks ve fonksiyonel antrenmanı evde de sürdürebilirsin.",
+    title: "Arkadaşlarınla gel",
+    text: `Reformer, kickboks ve fonksiyonel antrenmanda ${PRIVATE_GROUP_MAX} kişiye kadar kendi grubunu kur; gün ve saati birlikte belirleyin.`,
   },
   {
     title: "Takipte kalırsın",
-    text: "Derslerinden önce SMS hatırlatma, online programda haftalık değerlendirme.",
+    text: "Derslerinden önce SMS ile hatırlatma gelir; hangi gün, hangi saat, kiminle.",
   },
 ];
 
-/** "/" — the studio's own site on one page: what we teach, how, with whom, and how to start. */
+/** "/" — the studio's own site on one page: what we teach, how (group / 1–6 people / online on request), with whom, and how to ask for a lesson. */
 export default function StudioHome() {
   const whatsapp = contactChannels(company).find((c) => c.kind === "whatsapp");
 
@@ -96,8 +95,8 @@ export default function StudioHome() {
                 zenn
               </p>
               <h1 className="mt-5 text-[clamp(2.25rem,5.5vw,4rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">
-                <span className="sr-only">Zenn Studio: reformer pilates, mat pilates, kickboks ve online antrenman. </span>
-                Stüdyoda. Evinde. Programında.
+                <span className="sr-only">Zenn Studio: mat pilates ve spinning grup dersleri, reformer pilates, kickboks ve fonksiyonel antrenman. </span>
+                Grup dersi de, birebir de.
               </h1>
             </div>
             <FormatTabs />
@@ -110,20 +109,17 @@ export default function StudioHome() {
         <Container>
           <h2 className={sectionTitle}>Branşlar</h2>
           <p className="mt-3 max-w-xl text-lg text-ink-soft">Her birinde aynı ilke: doğru teknik, küçük grup, sana göre tempo.</p>
-          <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {disciplines.map((d) => (
               <li key={d.slug}>
                 <Link
                   href={`/branslar/${d.slug}`}
                   className="group on-ink relative block aspect-[3/4] overflow-hidden rounded-[24px] bg-ink text-paper"
                 >
-                  <Image
-                    src={d.photo.src}
-                    alt={d.photo.alt}
-                    placeholder="blur"
-                    fill
-                    sizes="(min-width: 1024px) 270px, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  <DisciplineVisual
+                    d={d}
+                    sizes="(min-width: 1024px) 220px, (min-width: 640px) 50vw, 100vw"
+                    className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/0" aria-hidden />
                   <div className="absolute inset-x-0 bottom-0 p-5">
@@ -141,14 +137,14 @@ export default function StudioHome() {
       {/* One membership, three ways: which discipline runs in which format, and with whom. */}
       <section className="on-ink bg-ink py-20 text-paper sm:py-28">
         <Container>
-          <h2 className={sectionTitle}>Tek üyelik, üç yol</h2>
+          <h2 className={sectionTitle}>Grupla ya da kendi grubunla</h2>
           <p className="mt-3 max-w-xl text-lg text-paper/70">
-            Stüdyoya gel, evinden canlı katıl ya da sana yazılmış programla çalış. Hayatın değiştikçe formatını değiştir;
-            antrenörün aynı kalır.
+            Mat Pilates ve Spinning belli günlerde grup dersi. Reformer Pilates, Kickboks ve Fonksiyonel antrenman tek başına
+            ya da {PRIVATE_GROUP_MAX} kişiye kadar küçük grupla. İstersen online da çalışırız.
           </p>
           <div className="mt-10 overflow-x-auto rounded-[24px] bg-paper/[0.06] ring-1 ring-paper/10">
             <table className="w-full min-w-[34rem] text-left">
-              <caption className="sr-only">Branşların stüdyoda, canlı online ve online programda yapılabilmesi</caption>
+              <caption className="sr-only">Branşların grup dersi, bireysel ve küçük grup ya da online olarak yapılabilmesi</caption>
               <thead>
                 <tr className="text-sm text-paper/55">
                   <th scope="col" className="px-5 py-4 font-medium">
@@ -203,10 +199,10 @@ export default function StudioHome() {
       <section id="ders-bul" className="scroll-mt-24 bg-card py-20 sm:py-28">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start">
           <div>
-            <p className="w-fit rounded-full bg-paper px-3 py-1 text-sm font-semibold text-ink-soft">3 soru</p>
+            <p className="w-fit rounded-full bg-paper px-3 py-1 text-sm font-semibold text-ink-soft">2 soru</p>
             <h2 className={`mt-4 ${sectionTitle}`}>Sana uygun ders</h2>
             <p className="mt-3 max-w-md text-lg text-ink-soft">
-              Hedefini ve programını söyle; branşını ve formatını önerelim. Öneriyle ön kayıt formu dolu açılır.
+              Hedefini ve nasıl çalışmak istediğini söyle; branşını önerelim. Öneriyle talep formu dolu açılır.
             </p>
           </div>
           <div className="rounded-[28px] bg-paper p-5 sm:p-8">
@@ -216,12 +212,12 @@ export default function StudioHome() {
       </section>
 
       {/* The coaches, as type. */}
-      <section className="py-20 sm:py-28">
+      <section id="antrenorler" className="scroll-mt-24 py-20 sm:py-28">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           <div>
             <h2 className={sectionTitle}>Antrenörlerin</h2>
             <p className="mt-3 max-w-md text-lg text-ink-soft">
-              Her branşın kendi antrenörü var. Stüdyoda da online&apos;da da aynı kişiyle çalışırsın.
+              Her branşın kendi antrenörü var; derslerin hep aynı kişiyle.
             </p>
           </div>
           <ul>
@@ -240,79 +236,27 @@ export default function StudioHome() {
       {/* Packages, chosen in place, with the week they make. */}
       <section id="paketler" className="scroll-mt-24 pb-20 sm:pb-28">
         <Container>
-          <h2 className={sectionTitle}>Paketler</h2>
+          <h2 className={sectionTitle}>Dersler ve paketler</h2>
           <p className="mt-3 max-w-xl text-lg text-ink-soft">
-            Paketini seç, haftanın nasıl geçeceğini gör; ön kayıt formu o paketle açılsın.
+            Nasıl çalışmak istediğini seç, haftanın nasıl geçeceğini gör; talep formu o seçimle açılsın.
           </p>
           <PackagesPicker />
         </Container>
       </section>
 
-      {/* Zenn Online */}
-      <section id="online" className="on-ink scroll-mt-24 bg-ink text-paper">
-        <div className="relative h-[52vh] min-h-[360px] overflow-hidden">
-          <Image
-            src={photos.coaching.src}
-            alt={photos.coaching.alt}
-            placeholder="blur"
-            fill
-            sizes="100vw"
-            className="object-cover object-[50%_40%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10" aria-hidden />
-          <Container className="relative flex h-full flex-col justify-end pb-10">
-            <p className="text-sm font-semibold text-lime">Zenn Online</p>
-            <h2 className="mt-2 max-w-2xl text-[clamp(2.5rem,6vw,4.5rem)] leading-[0.98] font-semibold tracking-[-0.045em] text-balance">
-              Antrenörün, ekranın öbür ucunda.
-            </h2>
-            <p className="mt-4 max-w-xl text-lg text-paper/70">
-              Online derslerimiz video izlemek değil: antrenörün seni görür, düzeltir ve ilerlemeni takip eder.
-            </p>
-          </Container>
-        </div>
-        <Container className="grid gap-12 py-16 sm:py-20 lg:grid-cols-2">
-          <div>
-            <h3 className="text-xl font-semibold tracking-tight">Online personal training nasıl işliyor</h3>
-            <ol className="mt-6 space-y-6">
-              {coachingFlow.map((step, i) => (
-                <li key={step.title} className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-3 border-t border-paper/10 pt-5">
-                  <span className="text-2xl font-semibold text-lime tabular-nums">{i + 1}</span>
-                  <span>
-                    <span className="block text-lg font-semibold">{step.title}</span>
-                    <span className="mt-1 block text-[15px] text-paper/65">{step.text}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold tracking-tight">Platformda neler var</h3>
-            <ul className="mt-6 space-y-3">
-              {formats
-                .filter((f) => f.id !== "studio")
-                .map((f) => (
-                  <li key={f.id} className="rounded-[20px] bg-paper/[0.06] p-5 ring-1 ring-paper/10">
-                    <p className="flex items-center justify-between gap-3 font-semibold">
-                      {formatName[f.id]}
-                      <span className="flex items-center gap-1.5 rounded-full bg-lime px-2.5 py-0.5 text-xs font-semibold text-ink">
-                        <span className="live-dot size-1.5 rounded-full bg-ink" aria-hidden />
-                        Yayında
-                      </span>
-                    </p>
-                    <p className="mt-1 text-[15px] text-paper/65">{f.summary}</p>
-                  </li>
-                ))}
-            </ul>
-            <p className="mt-8 text-sm font-semibold text-paper/55">Yakında</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {comingSoon.map((c) => (
-                <li key={c.name} className="rounded-full px-3 py-1.5 text-sm text-paper/75 ring-1 ring-paper/20">
-                  {c.name}
-                </li>
-              ))}
-            </ul>
-            <ButtonLink href="/online" variant="light" className="mt-8">
-              Zenn Online&apos;ı incele
+      {/* Online: on request, not the focus. */}
+      <section id="online" className="scroll-mt-24 pb-20 sm:pb-28">
+        <Container>
+          <div className="flex flex-col gap-5 rounded-[28px] bg-card p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+            <div className="max-w-xl">
+              <h2 className="text-2xl font-semibold tracking-tight">Online ders de veriyoruz</h2>
+              <p className="mt-2 text-ink-soft">
+                Mat Pilates, Kickboks ve Fonksiyonel antrenmanı evden, antrenörün seni ekranda görerek yapabilirsin. Talebini
+                bırak, uygun saati birlikte planlayalım.
+              </p>
+            </div>
+            <ButtonLink href="/kayit?format=online" variant="ink" className="shrink-0">
+              Online ders talebi
             </ButtonLink>
           </div>
         </Container>
@@ -324,7 +268,7 @@ export default function StudioHome() {
           <div>
             <h2 className={sectionTitle}>Sık sorulanlar</h2>
             <p className="mt-3 max-w-md text-lg text-ink-soft">
-              Burada yoksa ön kayıtta not bırak{whatsapp ? " ya da WhatsApp'tan yaz" : ""}; antrenörümüz döner.
+              Burada yoksa talep formuna not bırak{whatsapp ? " ya da WhatsApp'tan yaz" : ""}; antrenörümüz döner.
             </p>
           </div>
           <div>
@@ -354,11 +298,11 @@ export default function StudioHome() {
               İlk dersini birlikte planlayalım.
             </h2>
             <p className="mt-4 max-w-xl text-lg text-paper/70">
-              Ön kayıt iki dakika sürer. Ödeme şimdi alınmaz; antrenörümüz seni arayıp ilk dersini birlikte planlar.
+              Talep bırakmak iki dakika sürer. Ödeme alınmaz; antrenörümüz seni arayıp gün ve saati birlikte planlar.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/kayit">Ön kayıt yap</ButtonLink>
+            <ButtonLink href="/kayit">Ders talebi bırak</ButtonLink>
             {whatsapp ? (
               <a
                 href={whatsapp.href}

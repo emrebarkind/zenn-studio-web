@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { formats, planRules, plans, type FormatId, type PlanId } from "@/content/site";
+import { formats, planRules, plans, PRIVATE_GROUP_MAX, type FormatId, type PlanId } from "@/content/site";
 import { ButtonLink } from "@/components/ui";
 
-const SHORT: Record<FormatId, string> = { studio: "Stüdyoda", live: "Canlı online", coaching: "Program" };
 const DAYS = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 const DAY_NAMES = ["pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi", "pazar"];
 type Slot = "sabah" | "akşam";
@@ -14,16 +13,18 @@ function joinTr(words: string[]): string {
 }
 
 /**
- * Paketler, chosen in place: format tabs, the packages of that format, and
- * what the week then looks like — for a group package the days light up for
- * the chosen morning or evening group. The pre-registration link carries the
- * package. Prices are shared at pre-registration (never on the site).
+ * Lessons and packages, chosen in place: how (group / 1–6 people / online),
+ * then for a group class the package and the week it makes — the days light
+ * up for the morning or evening group — and for individual training how many
+ * people. The request link carries the choice. Prices are shared when we call
+ * back (never on the site).
  */
 export function PackagesPicker() {
-  const [format, setFormat] = useState<FormatId>("studio");
+  const [format, setFormat] = useState<FormatId>("group");
   const list = plans.filter((p) => p.format === format);
   const [planId, setPlanId] = useState<PlanId>(list[0].id);
   const [slot, setSlot] = useState<Slot>("akşam");
+  const [people, setPeople] = useState(1);
   const plan = list.find((p) => p.id === planId) ?? list[0];
 
   function chooseFormat(next: FormatId) {
@@ -46,7 +47,7 @@ export function PackagesPicker() {
                 f.id === format ? "bg-ink text-paper" : "text-ink-soft hover:text-ink"
               }`}
             >
-              {SHORT[f.id]}
+              {f.short}
             </button>
           ))}
         </div>
@@ -100,11 +101,11 @@ export function PackagesPicker() {
                     role="radio"
                     aria-checked={s === slot}
                     onClick={() => setSlot(s)}
-                    className={`min-h-9 rounded-full px-3.5 text-sm font-semibold capitalize transition-colors ${
+                    className={`min-h-9 rounded-full px-3.5 text-sm font-semibold transition-colors ${
                       s === slot ? "bg-ink text-paper" : "text-ink-soft hover:text-ink"
                     }`}
                   >
-                    {s} grubu
+                    {s === "sabah" ? "Sabah" : "Akşam"} grubu
                   </button>
                 ))}
               </div>
@@ -144,17 +145,45 @@ export function PackagesPicker() {
               </ul>
             </details>
           </>
+        ) : plan.format === "private" ? (
+          <>
+            <h3 className="text-xl font-semibold tracking-tight">Kaç kişi olacaksınız?</h3>
+            <div role="radiogroup" aria-label="Kişi sayısı" className="mt-5 grid grid-cols-6 gap-1.5">
+              {Array.from({ length: PRIVATE_GROUP_MAX }, (_, i) => i + 1).map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  role="radio"
+                  aria-checked={n === people}
+                  aria-label={n === 1 ? "Yalnız ben" : `${n} kişi`}
+                  onClick={() => setPeople(n)}
+                  className={`flex aspect-square flex-col items-center justify-center rounded-2xl text-lg font-semibold tabular-nums transition-colors ${
+                    n <= people ? "bg-ink text-paper" : "bg-paper text-ink-soft hover:text-ink"
+                  }`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+            <p className="mt-5 text-ink-soft">
+              {people === 1 ? "Antrenörünle birebir." : `${people} kişilik küçük grup; arkadaşlarınla grubu sen kurarsın.`} {plan.weekNote}
+            </p>
+          </>
         ) : (
           <>
-            <h3 className="text-xl font-semibold tracking-tight">Haftan nasıl geçer</h3>
+            <h3 className="text-xl font-semibold tracking-tight">Online ders</h3>
             <p className="mt-3 text-lg text-ink-soft">{plan.weekNote}</p>
           </>
         )}
         <div className="mt-auto pt-6">
-          <ButtonLink href={`/kayit?paket=${plan.id}`} variant="ink" className="w-full">
-            {plan.name} ile ön kayıt
+          <ButtonLink
+            href={plan.format === "private" ? `/kayit?format=private&kisi=${people}` : `/kayit?format=${plan.format}${plan.format === "group" ? `&paket=${plan.id}` : ""}`}
+            variant="ink"
+            className="w-full"
+          >
+            {plan.format === "group" ? `${plan.name} için talep bırak` : "Talep bırak"}
           </ButtonLink>
-          <p className="mt-3 text-center text-sm text-ink-soft">Fiyatı ön kayıtta paylaşıyoruz; ödeme şimdi alınmaz.</p>
+          <p className="mt-3 text-center text-sm text-ink-soft">Fiyatı seni aradığımızda paylaşırız; ödeme alınmaz.</p>
         </div>
       </div>
     </div>

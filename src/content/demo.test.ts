@@ -11,8 +11,8 @@ describe.each(["tr", "en"] as const)("demo scenarios (%s)", (lang) => {
 
   it("sales ends with a valid enrol action for a real package", () => {
     const reply = parseReply(byId.sales.assistant);
-    expect(reply.enroll?.href).toBe("/kayit?brans=mat-pilates&format=live&paket=live-8");
-    const plan = plans.find((p) => p.id === "live-8")!;
+    expect(reply.enroll?.href).toBe("/kayit?brans=reformer-pilates&format=private&paket=private");
+    const plan = plans.find((p) => p.id === "private")!;
     expect(plan.price).toBeNull(); // so the script must not quote a price
     expect(byId.sales.assistant).not.toMatch(/\d+\s*(TL|₺)/);
   });

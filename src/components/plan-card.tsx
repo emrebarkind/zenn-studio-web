@@ -13,7 +13,7 @@ export function PlanCard({ plan, discipline }: { plan: Plan; discipline?: Discip
       <p className="mt-1 text-ink-soft">{plan.detail}</p>
       <p className="mt-6 font-display text-3xl font-bold tracking-tight tabular-nums">
         {plan.price === null ? (
-          <span className="text-xl font-semibold text-ink-soft">Fiyat ön kayıtta paylaşılır</span>
+          <span className="text-xl font-semibold text-ink-soft">Fiyatı seni aradığımızda paylaşırız</span>
         ) : (
           tl.format(plan.price)
         )}
@@ -27,7 +27,7 @@ export function PlanCard({ plan, discipline }: { plan: Plan; discipline?: Discip
         ))}
       </ul>
       <ButtonLink href={`/kayit?${query}`} variant="ink" className="mt-7">
-        Bu paketle ön kayıt
+        Bu paketle talep bırak
       </ButtonLink>
     </article>
   );

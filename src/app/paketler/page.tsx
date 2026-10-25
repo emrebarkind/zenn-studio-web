@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { formats, planRules, plans } from "@/content/site";
-import { paymentMethods } from "@/domain/registration";
-import { Container, SoonTag } from "@/components/ui";
+import { Container } from "@/components/ui";
 import { PlanCard } from "@/components/plan-card";
 
 export const metadata: Metadata = {
-  title: "Paketler",
-  description: "Stüdyo grup ve birebir paketleri, canlı online dersler ve aylık online personal training.",
+  title: "Dersler ve paketler",
+  description: "Mat Pilates ve Spinning grup paketleri; Reformer, Kickboks ve Fonksiyonel antrenmanda 1–6 kişilik dersler; talep üzerine online ders.",
 };
 
 export default function PlansPage() {
@@ -15,7 +14,7 @@ export default function PlansPage() {
       <section className="pt-12 pb-10 sm:pt-20">
         <Container>
           <h1 className="font-display text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.92] font-extrabold tracking-[-0.05em]">
-            Paketler
+            Dersler ve paketler
           </h1>
           <ul className="mt-6 max-w-xl space-y-1.5 text-lg text-ink-soft">
             {planRules.map((rule) => (
@@ -42,23 +41,6 @@ export default function PlansPage() {
         );
       })}
 
-      <section className="pb-24">
-        <Container>
-          <div className="rounded-3xl bg-card p-6 sm:p-8">
-            <h2 className="font-display text-2xl font-bold tracking-tight">Ödeme seçenekleri</h2>
-            <ul className="mt-5 grid gap-4 md:grid-cols-3">
-              {paymentMethods.map((m) => (
-                <li key={m.id}>
-                  <p className="flex items-center gap-2 font-semibold">
-                    {m.name} {!m.available && <SoonTag />}
-                  </p>
-                  <p className="mt-1 text-[15px] text-ink-soft">{m.detail}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Container>
-      </section>
     </>
   );
 }

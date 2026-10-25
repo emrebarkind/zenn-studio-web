@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { disciplines, formats, plans } from "@/content/site";
 import { ButtonLink, Container } from "@/components/ui";
 import { PlanCard } from "@/components/plan-card";
+import { DisciplineVisual } from "@/components/discipline-visual";
 
 export function generateStaticParams() {
   return disciplines.map((d) => ({ slug: d.slug }));
@@ -45,8 +45,8 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
               <p className="font-display text-2xl font-semibold tracking-tight text-moss">{d.tagline}</p>
               <p className="mt-4 max-w-prose text-lg leading-relaxed text-ink-soft">{d.description}</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href={`/kayit?brans=${d.slug}`}>{d.name} için ön kayıt</ButtonLink>
-                <ButtonLink href="/ders-bul" variant="ghost">
+                <ButtonLink href={`/kayit?brans=${d.slug}`}>{d.name} için talep bırak</ButtonLink>
+                <ButtonLink href="/#ders-bul" variant="ghost">
                   Emin değilim, test et
                 </ButtonLink>
               </div>
@@ -73,23 +73,20 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
                 )}
               </dl>
             </div>
-            <Image
-              src={d.photo.src}
-              alt={d.photo.alt}
-              placeholder="blur"
-              priority
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className={`w-full rounded-[28px] object-cover ${
-                d.photo.src.height > d.photo.src.width ? "aspect-[4/5]" : "aspect-[3/2]"
+            <div
+              className={`relative w-full overflow-hidden rounded-[28px] ${
+                d.photo && d.photo.src.height <= d.photo.src.width ? "aspect-[3/2]" : "aspect-[4/5]"
               }`}
-            />
+            >
+              <DisciplineVisual d={d} priority sizes="(min-width: 1024px) 45vw, 100vw" />
+            </div>
           </div>
         </Container>
       </section>
 
       <section className="pb-16 sm:pb-24">
         <Container>
-          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Nerede yapabilirsin</h2>
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Nasıl çalışabilirsin</h2>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {offered.map((f) => (
               <article key={f.id} className="rounded-3xl bg-card p-6">

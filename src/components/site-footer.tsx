@@ -19,7 +19,7 @@ export function SiteFooter() {
         <div className="text-center">
           <Wordmark className="text-4xl" />
           <p className="mx-auto mt-3 max-w-sm text-paper/60">
-            Reformer, mat pilates, kickboks ve fonksiyonel antrenman. Stüdyoda ya da online. İstanbul.
+            Mat Pilates ve Spinning grup dersleri; Reformer Pilates, Kickboks ve Fonksiyonel antrenman birebir ya da küçük grupla. İstanbul.
           </p>
         </div>
         <div className="mt-14 grid gap-10 text-center sm:grid-cols-3">
@@ -34,9 +34,9 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
-              <li><Link className="hover:text-paper" href="/online">Zenn Online</Link></li>
+              <li><Link className="hover:text-paper" href="/online">Online ders</Link></li>
               <li><Link className="hover:text-paper" href="/paketler">Paketler</Link></li>
-              <li><Link className="hover:text-paper" href="/kayit">Ön kayıt</Link></li>
+              <li><Link className="hover:text-paper" href="/kayit">Ders talebi</Link></li>
             </ul>
           </div>
           <div>

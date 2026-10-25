@@ -4,14 +4,13 @@ import { useState } from "react";
 import { formats, type FormatId } from "@/content/site";
 import { ButtonLink } from "@/components/ui";
 
-const SHORT: Record<FormatId, string> = { studio: "Stüdyoda", live: "Canlı online", coaching: "Program" };
-
 /**
- * The hero's three ways to train — one membership, three formats. Tabs switch
- * the line and the points; the pre-registration link carries the choice.
+ * The hero's ways to train: group classes, individual / small group (1–6),
+ * and online on request. Tabs switch the line and the points; the request
+ * link carries the choice.
  */
 export function FormatTabs() {
-  const [id, setId] = useState<FormatId>("studio");
+  const [id, setId] = useState<FormatId>("group");
   const f = formats.find((x) => x.id === id)!;
   return (
     <div className="w-full max-w-md rounded-[28px] bg-ink/55 p-3 text-paper ring-1 ring-paper/10 backdrop-blur-xl sm:p-4">
@@ -29,7 +28,7 @@ export function FormatTabs() {
               x.id === id ? "bg-lime text-ink" : "text-paper/75 hover:text-paper"
             }`}
           >
-            {SHORT[x.id]}
+            {x.short}
           </button>
         ))}
       </div>
@@ -45,7 +44,7 @@ export function FormatTabs() {
         </ul>
         <div className="mt-4 grid grid-cols-2 gap-2 sm:mt-5">
           <ButtonLink href={`/kayit?format=${f.id}`} className="px-3 whitespace-nowrap">
-            Ön kayıt yap
+            Ders talebi
           </ButtonLink>
           <ButtonLink href="/#ders-bul" variant="light" className="bg-paper/15 px-3 whitespace-nowrap text-paper hover:bg-paper/25">
             Bana uyanı bul

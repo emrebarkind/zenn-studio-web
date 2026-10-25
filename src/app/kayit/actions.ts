@@ -57,7 +57,7 @@ export async function submitRegistration(
         status: "error",
         errors: {},
         values,
-        message: "Ön kaydın şu an iletilemedi. Birkaç dakika sonra yeniden dene ya da WhatsApp'tan yaz.",
+        message: "Talebin şu an iletilemedi. Birkaç dakika sonra yeniden dene ya da WhatsApp'tan yaz.",
       };
     }
   }

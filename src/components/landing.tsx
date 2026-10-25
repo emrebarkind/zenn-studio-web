@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DisciplineVisual } from "@/components/discipline-visual";
 import Link from "next/link";
 import { Check, Sparkles } from "lucide-react";
 import { company, contactChannels } from "@/content/company";
@@ -160,13 +161,10 @@ export function Landing({ lang }: { lang: Lang }) {
                     href={`/branslar/${d.slug}`}
                     className="group on-ink relative block aspect-[5/4] overflow-hidden rounded-[24px] bg-ink text-paper"
                   >
-                    <Image
-                      src={d.photo.src}
-                      alt={d.photo.alt}
-                      placeholder="blur"
-                      fill
+                    <DisciplineVisual
+                      d={d}
                       sizes="(min-width: 1024px) 300px, 50vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      className="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/0" aria-hidden />
                     <p className="absolute inset-x-0 bottom-0 p-4 text-lg font-semibold tracking-tight sm:text-2xl">{d.name}</p>

@@ -21,51 +21,53 @@ export const studio = {
 
 // Contact and legal details live in ./company.ts.
 
-export type FormatId = "studio" | "live" | "coaching";
+/**
+ * How we work (2026-10-25): the studio's own services first — group classes
+ * and individual / small-group training for 1–6 people — and online lessons
+ * on request. The site informs and takes requests; it does not sell online.
+ */
+export type FormatId = "group" | "private" | "online";
 
 export type Format = {
   id: FormatId;
   name: string;
+  /** Short label for tabs and tables. */
+  short: string;
   summary: string;
   points: string[];
 };
 
 export const formats: Format[] = [
   {
-    id: "studio",
-    name: "Stüdyoda",
-    summary: "Ekipmanın başında, antrenörün yanında.",
-    points: [
-      "Reformer ve mat derslerinde küçük gruplar",
-      "Birebir ve düet ders seçeneği",
-      "Ders saatinden önce SMS hatırlatma",
-    ],
+    id: "group",
+    name: "Grup dersleri",
+    short: "Grup dersi",
+    summary: "Belli günlerde, sabah ya da akşam grubunda.",
+    points: ["Mat Pilates ve Spinning", "8 ya da 12 derslik, 4 haftalık paket", "Sabah ya da akşam grubu"],
   },
   {
-    id: "live",
-    name: "Canlı online",
-    summary: "Evinden katıl, antrenör seni ekranda görsün.",
-    points: [
-      "Kamera açık, küçük gruplar: düzeltme anında gelir",
-      "Bağlantı ders öncesi telefonuna gelir",
-      "Bir mat ve birkaç metrekare yeterli",
-    ],
+    id: "private",
+    name: "Bireysel ve küçük grup",
+    short: "1–6 kişi",
+    summary: "Tek başına ya da 6 kişiye kadar; gün ve saati antrenörünle belirlersin.",
+    points: ["Reformer Pilates, Kickboks, Fonksiyonel antrenman", "Tek başına, eşinle ya da arkadaşlarınla", "Saat ve günler sana göre"],
   },
   {
-    id: "coaching",
-    name: "Online personal training",
-    summary: "Sana yazılmış program, haftalık takip.",
-    points: [
-      "Hedefine ve ekipmanına göre haftalık program",
-      "Hareket videonu gönder, antrenörün formunu düzeltsin",
-      "Haftada bir görüntülü değerlendirme",
-    ],
+    id: "online",
+    name: "Online ders",
+    short: "Online",
+    summary: "Evden canlı ders ya da kişisel program; talep üzerine.",
+    points: ["Antrenörün seni ekranda görür", "Evdeki ekipmanına göre program", "Talebini bırak, birlikte planlayalım"],
   },
 ];
 
+/** Group size for individual / small-group training. */
+export const PRIVATE_GROUP_MAX = 6;
+
 export type DisciplineSlug =
-  | "reformer-pilates"
   | "mat-pilates"
+  | "spinning"
+  | "reformer-pilates"
   | "kickboks"
   | "fonksiyonel-antrenman";
 
@@ -78,7 +80,8 @@ export type Discipline = {
   bring: string;
   formats: FormatId[];
   coaches: string[];
-  photo: { src: StaticImageData; alt: string };
+  /** null until the studio has a real photo (the UI then shows a typographic card). */
+  photo: { src: StaticImageData; alt: string } | null;
 };
 
 // Studio photo shoot, September 2026.
@@ -91,50 +94,50 @@ export const photos = {
 
 export const disciplines: Discipline[] = [
   {
-    slug: "reformer-pilates",
-    name: "Reformer Pilates",
-    tagline: "Yaylı direnç, kontrollü hareket.",
-    description:
-      "Reformer'ın yay direnci her hareketi hem destekler hem zorlar. Derin karın kaslarını, duruşu ve eklem hareket açıklığını birlikte çalışırsın. Ekipmana bağlı olduğu için yalnızca stüdyoda yapılır.",
-    goodFor: [
-      "Duruş ve bel-sırt sağlığı",
-      "Güç kaybetmeden esneklik",
-      "Pilatese yeni başlayanlar",
-    ],
-    bring: "Kaymaz çorap ve rahat kıyafet.",
-    formats: ["studio"],
-    coaches: ["Şüheda"],
-    photo: { src: reformer, alt: "Reformer üzerinde kollarıyla yükselip bir bacağını havaya kaldıran sporcu" },
-  },
-  {
     slug: "mat-pilates",
     name: "Mat Pilates",
     tagline: "Tek ekipman: kendi vücudun.",
     description:
-      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü ve nefes kontrolünü geliştirir. Stüdyodaki grup derslerine katılabilir ya da aynı dersi evinden canlı olarak yapabilirsin.",
-    goodFor: [
-      "Evden düzenli antrenman",
-      "Merkez gücü ve nefes",
-      "Grup enerjisiyle çalışmayı sevenler",
-    ],
-    bring: "Bir mat, su ve rahat kıyafet.",
-    formats: ["studio", "live"],
+      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Sabah ya da akşam grubunda, haftada 2 ya da 3 gün.",
+    goodFor: ["Merkez gücü ve nefes", "Duruş ve bel-sırt sağlığı", "Grup enerjisiyle çalışmayı sevenler"],
+    bring: "Rahat kıyafet ve su.",
+    formats: ["group", "online"],
     coaches: ["Ece", "Zeynep"],
     photo: { src: matPilates, alt: "Mat üzerinde esneme yapan üyenin duruşunu düzelten antrenör" },
+  },
+  {
+    slug: "spinning",
+    name: "Spinning",
+    tagline: "Müzikle, ritimle, tempoyla.",
+    description:
+      "Sabit bisiklette müzik eşliğinde, aralıklı tempo ile kondisyon antrenmanı. Direnci herkes kendi seviyesine göre ayarlar; aynı grupta yeni başlayan da düzenli gelen de rahatça çalışır.",
+    goodFor: ["Kondisyon ve yağ yakımı", "Eklemleri yormadan kardiyo", "Grup enerjisiyle çalışmayı sevenler"],
+    bring: "Spor ayakkabı, havlu ve su.",
+    formats: ["group"],
+    coaches: [],
+    photo: null,
+  },
+  {
+    slug: "reformer-pilates",
+    name: "Reformer Pilates",
+    tagline: "Yaylı direnç, kontrollü hareket.",
+    description:
+      "Reformer'ın yay direnci her hareketi hem destekler hem zorlar. Derin karın kaslarını, duruşu ve eklem hareket açıklığını birlikte çalışırsın. Tek başına ya da 6 kişiye kadar küçük grupla.",
+    goodFor: ["Duruş ve bel-sırt sağlığı", "Güç kaybetmeden esneklik", "Pilatese yeni başlayanlar"],
+    bring: "Kaymaz çorap ve rahat kıyafet.",
+    formats: ["private"],
+    coaches: ["Şüheda"],
+    photo: { src: reformer, alt: "Reformer üzerinde kollarıyla yükselip bir bacağını havaya kaldıran sporcu" },
   },
   {
     slug: "kickboks",
     name: "Kickboks",
     tagline: "Tempo, teknik, kafayı boşaltmak.",
     description:
-      "Yumruk ve tekme kombinasyonları, ayak hareketi ve kondisyon blokları. Teknik önce gelir; tempo seviyene göre artar. Stüdyoda pad çalışması yapılır, online programda gölge boks ve kondisyon ağırlıklıdır.",
-    goodFor: [
-      "Kondisyon ve yağ yakımı",
-      "Stres atmak",
-      "Koordinasyon ve refleks",
-    ],
+      "Yumruk ve tekme kombinasyonları, ayak hareketi ve kondisyon blokları. Teknik önce gelir; tempo seviyene göre artar. Pad çalışmasıyla, tek başına ya da 6 kişiye kadar.",
+    goodFor: ["Kondisyon ve yağ yakımı", "Stres atmak", "Koordinasyon ve refleks"],
     bring: "Bandaj ve eldiven; ilk derste stüdyodakileri kullanabilirsin.",
-    formats: ["studio", "coaching"],
+    formats: ["private", "online"],
     coaches: ["Ali"],
     photo: { src: kickboks, alt: "Eldivenleriyle gard alıp yumruk atan kickboksçu" },
   },
@@ -143,14 +146,10 @@ export const disciplines: Discipline[] = [
     name: "Fonksiyonel antrenman",
     tagline: "Günlük hayatta işe yarayan güç.",
     description:
-      "Çekme, itme, çömelme, taşıma: vücudun gerçek hayatta yaptığı hareketlerle güç ve dayanıklılık. Birebir stüdyoda ya da evdeki ekipmanına göre yazılmış online programla yapılır.",
-    goodFor: [
-      "Kişisel hedefe göre program",
-      "Güç ve dayanıklılık",
-      "Evde az ekipmanla antrenman",
-    ],
+      "Çekme, itme, çömelme, taşıma: vücudun gerçek hayatta yaptığı hareketlerle güç ve dayanıklılık. Hedefine göre kurulan bireysel antrenman; istersen 6 kişiye kadar küçük grupla.",
+    goodFor: ["Kişisel hedefe göre program", "Güç ve dayanıklılık", "Bireysel takip isteyenler"],
     bring: "Spor ayakkabı, havlu, su.",
-    formats: ["studio", "live", "coaching"],
+    formats: ["private", "online"],
     coaches: [],
     photo: { src: fonksiyonel, alt: "Antrenörüyle birlikte matta egzersiz yapan üye" },
   },
@@ -166,12 +165,7 @@ export const coaches: Coach[] = [
   { name: "Ali", disciplines: ["kickboks"] },
 ];
 
-export type PlanId =
-  | "studio-8"
-  | "studio-12"
-  | "private-8"
-  | "live-8"
-  | "coaching-month";
+export type PlanId = "group-8" | "group-12" | "private" | "online";
 
 export type Plan = {
   id: PlanId;
@@ -179,63 +173,50 @@ export type Plan = {
   format: FormatId;
   detail: string;
   includes: string[];
-  /** TRY, VAT included. `null` = shared during registration. */
+  /** TRY, VAT included. `null` = shared when we call back. */
   price: number | null;
   /** Group packages: the weekdays of the group (1 = Monday … 7 = Sunday). */
   groupDays?: number[];
-  /** One line on how the week looks, for packages without fixed group days. */
+  /** One line on how the week looks, for requests without fixed group days. */
   weekNote?: string;
 };
 
 export const plans: Plan[] = [
   {
-    id: "studio-8",
+    id: "group-8",
     name: "8 ders",
-    format: "studio",
+    format: "group",
     detail: "4 hafta, haftada 2 grup dersi",
     includes: ["Sabah ya da akşam grubu", "Pazartesi ve çarşamba"],
     price: null,
     groupDays: [1, 3],
   },
   {
-    id: "studio-12",
+    id: "group-12",
     name: "12 ders",
-    format: "studio",
+    format: "group",
     detail: "4 hafta, haftada 3 grup dersi",
     includes: ["Sabah ya da akşam grubu", "Pazartesi, çarşamba ve cuma"],
     price: null,
     groupDays: [1, 3, 5],
   },
   {
-    id: "private-8",
-    name: "Birebir 8 ders",
-    format: "studio",
-    detail: "Antrenörünle birlikte belirlediğin saatlerde",
-    includes: ["Reformer, kickboks ya da fonksiyonel", "Düet olarak da alınabilir"],
+    id: "private",
+    name: "Bireysel ya da küçük grup",
+    format: "private",
+    detail: "1–6 kişi; ders sayısını ve saatleri birlikte belirleriz",
+    includes: ["Reformer Pilates, Kickboks ya da Fonksiyonel", "Tek başına ya da en fazla 6 kişi"],
     price: null,
-    weekNote: "Günleri ve saati antrenörünle birlikte belirlersin.",
+    weekNote: "Günleri ve saati antrenörünle birlikte belirlersin; arkadaşlarınla gelirsen grubu sen kurarsın.",
   },
   {
-    id: "live-8",
-    name: "Canlı online 8 ders",
-    format: "live",
-    detail: "4 hafta, haftada 2 canlı ders",
-    includes: ["Kamera açık küçük grup", "Ders bağlantısı SMS ile"],
+    id: "online",
+    name: "Online ders",
+    format: "online",
+    detail: "Canlı ders ya da kişisel program, talep üzerine",
+    includes: ["Antrenörün seni ekranda görür", "Evdeki ekipmanına göre program"],
     price: null,
-    weekNote: "Haftada 2 canlı ders; günler ön kayıtta netleşir.",
-  },
-  {
-    id: "coaching-month",
-    name: "Aylık online program",
-    format: "coaching",
-    detail: "4 hafta kişisel program ve takip",
-    includes: [
-      "Haftalık güncellenen program",
-      "Form videosu geri bildirimi",
-      "Haftalık görüntülü değerlendirme",
-    ],
-    price: null,
-    weekNote: "Program her hafta güncellenir; antrenmanı kendi saatinde yaparsın.",
+    weekNote: "Talebini bırak; uygun gün ve saati birlikte planlayalım.",
   },
 ];
 
@@ -257,23 +238,27 @@ export const comingSoon = [
 export const faqs = [
   {
     q: "Hiç pilates ya da kickboks yapmadım, hangi dersle başlamalıyım?",
-    a: "Sana uygun dersi bul testini çöz; üç soruda hedefine ve programına uyan branşı ve formatı öneriyoruz. Kararsız kalırsan ön kayıtta not bırak, antrenörümüz seni arasın.",
+    a: "Sana uygun ders testini çöz; iki soruda hedefine ve çalışma şekline uyan branşı öneriyoruz. Kararsız kalırsan talep formuna not bırak, antrenörümüz seni arasın.",
   },
   {
-    q: "Canlı online derse katılmak için neye ihtiyacım var?",
-    a: "Kamerası olan bir telefon ya da bilgisayar, bir mat ve birkaç metrekare boş alan. Ders bağlantısı dersten önce telefonuna gelir.",
+    q: "Grup dersi ile bireysel ders arasındaki fark ne?",
+    a: "Grup dersleri (Mat Pilates, Spinning) belli günlerde sabah ya da akşam grubunda yapılır. Reformer Pilates, Kickboks ve Fonksiyonel antrenman ise tek başına ya da 6 kişiye kadar küçük grupla, gün ve saati antrenörünle belirleyerek yapılır.",
   },
   {
-    q: "Online personal training nasıl işliyor?",
-    a: "İlk görüşmede hedefini, sağlık geçmişini ve evdeki ekipmanını konuşuyoruz. Antrenörün haftalık programını yazıyor; hareket videolarını gönderdiğinde formunu düzeltiyor ve haftada bir görüntülü değerlendirme yapıyorsunuz.",
+    q: "Arkadaşlarımla birlikte gelebilir miyim?",
+    a: "Evet. Bireysel derslerde 6 kişiye kadar küçük grup kurabilirsin; talep formunda kaç kişi olacağınızı seçmen yeterli.",
   },
   {
     q: "Kaçırdığım grup dersinin yerine başka gün gelebilir miyim?",
     a: "8 ve 12 derslik grup paketlerinde telafi yoktur; seçtiğin sabah ya da akşam grubuna devam edersin. Stüdyonun iptal ettiği ders ise paketinin sonuna eklenir.",
   },
   {
-    q: "Ödemeyi nasıl yapıyorum?",
-    a: "Şu an ön kayıt alıyoruz; ödemeyi stüdyoda ya da havale ile yapabilirsin. Kartla online ödeme yakında eklenecek.",
+    q: "Online ders de veriyor musunuz?",
+    a: "Evet, talep üzerine. Mat Pilates, Kickboks ve Fonksiyonel antrenmanı evden canlı ders ya da kişisel programla yapabilirsin; talep formunda online'ı seç.",
+  },
+  {
+    q: "Fiyatları nereden öğrenirim?",
+    a: "Talebini bıraktığında antrenörümüz seni arar; fiyatı ve uygun saatleri o görüşmede paylaşırız. Ödeme şimdi alınmaz.",
   },
 ];
 
