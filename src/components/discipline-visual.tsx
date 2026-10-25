@@ -2,10 +2,9 @@ import Image from "next/image";
 import type { Discipline } from "@/content/site";
 
 /**
- * A discipline's picture. Until the studio has a real photo of a discipline
- * (Spinning, October 2026) it is a typographic card instead, the discipline's
- * own line set large; never a stock or generated image standing in for the
- * studio.
+ * A discipline's picture. A discipline without a studio photo gets a
+ * typographic card instead, its own line set large; never a stock image
+ * standing in for the studio.
  */
 export function DisciplineVisual({ d, sizes, priority, className = "" }: { d: Discipline; sizes: string; priority?: boolean; className?: string }) {
   if (d.photo) {

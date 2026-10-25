@@ -39,7 +39,7 @@ export const company: Company = {
   mersis: "",
   email: "",
   phone: "",
-  whatsapp: "",
+  whatsapp: "905352793303",
   instagram: "",
   mapsUrl: "",
 };

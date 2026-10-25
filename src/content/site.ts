@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import spinningBisiklet from "@/assets/photos/spinning-bisiklet.jpg";
 import hero from "@/assets/photos/hero.jpg";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
@@ -130,8 +131,8 @@ export const disciplines: Discipline[] = [
     bring: "Spor ayakkabı, havlu ve su.",
     formats: ["group"],
     coaches: [],
-    // TODO(studio): a real photo of a member pedalling (lower body); until then a typographic card.
-    photo: null,
+    // From the studio's own launch post, with its text cropped out.
+    photo: { src: spinningBisiklet, alt: "Spinning bisikletinde pedal çeviren bir üyenin bacakları ve bisikletin volanı", position: "62% 50%" },
   },
   {
     slug: "reformer-pilates",
