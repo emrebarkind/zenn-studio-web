@@ -26,7 +26,7 @@ import zeynepDers from "@/assets/photos/zeynep-ders.jpg";
 export const metadata: Metadata = {
   title: { absolute: "Tekirdağ Pilates, Reformer ve Kickboks | Zenn Studio" },
   description:
-    "Tekirdağ Süleymanpaşa'da pilates ve spor stüdyosu: Mat Pilates ve Spinning grup dersleri; Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda 1-6 kişilik dersler. Ders talebini bırak, seni arayalım.",
+    "Tekirdağ Süleymanpaşa'da pilates ve spor stüdyosu: Mat Pilates ve Spinning grup dersleri; Mat ve Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda 1-6 kişilik dersler. Ders talebini bırak, seni arayalım.",
   alternates: { canonical: "/" },
 };
 

@@ -5,7 +5,7 @@ import { WaysToTrain } from "@/components/home/ways-to-train";
 
 export const metadata: Metadata = {
   title: "Dersler ve paketler",
-  description: "Mat Pilates ve Spinning grup paketleri; Reformer, Kickboks ve Fonksiyonel antrenmanda 1-6 kişilik dersler; talep üzerine online Mat Pilates.",
+  description: "Mat Pilates ve Spinning grup paketleri; Mat ve Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda 1-6 kişilik dersler; talep üzerine online Mat Pilates.",
 };
 
 /** "/paketler": the two ways to train (the same cards as the home page) and the group package rules. */

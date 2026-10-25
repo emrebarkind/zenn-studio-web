@@ -43,6 +43,7 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
   const questions = faqs.filter((f) =>
     group ? /grup dersinin|Fiyat/.test(f.q) : /Arkadaşlarımla|Fiyat/.test(f.q),
   );
+  const privateQuestions = faqs.filter((f) => /Arkadaşlarımla|bireysel/.test(f.q));
 
   return (
     <>
@@ -145,6 +146,20 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
                   <ArrowUpRight className="size-4" aria-hidden />
                 </Link>
               </div>
+            )}
+            {/* A group lesson that is also taught one to one (Mat Pilates): both ways, each with its own card. */}
+            {group && d.formats.includes("private") && (
+              <>
+                <PrivateLessonCard discipline={d.slug} subtitle={`${d.name}, tek başına ya da 6 kişiye kadar`} className="lg:col-span-8" />
+                <div className="rounded-[28px] bg-card p-7 lg:col-span-4">
+                  {privateQuestions.map((q) => (
+                    <div key={q.q} className="border-b border-ink/10 py-4 first:pt-0 last:border-0 last:pb-0">
+                      <h3 className="font-semibold">{q.q}</h3>
+                      <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">{q.a}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </Container>

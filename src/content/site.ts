@@ -78,7 +78,7 @@ export const formats: Format[] = [
     name: "Bireysel ve küçük grup",
     short: "1-6 kişi",
     summary: "Tek başına ya da 6 kişiye kadar; gün ve saati seninle birlikte belirliyoruz.",
-    points: ["Reformer Pilates, Kickboks, Fonksiyonel antrenman", "Tek başına, eşinle ya da arkadaşlarınla", "Saat ve günler sana göre"],
+    points: ["Mat ve Reformer Pilates, Kickboks, Fonksiyonel antrenman", "Tek başına, eşinle ya da arkadaşlarınla", "Saat ve günler sana göre"],
   },
   {
     id: "online",
@@ -131,10 +131,10 @@ export const disciplines: Discipline[] = [
     name: "Mat Pilates",
     tagline: "Tek ekipman: kendi vücudun.",
     description:
-      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Sabah ve akşam gruplarımızda haftada 2 ya da 3 gün çalışıyoruz.",
+      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Sabah ve akşam gruplarımızda haftada 2 ya da 3 gün çalışıyoruz; istersen tek başına ya da 6 kişiye kadar küçük grupla da.",
     goodFor: ["Merkez gücü ve nefes", "Duruş ve bel-sırt sağlığı", "Grup enerjisiyle çalışmayı sevenler"],
     bring: "Rahat kıyafet ve su.",
-    formats: ["group", "online"],
+    formats: ["group", "private", "online"],
     coaches: ["Ece", "Zeynep"],
     photo: { src: matGrup, alt: "Mat Pilates dersinde üyenin duruşunu düzelten antrenör", position: "50% 60%" },
   },
@@ -311,7 +311,7 @@ export const faqs = [
   },
   {
     q: "Grup dersi ile bireysel ders arasındaki fark ne?",
-    a: "Grup derslerimizi (Mat Pilates, Spinning) belli günlerde sabah ve akşam gruplarıyla veriyoruz. Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda ise tek başına ya da 6 kişiye kadar küçük grupla çalışıyoruz; gün ve saati seninle birlikte belirliyoruz.",
+    a: "Grup derslerimizi (Mat Pilates, Spinning) belli günlerde sabah ve akşam gruplarıyla veriyoruz. Bireysel derslerde tek başına ya da 6 kişiye kadar küçük grupla çalışıyoruz; gün ve saati seninle birlikte belirliyoruz. Mat Pilates, Reformer Pilates, Kickboks ve Fonksiyonel antrenman bireysel olarak da veriliyor.",
   },
   {
     q: "Arkadaşlarımla birlikte gelebilir miyim?",

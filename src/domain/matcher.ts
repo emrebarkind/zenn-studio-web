@@ -39,7 +39,7 @@ export const goalFit: Record<Goal, DisciplineSlug[]> = {
 
 /** Mirrors `disciplines[].formats` in content/site.ts (kept here so this stays pure). */
 export const disciplineFormats: Record<DisciplineSlug, FormatId[]> = {
-  "mat-pilates": ["group", "online"],
+  "mat-pilates": ["group", "private", "online"],
   spinning: ["group"],
   "reformer-pilates": ["private"],
   kickboks: ["private"],

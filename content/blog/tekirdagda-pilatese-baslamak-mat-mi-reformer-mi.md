@@ -14,12 +14,16 @@ Stüdyomuzda en sık duyduğumuz soru şu: "Pilatese başlamak istiyorum. Mat m�
 
 [Mat pilates](/branslar/mat-pilates) matın üzerinde, vücut ağırlığıyla yapılan klasik pilates. Bir hareketi doğru yapmak için kendi kaslarını kontrol etmeyi öğreniyorsun; makine sana yardım etmiyor, seni durdurmuyor da. Bu yüzden basit görünen bir hareket bile derin karın kaslarını, sırtı ve kalçayı birlikte çalıştırıyor.
 
-Mat pilatesi stüdyomuzda **grup dersi** olarak veriyoruz. Sabah ve akşam gruplarımız var; kayıt olurken hangisine geleceğini seçiyorsun ve paketin boyunca o grupla devam ediyorsun. İki paketimiz var:
+Mat pilatesi iki şekilde veriyoruz: **grup dersi** ve **bireysel ders**.
+
+Grup derslerimizin sabah ve akşam grupları var. Kayıt olurken hangisine geleceğini seçiyorsun ve paketin boyunca o grupla devam ediyorsun. İki paketimiz var:
 
 - **8 derslik paket:** 4 hafta boyunca pazartesi ve çarşamba.
 - **12 derslik paket:** 4 hafta boyunca pazartesi, çarşamba ve cuma.
 
 Grup derslerinde telafi yok; katılmadığın ders de paketinden düşüyor. Bizim iptal ettiğimiz bir ders olursa onu paketinin sonuna ekliyoruz. Bunu baştan söylüyoruz, çünkü grup dersinin en büyük faydası düzen: aynı günlerde, aynı saatte, aynı insanlarla gelmek alışkanlığı oturtuyor.
+
+Grup takvimi sana uymuyorsa mat pilatesi **bireysel** olarak da alabilirsin: tek başına ya da 6 kişiye kadar küçük bir grupla, gün ve saati seninle birlikte belirleyerek.
 
 Mat pilates sana uygun olabilir, eğer:
 
@@ -48,8 +52,8 @@ Yanına kaymaz çorap ve rahat kıyafet al. Reformer derslerimizi Şüheda, Ece 
 | | Mat pilates | Reformer pilates |
 | --- | --- | --- |
 | Nasıl çalışıyoruz | Matta, vücut ağırlığıyla | Reformer aletinde, yay direnciyle |
-| Ders biçimi | Grup dersi, sabah ya da akşam grubu | Tek başına ya da 6 kişiye kadar |
-| Günler | Pakete göre belli günler | Seninle birlikte belirliyoruz |
+| Ders biçimi | Grup dersi ya da bireysel (1-6 kişi) | Tek başına ya da 6 kişiye kadar |
+| Günler | Grupta pakete göre belli; bireyselde seninle belirliyoruz | Seninle birlikte belirliyoruz |
 | Takip | Grup içinde antrenör takibi | Küçük grupta daha yakından takip |
 | Yanına al | Rahat kıyafet ve su | Kaymaz çorap ve rahat kıyafet |
 

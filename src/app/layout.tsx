@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Zenn Studio",
   },
   description:
-    "Tekirdağ Süleymanpaşa'da Mat Pilates ve Spinning grup dersleri veriyoruz; Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda tek başına ya da 6 kişiye kadar çalışıyoruz. Ders talebini bırak, seni arayalım.",
+    "Tekirdağ Süleymanpaşa'da Mat Pilates ve Spinning grup dersleri veriyoruz; Mat ve Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda tek başına ya da 6 kişiye kadar çalışıyoruz. Ders talebini bırak, seni arayalım.",
   openGraph: { siteName: "Zenn Studio", locale: "tr_TR", type: "website" },
 };
 

@@ -16,7 +16,8 @@ eklenecek ve sıra ona göre düzenlenecek.
 | tekirdağ spor salonu, tekirdağ gym | antrenman yeri arıyor | ana sayfa, /branslar/fonksiyonel-antrenman |
 | tekirdağ kickboks | kurs arıyor | /branslar/kickboks |
 | tekirdağ spinning | grup dersi arıyor | /branslar/spinning |
-| tekirdağ personal trainer, tekirdağ özel ders | birebir arıyor | /branslar/fonksiyonel-antrenman |
+| tekirdağ personal trainer, tekirdağ özel ders, tekirdağ özel pilates dersi | birebir arıyor | /branslar/fonksiyonel-antrenman, /branslar/mat-pilates |
+| tekirdağ grup pilates dersi, tekirdağ pilates kursu | grup arıyor | /branslar/mat-pilates, /branslar/spinning |
 | reformer pilates nedir, mat pilates mı reformer mı | bilgi | blog |
 | pilatese nereden başlanır, ilk pilates dersi | bilgi | blog |
 | kickboks yeni başlayan, kadınlar için kickboks | bilgi | blog |
@@ -30,12 +31,12 @@ eklenecek ve sıra ona göre düzenlenecek.
 | --- | --- | --- | --- |
 | yazıldı | Tekirdağ'da pilatese başlamak: mat mı, reformer mı? | tekirdağ pilates | reformer-pilates |
 | yazıldı | Reformer pilates nedir? İlk derste neler olur | tekirdağ reformer pilates | reformer-pilates |
+| sırada | Grup derslerimiz nasıl işliyor? Mat Pilates ve Spinning, 8 ve 12 derslik paketler, sabah ve akşam grupları | tekirdağ grup pilates dersi | mat-pilates |
+| sırada | Bireysel derslerimiz: tek başına ya da 6 kişiye kadar (Mat ve Reformer Pilates, Kickboks, Fonksiyonel antrenman) | tekirdağ özel ders | fonksiyonel-antrenman |
 | sırada | Tekirdağ'da spor salonu mu, stüdyo mu? Sana uygun antrenmanı seçmek | tekirdağ spor salonu | fonksiyonel-antrenman |
 | sırada | Kickboksa yeni başlayanlar: ilk ayda neler öğrenirsin | tekirdağ kickboks | kickboks |
 | sırada | Spinning dersi nasıl geçer? Yeni başlayanlar için rehber | tekirdağ spinning | spinning |
 | sırada | Fonksiyonel antrenman nedir, kimlere uygun? | tekirdağ personal trainer | fonksiyonel-antrenman |
-| sırada | Arkadaşlarınla ders: 2-6 kişilik küçük grupların farkı | tekirdağ özel ders | reformer-pilates |
-| sırada | Grup paketleri nasıl işler? 8 ve 12 derslik paketler, sabah ve akşam grupları | tekirdağ pilates kursu | mat-pilates |
 | sırada | Evden online mat pilates: nasıl hazırlanılır | online pilates dersi | mat-pilates |
 | sırada | Haftada kaç gün antrenman? Yeni başlayanlar için gerçekçi bir plan | tekirdağ spor | fonksiyonel-antrenman |
 

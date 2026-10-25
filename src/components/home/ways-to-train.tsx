@@ -135,7 +135,7 @@ export function GroupPackageCard({
 /** A private lesson for 1-6 people; the request link carries the count. */
 export function PrivateLessonCard({
   discipline,
-  subtitle = "Reformer Pilates, Kickboks, Fonksiyonel antrenman",
+  subtitle = "Mat ve Reformer Pilates, Kickboks, Fonksiyonel antrenman",
   className = "",
 }: {
   discipline?: string;

@@ -86,7 +86,7 @@ Evet. Yeni başlayanlarla çalışıyoruz. Hareketleri ve yay direncini seviyene
 
 ### Reformer ile mat pilates arasındaki fark ne?
 
-Mat pilatesi matta, vücut ağırlığıyla yapıyoruz ve grup dersi olarak veriyoruz. Reformer'da yay direnciyle çalışıyoruz ve gün ile saati seninle birlikte belirliyoruz.
+Mat pilatesi matta, vücut ağırlığıyla yapıyoruz; hem grup dersi hem bireysel ders olarak veriyoruz. Reformer'da yay direnciyle çalışıyoruz ve gün ile saati seninle birlikte belirliyoruz.
 
 ### Fiyatları nereden öğrenirim?
 

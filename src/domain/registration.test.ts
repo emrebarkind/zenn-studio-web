@@ -29,6 +29,11 @@ describe("lesson request", () => {
     expect(registrationSchema.safeParse({ ...base, discipline: "spinning", format: "private" }).success).toBe(false);
   });
 
+  it("takes Mat Pilates both as a group class and one to one", () => {
+    expect(registrationSchema.safeParse({ ...base, discipline: "mat-pilates", format: "group" }).success).toBe(true);
+    expect(registrationSchema.safeParse({ ...base, discipline: "mat-pilates", format: "private" }).success).toBe(true);
+  });
+
   it("maps the quick form's lesson to its way to train", () => {
     expect(inStudioFormat("mat-pilates")).toBe("group");
     expect(inStudioFormat("spinning")).toBe("group");

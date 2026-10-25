@@ -46,6 +46,7 @@ export function RequestWizard() {
   const [timeFrom, setTimeFrom] = useState("");
   const [timeTo, setTimeTo] = useState("");
   const [discipline, setDiscipline] = useState<string | null>(null);
+  const [way, setWay] = useState<"group" | "private">("group");
   const [tried, setTried] = useState(false);
   const [sent, setSent] = useState(false);
   const card = useRef<HTMLDivElement>(null);
@@ -57,7 +58,9 @@ export function RequestWizard() {
   }, [step]);
 
   const d = disciplines.find((x) => x.slug === discipline);
-  const format = d?.formats.includes("group") ? "group" : "private";
+  // A lesson taught both ways (Mat Pilates) asks which; group first.
+  const bothWays = !!d && d.formats.includes("group") && d.formats.includes("private");
+  const format = bothWays ? way : d?.formats.includes("group") ? "group" : "private";
   const timeError = timeFrom && timeTo && timeTo <= timeFrom ? "Bitiş saati başlangıçtan sonra olmalı." : null;
   const canNext = step === 0 ? days.length > 0 && !timeError : step === 1 ? !!discipline : true;
 
@@ -85,7 +88,7 @@ export function RequestWizard() {
         ))}
       </ol>
 
-      <div key={step} className="step-in mt-9 text-center">
+      <div key={step} className="step-in mt-9 text-center lg:mt-7">
         {step === 0 && (
           <>
             <h3 className="text-[1.75rem] leading-tight font-semibold tracking-[-0.03em] sm:text-[2.25rem]">Hangi günler gelebilirsin?</h3>
@@ -130,10 +133,13 @@ export function RequestWizard() {
                     type="button"
                     aria-pressed={on}
                     aria-label={x.name}
-                    onClick={() => setDiscipline(x.slug)}
+                    onClick={() => {
+                      setDiscipline(x.slug);
+                      setWay("group");
+                    }}
                     className={`group on-ink @container relative aspect-[4/5] overflow-hidden rounded-[22px] bg-ink text-left text-paper transition-[box-shadow,transform] duration-200 active:scale-[0.98] ${
                       on ? "ring-4 ring-lime" : "ring-0"
-                    } ${i === 4 ? "col-span-2 aspect-[16/9] sm:col-span-1 sm:aspect-[4/5]" : ""} lg:aspect-[3/4]`}
+                    } ${i === 4 ? "col-span-2 aspect-[16/9] sm:col-span-1 sm:aspect-[4/5]" : ""} lg:aspect-square`}
                   >
                     <DisciplineVisual d={x} sizes="(min-width: 640px) 240px, 50vw" className="transition-transform duration-500 group-hover:scale-[1.04]" />
                     <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/0" />
@@ -153,6 +159,33 @@ export function RequestWizard() {
               })}
             </div>
             {tried && !discipline && <p className="mt-3 text-sm font-medium text-danger">Bir ders seç.</p>}
+            {bothWays && (
+              <div className="step-in mt-6 lg:mt-5 lg:flex lg:items-center lg:justify-center lg:gap-4">
+                <p className="text-sm text-ink-soft">{d.name} dersini nasıl almak istersin?</p>
+                <div role="radiogroup" aria-label="Ders biçimi" className="mx-auto mt-2 grid max-w-md grid-cols-2 gap-2 lg:mx-0 lg:mt-0 lg:w-[26rem]">
+                  {(
+                    [
+                      ["group", "Grup dersi", "Sabah ya da akşam grubu"],
+                      ["private", "Bireysel", "Tek başına ya da 1-6 kişi"],
+                    ] as const
+                  ).map(([id, label, hint]) => (
+                    <button
+                      key={id}
+                      type="button"
+                      role="radio"
+                      aria-checked={way === id}
+                      onClick={() => setWay(id)}
+                      className={`rounded-2xl px-4 py-3 text-center lg:py-2.5 transition-colors duration-200 ${
+                        way === id ? "bg-ink text-paper" : "bg-paper text-ink ring-1 ring-ink/10 hover:ring-ink/40"
+                      }`}
+                    >
+                      <span className="block font-semibold">{label}</span>
+                      <span className={`block text-[13px] ${way === id ? "text-paper/70" : "text-ink-soft"}`}>{hint}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </>
         )}
 
@@ -162,7 +195,8 @@ export function RequestWizard() {
               <>
                 <h3 className="text-[1.75rem] leading-tight font-semibold tracking-[-0.03em] sm:text-[2.25rem]">Son adım: adın ne?</h3>
                 <p className="mx-auto mt-2 max-w-md text-ink-soft">
-                  {d.name}, {WEEKDAYS.filter((w) => days.includes(w.id)).map((w) => w.label).join(", ")}
+                  {d.name}
+                  {bothWays ? (format === "group" ? " (grup dersi)" : " (bireysel)") : ""}, {WEEKDAYS.filter((w) => days.includes(w.id)).map((w) => w.label).join(", ")}
                   {timeFrom || timeTo ? `, ${timeFrom || "…"}-${timeTo || "…"}` : ""}. {company.whatsapp ? "Hepsi WhatsApp mesajına yazılır." : "Antrenörümüz seni arar."}
                 </p>
               </>
@@ -180,7 +214,7 @@ export function RequestWizard() {
       </div>
 
       {step < 2 && (
-        <div className="mt-9 flex flex-col-reverse items-center gap-3 sm:flex-row sm:justify-center">
+        <div className="mt-9 flex flex-col-reverse lg:mt-7 items-center gap-3 sm:flex-row sm:justify-center">
           {step > 0 && (
             <button type="button" onClick={() => setStep((s) => s - 1)} className={buttonClass("ghost", "w-full sm:w-auto")}>
               Geri

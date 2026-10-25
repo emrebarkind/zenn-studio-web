@@ -25,7 +25,7 @@ export function SiteFooter() {
               <ZennWordmark className="text-[clamp(2.75rem,7vw,4rem)]" />
             </Link>
             <p className="mt-5 max-w-sm leading-relaxed text-paper/60">
-              Mat Pilates ve Spinning grup dersleri veriyoruz; Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda tek başına ya da
+              Mat Pilates ve Spinning grup dersleri veriyoruz; Mat ve Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda tek başına ya da
               6 kişiye kadar çalışıyoruz. {studioLocation.district}, {studioLocation.city}.
             </p>
             <ButtonLink href="/#talep" className="mt-7">
