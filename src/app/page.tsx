@@ -68,7 +68,7 @@ export default function StudioHome() {
       </section>
 
       {/* Hizmetlerimiz: a stacked deck of the five lessons; it flows toward the mouse at an edge, a click brings a card to the front. */}
-      <section id="hizmetler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
+      <section id="hizmetler" className={`scroll-mt-24 py-16 sm:py-24 ${screen}`}>
         <Container className="fit lg:max-w-7xl">
           <SectionHeading title="Hizmetlerimiz" lead="Beş branşta ders veriyoruz. Kartlara dokun ya da kaydır; öndekine tıklayınca ayrıntıları gör." />
           <div className="mt-8 lg:mt-4">
@@ -78,7 +78,7 @@ export default function StudioHome() {
       </section>
 
       {/* The request in three steps: days, lesson, name; it goes to the CRM and a coach calls back. */}
-      <section id="talep" className={`scroll-mt-24 bg-card/60 py-24 sm:py-32 ${screen}`}>
+      <section id="talep" className={`scroll-mt-24 bg-card/60 py-16 sm:py-24 ${screen}`}>
         <Container className="fit">
           <SectionHeading title="Nasıl çalışırsın" lead="Üç adımda: günü seç, dersi seç, adını yaz. Eğitmenlerimiz seni arasın." />
           <div className="mt-12 lg:mt-8">
@@ -88,7 +88,7 @@ export default function StudioHome() {
       </section>
 
       {/* Coaches: big portraits, three to a row; hover or tap for a second one. */}
-      <section id="antrenorler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
+      <section id="antrenorler" className={`scroll-mt-24 py-16 sm:py-24 ${screen}`}>
         <Container className="lg:max-w-7xl">
           <SectionHeading title="Eğitmen Kadromuz" lead="Derslerimizi bu ekip veriyor. Fotoğrafın üzerine gel ya da dokun." />
           <div className="mt-14 lg:mt-10">
@@ -112,7 +112,7 @@ export default function StudioHome() {
       </section>
 
       {/* Where we are: the map, toned to the site, with the address and directions. */}
-      <section id="konum" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
+      <section id="konum" className={`scroll-mt-24 py-16 sm:py-24 ${screen}`}>
         <Container className="fit">
           <SectionHeading
             title="Bizi nerede bulabilirsin?"
@@ -125,7 +125,7 @@ export default function StudioHome() {
       </section>
 
       {/* Questions, one centred column. */}
-      <section id="sss" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
+      <section id="sss" className={`scroll-mt-24 py-16 sm:py-24 ${screen}`}>
         <Container className="fit">
           <SectionHeading title="Sık sorulanlar" />
           <div className="mx-auto mt-12 max-w-3xl space-y-3 lg:mt-8">

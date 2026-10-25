@@ -50,7 +50,7 @@ export const WINDOWS: { id: WindowId; label: string; from: string; to: string }[
 ];
 
 const GOALS: Option<GoalId>[] = [
-  { value: "posture", label: "Duruş ve bel-sırt", hint: "Daha dik, daha rahat" },
+  { value: "posture", label: "Duruş ve bel‑sırt", hint: "Daha dik, daha rahat" },
   { value: "strength", label: "Güç ve sıkılık", hint: "Daha güçlü bir vücut" },
   { value: "fitness", label: "Kondisyon", hint: "Nefes ve dayanıklılık" },
   { value: "mobility", label: "Esneklik", hint: "Daha rahat hareket" },

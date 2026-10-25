@@ -132,7 +132,7 @@ export const disciplines: Discipline[] = [
     tagline: "Tek ekipman: kendi vücudun.",
     description:
       "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Sabah ve akşam gruplarımızda haftada 2 ya da 3 gün çalışıyoruz; istersen tek başına ya da 6 kişiye kadar küçük grupla da.",
-    goodFor: ["Merkez gücü ve nefes", "Duruş ve bel-sırt sağlığı", "Grup enerjisiyle çalışmayı sevenler"],
+    goodFor: ["Merkez gücü ve nefes", "Duruş ve bel‑sırt sağlığı", "Grup enerjisiyle çalışmayı sevenler"],
     bring: "Rahat kıyafet ve su.",
     formats: ["group", "private", "online"],
     coaches: ["Ece", "Zeynep"],
@@ -157,7 +157,7 @@ export const disciplines: Discipline[] = [
     tagline: "Yaylı direnç, kontrollü hareket.",
     description:
       "Reformer'ın yay direnci her hareketi hem destekler hem zorlar. Derin karın kaslarını, duruşu ve eklem hareket açıklığını birlikte çalışıyoruz. Derslerimizi tek başına ya da 6 kişiye kadar küçük gruplarla veriyoruz.",
-    goodFor: ["Duruş ve bel-sırt sağlığı", "Güç kaybetmeden esneklik", "Pilatese yeni başlayanlar"],
+    goodFor: ["Duruş ve bel‑sırt sağlığı", "Güç kaybetmeden esneklik", "Pilatese yeni başlayanlar"],
     bring: "Kaymaz çorap ve rahat kıyafet.",
     formats: ["private"],
     coaches: ["Şüheda", "Ece", "Sude"],

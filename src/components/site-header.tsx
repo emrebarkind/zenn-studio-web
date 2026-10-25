@@ -84,7 +84,7 @@ export function SiteHeader() {
       <div
         // Same bar all the way down (owner, 2026-10-25): only its dark glass fades in past the hero.
         className={`mx-auto max-w-[88rem] rounded-[18px] text-paper transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out ${
-          onHero ? "bg-transparent shadow-none" : "bg-ink/80 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150"
+          onHero ? "bg-transparent shadow-none" : "bg-ink/92 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150"
         }`}
       >
         <div className="grid h-12 grid-cols-[1fr_auto_1fr] items-center pr-1.5 pl-4 sm:h-13 sm:pr-2 sm:pl-5">

@@ -34,7 +34,7 @@ export function SectionTitle({ children, lead }: { children: React.ReactNode; le
       <h2 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] leading-[1.05] font-semibold tracking-[-0.035em]">
         {children}
       </h2>
-      {lead && <p className="mt-4 text-lg leading-relaxed text-ink-soft">{lead}</p>}
+      {lead && <p className="mt-4 text-lg leading-relaxed text-pretty text-ink-soft">{lead}</p>}
     </div>
   );
 }
@@ -67,7 +67,7 @@ export function SectionHeading({
         {title}
       </h2>
       {lead && (
-        <p className={`mt-3 max-w-[38rem] text-base leading-relaxed sm:text-lg ${align === "center" ? "mx-auto" : ""} ${tone === "paper" ? "text-paper/70" : "text-ink-soft"}`}>{lead}</p>
+        <p className={`mt-3 max-w-[38rem] text-base leading-relaxed text-pretty sm:text-lg ${align === "center" ? "mx-auto" : ""} ${tone === "paper" ? "text-paper/70" : "text-ink-soft"}`}>{lead}</p>
       )}
     </div>
   );
