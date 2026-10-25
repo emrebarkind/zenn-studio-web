@@ -1,49 +1,53 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+
+// Written as plain HTML so `muted`, `autoplay` and `playsinline` are real
+// attributes in the page from the first byte: React sets `muted` only as a
+// property, and iPhones refuse to autoplay a video that is not muted in markup.
+const VIDEO_HTML = `<video autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback
+  poster="/video/hero-tall.webp" class="absolute inset-0 h-full w-full object-cover">
+  <source media="(min-width: 640px)" src="/video/hero-wide.mp4" type="video/mp4">
+  <source src="/video/hero-tall.mp4" type="video/mp4">
+</video>`;
 
 /**
  * The hero's moving background (owner, 2026-10-25): ten seconds of a pilates
- * session, looped and silent. Wide screens get a landscape cut of the portrait
- * video (each scene cropped around the action), phones the portrait original
- * at 720p. Files: public/video/hero-{wide,tall}.*
+ * session, looped and silent, starting by itself as soon as the page opens
+ * (owner, 2026-10-25). Wide screens get the landscape cut, phones the portrait
+ * one at 720p. Files: public/video/hero-{wide,tall}.*
  *
- * The still underneath is what paints first; the video only starts loading a
- * moment after the page itself has loaded, so it never competes with the text
- * and fonts for a phone's bandwidth, and it fades in once it is actually playing.
- * Reduced motion or a data-saver setting keep the still alone.
+ * The still underneath paints first. Some browsers ignore `media` on a video
+ * <source>, so a wide screen is switched to the landscape cut here. If the
+ * phone still blocks autoplay (iOS Low Power Mode), the first touch or scroll
+ * starts it.
  */
-// React sets \`muted\` as a property, not an attribute, on a video it inserts
-// after load; iPhones then refuse to autoplay it. Set both, then ask to play
-// (a refusal, e.g. in Low Power Mode, just leaves the still).
-function mutedAutoplay(video: HTMLVideoElement | null) {
-  if (!video) return;
-  video.muted = true;
-  video.defaultMuted = true;
-  video.setAttribute("muted", "");
-  video.setAttribute("playsinline", "");
-  video.play().catch(() => {});
-}
-
 export function HeroVideo() {
-  // Which cut to play, chosen once the page has loaded (browsers ignore `media` on a video <source>).
-  const [src, setSrc] = useState<string | null>(null);
-  const [playing, setPlaying] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-    if (still || saveData) return;
-    let timer = 0;
-    const start = () => {
-      const wide = window.matchMedia("(min-width: 640px)").matches;
-      timer = window.setTimeout(() => setSrc(wide ? "/video/hero-wide.mp4" : "/video/hero-tall.mp4"), 1500);
+    const video = box.current?.querySelector("video");
+    if (!video) return;
+    const wide = window.matchMedia("(min-width: 640px)").matches;
+    const want = wide ? "/video/hero-wide.mp4" : "/video/hero-tall.mp4";
+    if (!video.currentSrc.endsWith(want)) {
+      video.src = want;
+      video.poster = wide ? "/video/hero-wide.webp" : "/video/hero-tall.webp";
+    }
+    video.muted = true;
+    const play = () => video.play().catch(() => {});
+    play();
+    video.addEventListener("canplay", play, { once: true });
+    const events = ["touchstart", "pointerdown", "scroll", "keydown"] as const;
+    const remove = () => events.forEach((e) => window.removeEventListener(e, onFirstTouch));
+    const onFirstTouch = () => {
+      play();
+      remove();
     };
-    if (document.readyState === "complete") start();
-    else window.addEventListener("load", start, { once: true });
+    events.forEach((e) => window.addEventListener(e, onFirstTouch, { passive: true }));
     return () => {
-      window.removeEventListener("load", start);
-      window.clearTimeout(timer);
+      video.removeEventListener("canplay", play);
+      remove();
     };
   }, []);
 
@@ -55,18 +59,7 @@ export function HeroVideo() {
         <source srcSet="/video/hero-tall.webp" type="image/webp" />
         <img src="/video/hero-tall.jpg" alt="" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
       </picture>
-      {src && (
-        <video
-          ref={mutedAutoplay}
-          src={src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          onPlaying={() => setPlaying(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${playing ? "opacity-100" : "opacity-0"}`}
-        />
-      )}
+      <div ref={box} className="absolute inset-0" dangerouslySetInnerHTML={{ __html: VIDEO_HTML }} />
     </div>
   );
 }
