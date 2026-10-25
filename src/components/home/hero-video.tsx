@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 // attributes in the page from the first byte: React sets `muted` only as a
 // property, and iPhones refuse to autoplay a video that is not muted in markup.
 const VIDEO_HTML = `<video autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback
-  poster="/video/hero-tall.webp" class="absolute inset-0 h-full w-full object-cover">
+  class="hero-video absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700">
   <source media="(min-width: 640px)" src="/video/hero-wide.mp4" type="video/mp4">
   <source src="/video/hero-tall.mp4" type="video/mp4">
 </video>`;
@@ -32,8 +32,11 @@ export function HeroVideo() {
     const want = wide ? "/video/hero-wide.mp4" : "/video/hero-tall.mp4";
     if (!video.currentSrc.endsWith(want)) {
       video.src = want;
-      video.poster = wide ? "/video/hero-wide.webp" : "/video/hero-tall.webp";
     }
+    // Hidden until it really plays: a paused video on an iPhone shows a big play button; the still shows instead.
+    const show = () => video.classList.remove("opacity-0");
+    if (!video.paused && video.currentTime > 0) show();
+    video.addEventListener("playing", show);
     video.muted = true;
     const play = () => video.play().catch(() => {});
     play();
@@ -47,6 +50,7 @@ export function HeroVideo() {
     events.forEach((e) => window.addEventListener(e, onFirstTouch, { passive: true }));
     return () => {
       video.removeEventListener("canplay", play);
+      video.removeEventListener("playing", show);
       remove();
     };
   }, []);

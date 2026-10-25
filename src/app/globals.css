@@ -61,6 +61,14 @@ h1, h2, h3 {
   color: var(--lime);
 }
 
+/* The hero video is background, never a player: no iOS play button or controls over it. */
+.hero-video::-webkit-media-controls,
+.hero-video::-webkit-media-controls-start-playback-button,
+.hero-video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 :focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
