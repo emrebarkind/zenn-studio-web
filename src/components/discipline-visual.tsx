@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ViewTransition } from "react";
 import type { Discipline } from "@/content/site";
 
 /**
@@ -6,9 +7,22 @@ import type { Discipline } from "@/content/site";
  * typographic card instead, its own line set large; never a stock image
  * standing in for the studio.
  */
-export function DisciplineVisual({ d, sizes, priority, className = "" }: { d: Discipline; sizes: string; priority?: boolean; className?: string }) {
+export function DisciplineVisual({
+  d,
+  sizes,
+  priority,
+  className = "",
+  morph = false,
+}: {
+  d: Discipline;
+  sizes: string;
+  priority?: boolean;
+  className?: string;
+  /** The home card and the discipline page's photo grow into each other on navigation. Once per page. */
+  morph?: boolean;
+}) {
   if (d.photo) {
-    return (
+    const image = (
       <Image
         src={d.photo.src}
         alt={d.photo.alt}
@@ -19,6 +33,13 @@ export function DisciplineVisual({ d, sizes, priority, className = "" }: { d: Di
         className={`object-cover ${className}`}
         style={{ objectPosition: d.photo.position }}
       />
+    );
+    return morph ? (
+      <ViewTransition name={`discipline-${d.slug}`} share="morph" default="none">
+        {image}
+      </ViewTransition>
+    ) : (
+      image
     );
   }
   return (

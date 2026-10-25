@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="tr" className={`${inter.variable} h-full antialiased`}>
+    <html lang="tr" data-scroll-behavior="smooth" className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <SiteHeader />
         <main className="flex-1">{children}</main>

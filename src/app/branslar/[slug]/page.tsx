@@ -47,7 +47,7 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
       <section className="pt-6 pb-20 sm:pt-10 sm:pb-28">
         <Container className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="on-ink relative aspect-[4/3] w-full overflow-hidden rounded-[28px] bg-ink sm:aspect-[16/10] lg:order-2 lg:col-span-6 lg:aspect-[4/5]">
-            <DisciplineVisual d={d} priority sizes="(min-width: 1024px) 560px, 100vw" />
+            <DisciplineVisual d={d} morph priority sizes="(min-width: 1024px) 560px, 100vw" />
           </div>
           <div className="lg:order-1 lg:col-span-6">
             <h1 className="text-[clamp(3rem,8.5vw,6.5rem)] leading-[0.92] font-bold tracking-[-0.05em] text-balance">{d.name}</h1>

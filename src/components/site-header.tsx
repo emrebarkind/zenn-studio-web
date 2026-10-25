@@ -61,7 +61,7 @@ export function SiteHeader() {
   );
 
   return (
-    <header className="on-ink sticky top-0 z-40 px-3 pt-3 sm:px-5">
+    <header className="on-ink sticky top-0 z-40 px-3 pt-3 sm:px-5" style={{ viewTransitionName: "site-header" }}>
       <div className="mx-auto max-w-6xl rounded-[22px] bg-ink/80 text-paper shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150">
         <div className="flex h-14 items-center justify-between pr-2 pl-5 sm:h-16 sm:pr-3 sm:pl-6">
           <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)} className="min-h-11 content-center">

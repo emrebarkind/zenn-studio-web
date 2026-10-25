@@ -11,6 +11,7 @@ import { RequestWizard } from "@/components/home/request-wizard";
 import { Planner } from "@/components/home/planner";
 import { CoachGrid, type CoachCard } from "@/components/home/coach-grid";
 import { MobileRequestBar } from "@/components/home/mobile-request-bar";
+import { SectionSnap } from "@/components/home/section-snap";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
 import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
@@ -41,6 +42,10 @@ const coachCards: CoachCard[] = coaches.flatMap((c) =>
     ? [{ name: c.name, branches: c.disciplines.map((s) => disciplineName[s]).join(", "), portrait: c.portrait, action: c.action }]
     : [],
 );
+// On a wide screen every section is one screen tall and the page settles on
+// each one as you scroll (globals.css), so each reads like a page of its own.
+const screen = "lg:flex lg:min-h-svh lg:snap-start lg:scroll-mt-0 lg:flex-col lg:justify-center lg:pt-24 lg:pb-12";
+
 /**
  * "/": the studio on one page, down the middle. One big photograph with the
  * name over it, the five lessons, the two ways to train, the coaches, a short
@@ -51,7 +56,7 @@ export default function StudioHome() {
   return (
     <>
       {/* Hero: one big photograph, changing on its own, the name and the request over it. */}
-      <section id="top" className="on-ink relative isolate -mt-[68px] flex min-h-[100svh] items-end overflow-hidden bg-ink text-paper sm:-mt-[76px]">
+      <section id="top" className="on-ink relative isolate -mt-[68px] flex min-h-[100svh] snap-start items-end overflow-hidden bg-ink text-paper sm:-mt-[76px]">
         <div className="hero-drift absolute inset-0">
           <HeroPhotos slides={slides} />
         </div>
@@ -79,23 +84,24 @@ export default function StudioHome() {
       </section>
 
       {/* Hizmetlerimiz: five big photo cards, centred (3 + 2 on a wide screen); on a phone a row to swipe through. */}
-      <section id="hizmetler" className="scroll-mt-24 py-24 sm:py-32">
-        <Container>
+      <section id="hizmetler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
+        <Container className="fit leave lg:max-w-7xl">
           <SectionHeading title="Hizmetlerimiz" lead="Beş branş. Belli günlerde grup dersi ya da 1-6 kişilik özel ders." />
-          <ul className="rise -mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-6 [&::-webkit-scrollbar]:hidden">
+          <ul className="rise -mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:mt-10 lg:grid-cols-5 [&::-webkit-scrollbar]:hidden">
             {disciplines.map((d, i) => (
-              <li key={d.slug} className={`w-[80%] shrink-0 snap-start sm:w-auto lg:col-span-2 ${i === 3 ? "lg:col-start-2" : ""} ${i === 4 ? "sm:col-span-2 lg:col-span-2" : ""}`}>
+              <li key={d.slug} className={`w-[80%] shrink-0 snap-start sm:w-auto ${i === 4 ? "sm:col-span-2 lg:col-span-1" : ""}`}>
                 <Link
                   href={`/branslar/${d.slug}`}
-                  className={`group on-ink @container relative block overflow-hidden bg-ink text-paper ${i === 4 ? "aspect-[4/5] sm:aspect-[16/9] lg:aspect-[4/5]" : "aspect-[4/5]"} rounded-[22px] sm:rounded-[28px]`}
+                  className={`group on-ink @container relative block overflow-hidden bg-ink text-paper ${i === 4 ? "aspect-[4/5] sm:aspect-[16/9]" : "aspect-[4/5]"} rounded-[22px] sm:rounded-[28px] lg:aspect-auto lg:h-[clamp(320px,56svh,580px)]`}
                 >
                   <DisciplineVisual
                     d={d}
-                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                    morph
+                    sizes="(min-width: 1024px) 250px, (min-width: 640px) 50vw, 100vw"
                     className="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   />
                   <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/0" />
-                  <div className="absolute inset-x-0 bottom-0 p-6 text-center">
+                  <div className="absolute inset-x-0 bottom-0 p-6 text-center lg:p-5">
                     <p className="mx-auto w-fit rounded-full bg-paper/15 px-3 py-1 text-[13px] font-semibold backdrop-blur">
                       {d.formats.filter((f) => f !== "online").map((f) => SHORT[f]).join(", ")}
                     </p>
@@ -114,44 +120,44 @@ export default function StudioHome() {
       </section>
 
       {/* The request in three steps: days, lesson, name, then WhatsApp. */}
-      <section id="talep" className="scroll-mt-24 bg-card/60 py-24 sm:py-32">
-        <Container>
+      <section id="talep" className={`scroll-mt-24 bg-card/60 py-24 sm:py-32 ${screen}`}>
+        <Container className="fit leave">
           <SectionHeading title="Nasıl çalışırsın" lead={`Üç adımda: günü seç, dersi seç, adını yaz. ${company.whatsapp ? "Gerisini WhatsApp'ta konuşalım." : "Antrenörümüz seni arasın."}`} />
-          <div className="rise mt-12">
+          <div className="rise mt-12 lg:mt-8">
             <RequestWizard />
           </div>
         </Container>
       </section>
 
       {/* Coaches: big portraits, three to a row; hover or tap for a second one. */}
-      <section id="antrenorler" className="scroll-mt-24 py-24 sm:py-32">
-        <Container>
+      <section id="antrenorler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
+        <Container className="fit leave lg:max-w-[1400px]">
           <SectionHeading title="Antrenörler" lead="Derslerin bu ekiple. Fotoğrafın üzerine gel ya da dokun." />
-          <div className="mt-14">
+          <div className="mt-14 lg:mt-10">
             <CoachGrid coaches={coachCards} />
           </div>
         </Container>
       </section>
 
       {/* Six questions, one plan: the right lesson and way to train, then WhatsApp. */}
-      <section id="plan" className="on-ink scroll-mt-24 bg-ink py-24 text-paper sm:py-32">
-        <Container>
+      <section id="plan" className={`on-ink scroll-mt-24 bg-ink py-24 text-paper sm:py-32 ${screen}`}>
+        <Container className="fit leave">
           <SectionHeading
             tone="paper"
             title="İlk dersini birlikte planlayalım."
             lead="Altı kısa soru. Cevaplarına göre sana uygun dersi ve çalışma biçimini önerelim."
           />
-          <div className="rise mt-12">
+          <div className="rise mt-12 lg:mt-8">
             <Planner />
           </div>
         </Container>
       </section>
 
       {/* Questions, one centred column. */}
-      <section id="sss" className="scroll-mt-24 py-24 sm:py-32">
-        <Container>
+      <section id="sss" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
+        <Container className="fit leave">
           <SectionHeading title="Sık sorulanlar" />
-          <div className="mx-auto mt-12 max-w-3xl space-y-3">
+          <div className="mx-auto mt-12 max-w-3xl space-y-3 lg:mt-8">
             {faqs.map((f) => (
               <details key={f.q} className="rise group rounded-[24px] bg-card px-6 py-5 open:pb-6">
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-6 text-lg font-semibold [&::-webkit-details-marker]:hidden">
@@ -171,6 +177,7 @@ export default function StudioHome() {
       </section>
 
       <MobileRequestBar />
+      <SectionSnap />
     </>
   );
 }

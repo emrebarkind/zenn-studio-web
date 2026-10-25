@@ -69,7 +69,7 @@ export function RequestWizard() {
   }
 
   return (
-    <div ref={card} className="mx-auto max-w-3xl scroll-mt-24 rounded-[32px] bg-card p-5 shadow-[0_30px_80px_-40px_rgba(21,25,21,0.45)] sm:p-10">
+    <div ref={card} className="mx-auto max-w-3xl scroll-mt-24 rounded-[32px] bg-card p-5 lg:max-w-4xl lg:p-8 shadow-[0_30px_80px_-40px_rgba(21,25,21,0.45)] sm:p-10">
       {/* Progress: three numbered steps and a bar. */}
       <ol className="grid grid-cols-3 gap-2" aria-label="Adımlar">
         {STEPS.map((label, i) => (
@@ -121,7 +121,7 @@ export function RequestWizard() {
           <>
             <h3 className="text-[1.75rem] leading-tight font-semibold tracking-[-0.03em] sm:text-[2.25rem]">Hangi dersi istiyorsun?</h3>
             <p className="mt-2 text-ink-soft">Grup dersi belli günlerde; özel derste 6 kişiye kadar gelebilirsin.</p>
-            <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
               {disciplines.map((x, i) => {
                 const on = discipline === x.slug;
                 return (
@@ -133,7 +133,7 @@ export function RequestWizard() {
                     onClick={() => setDiscipline(x.slug)}
                     className={`group on-ink @container relative aspect-[4/5] overflow-hidden rounded-[22px] bg-ink text-left text-paper transition-[box-shadow,transform] duration-200 active:scale-[0.98] ${
                       on ? "ring-4 ring-lime" : "ring-0"
-                    } ${i === 4 ? "col-span-2 aspect-[16/9] sm:col-span-1 sm:aspect-[4/5]" : ""}`}
+                    } ${i === 4 ? "col-span-2 aspect-[16/9] sm:col-span-1 sm:aspect-[4/5]" : ""} lg:aspect-[3/4]`}
                   >
                     <DisciplineVisual d={x} sizes="(min-width: 640px) 240px, 50vw" className="transition-transform duration-500 group-hover:scale-[1.04]" />
                     <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/0" />

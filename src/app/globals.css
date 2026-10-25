@@ -114,11 +114,11 @@ body {
     .rise {
       animation: rise linear both;
       animation-timeline: view();
-      animation-range: entry 0px entry 220px;
+      animation-range: entry 0% entry 100%;
     }
     /* Side-by-side cards arrive one after another rather than as a block. */
-    .rise:nth-child(3n + 2) { animation-range: entry 40px entry 260px; }
-    .rise:nth-child(3n) { animation-range: entry 80px entry 300px; }
+    .rise:nth-child(3n + 2) { animation-range: entry 12% entry 100%; }
+    .rise:nth-child(3n) { animation-range: entry 24% entry 100%; }
 
     @keyframes hero-drift {
       to { transform: translateY(22%); }
@@ -137,4 +137,88 @@ body {
       animation-range: 0 65svh;
     }
   }
+}
+
+/* Page changes (src/app/template.tsx): the old page steps back fast, the new one rises in. The header stays put. */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(root) {
+  animation: none;
+}
+::view-transition-old(.page-exit) {
+  animation: 160ms ease-in both page-leave;
+}
+::view-transition-new(.page-enter) {
+  animation: 420ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms both page-arrive;
+}
+@keyframes page-leave {
+  to { opacity: 0; transform: scale(0.985); filter: blur(2px); }
+}
+@keyframes page-arrive {
+  from { opacity: 0; transform: translateY(28px); filter: blur(3px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+/* A discipline's photo grows from its card into the page (DisciplineVisual morph). */
+::view-transition-group(.morph) {
+  animation-duration: 480ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  z-index: 50;
+}
+::view-transition-image-pair(.morph) {
+  animation-name: morph-blur;
+}
+@keyframes morph-blur {
+  35% { filter: blur(3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/*
+ * Wide screens: the home page reads as a stack of screens. Scrolling settles
+ * gently on each section (proximity, so a long one can still be read freely),
+ * and the section on its way out steps back as the next one arrives.
+ */
+@media (min-width: 1024px) {
+  html.snap-sections {
+    scroll-snap-type: y proximity;
+  }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    @keyframes leave {
+      to { opacity: 0.15; transform: translateY(-40px) scale(0.95); }
+    }
+    .leave {
+      animation: leave linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 90%;
+    }
+  }
+}
+/* Shorter laptop screens: the whole section scales down together so it still fits one screen. */
+@media (min-width: 1024px) and (max-height: 860px) {
+  .fit { zoom: 0.9; }
+}
+@media (min-width: 1024px) and (max-height: 780px) {
+  .fit { zoom: 0.82; }
+}
+@media (min-width: 1024px) and (max-height: 700px) {
+  .fit { zoom: 0.74; }
 }
