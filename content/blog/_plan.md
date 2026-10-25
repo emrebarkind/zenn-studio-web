@@ -29,7 +29,7 @@ eklenecek ve sıra ona göre düzenlenecek.
 | Durum | Başlık fikri | Ana arama | Branş |
 | --- | --- | --- | --- |
 | yazıldı | Tekirdağ'da pilatese başlamak: mat mı, reformer mı? | tekirdağ pilates | reformer-pilates |
-| sırada | Reformer pilates nedir? İlk derste neler olur | tekirdağ reformer pilates | reformer-pilates |
+| yazıldı | Reformer pilates nedir? İlk derste neler olur | tekirdağ reformer pilates | reformer-pilates |
 | sırada | Tekirdağ'da spor salonu mu, stüdyo mu? Sana uygun antrenmanı seçmek | tekirdağ spor salonu | fonksiyonel-antrenman |
 | sırada | Kickboksa yeni başlayanlar: ilk ayda neler öğrenirsin | tekirdağ kickboks | kickboks |
 | sırada | Spinning dersi nasıl geçer? Yeni başlayanlar için rehber | tekirdağ spinning | spinning |
