@@ -16,7 +16,7 @@ import antrenorZeynep2 from "@/assets/photos/antrenor-zeynep-2.jpg";
 import antrenorSuheda2 from "@/assets/photos/antrenor-suheda-2.jpg";
 import antrenorBaris2 from "@/assets/photos/antrenor-baris-2.jpg";
 import antrenorEce from "@/assets/photos/antrenor-ece.jpg";
-import antrenorEce2 from "@/assets/photos/antrenor-ece-2.jpg";
+import antrenorEce3 from "@/assets/photos/antrenor-ece-3.jpg";
 
 // Every piece of copy and every business fact on the site lives here, so the
 // studio can change prices, coaches or contact details without touching
@@ -222,8 +222,8 @@ export const coaches: Coach[] = [
     name: "Ece",
     surname: "Pekmezcioğulları",
     disciplines: ["mat-pilates", "reformer-pilates", "fonksiyonel-antrenman"],
-    portrait: { src: antrenorEce, alt: "Antrenör Ece", position: "50% 20%" },
-    action: { src: antrenorEce2, alt: "Antrenör Ece", position: "50% 15%" },
+    portrait: { src: antrenorEce3, alt: "Antrenör Ece", position: "50% 20%" },
+    action: { src: antrenorEce, alt: "Antrenör Ece", position: "50% 20%" },
   },
   {
     name: "Şüheda",
