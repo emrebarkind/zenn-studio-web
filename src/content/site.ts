@@ -4,7 +4,7 @@ import hero from "@/assets/photos/hero.jpg";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
 import birebirWide from "@/assets/photos/birebir-wide.jpg";
-import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
+import reformerKollar from "@/assets/photos/reformer-kollar.jpg";
 import matGrup from "@/assets/photos/mat-grup.jpg";
 import kickboksTorba from "@/assets/photos/kickboks-torba.jpg";
 import barisDambil from "@/assets/photos/baris-dambil.jpg";
@@ -161,7 +161,7 @@ export const disciplines: Discipline[] = [
     bring: "Kaymaz çorap ve rahat kıyafet.",
     formats: ["private"],
     coaches: ["Şüheda", "Ece", "Sude"],
-    photo: { src: reformerTeaser, alt: "Reformer üzerinde bacaklarını kaldırıp dengede duran antrenör", position: "50% 55%" },
+    photo: { src: reformerKollar, alt: "Reformer'da kayışlarla kollarını yukarı uzatan antrenör", position: "55% 30%" },
   },
   {
     slug: "kickboks",
