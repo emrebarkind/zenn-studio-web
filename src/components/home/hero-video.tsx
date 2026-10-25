@@ -13,6 +13,18 @@ import { useEffect, useState } from "react";
  * and fonts for a phone's bandwidth, and it fades in once it is actually playing.
  * Reduced motion or a data-saver setting keep the still alone.
  */
+// React sets \`muted\` as a property, not an attribute, on a video it inserts
+// after load; iPhones then refuse to autoplay it. Set both, then ask to play
+// (a refusal, e.g. in Low Power Mode, just leaves the still).
+function mutedAutoplay(video: HTMLVideoElement | null) {
+  if (!video) return;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
+  video.play().catch(() => {});
+}
+
 export function HeroVideo() {
   // Which cut to play, chosen once the page has loaded (browsers ignore `media` on a video <source>).
   const [src, setSrc] = useState<string | null>(null);
@@ -45,6 +57,7 @@ export function HeroVideo() {
       </picture>
       {src && (
         <video
+          ref={mutedAutoplay}
           src={src}
           autoPlay
           muted
