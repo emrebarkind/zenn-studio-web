@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { assistantLimits } from "./config";
-import { createRateLimiter } from "./rate-limit";
+import { createRateLimiter } from "@/lib/rate-limit";
 import { assistantRequestSchema, withoutBlockedTurns } from "./request";
 
 const ok = (messages: { role: "user" | "assistant"; content: string }[]) =>

@@ -197,10 +197,9 @@ function DeckCard({
         onClick={onSelect}
         onFocus={onFocus}
         draggable={false}
-        aria-label={isFront ? `${d.name}: incele` : `${d.name}: öne getir`}
         className="group relative block h-full w-full overflow-hidden rounded-2xl bg-ink text-paper shadow-[0_24px_50px_-24px_rgba(21,25,21,0.55)] outline-offset-4"
       >
-        <DisciplineVisual d={d} morph sizes="(min-width: 1024px) 290px, 260px" className="transition-transform duration-700 group-hover:scale-110" />
+        <DisciplineVisual d={d} morph sizes="(min-width: 1024px) 290px, (min-width: 640px) 256px, 216px" className="transition-transform duration-700 group-hover:scale-110" />
         <motion.span aria-hidden style={{ opacity: shade }} className="pointer-events-none absolute inset-0 bg-black" />
         <span aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
         {/* Only a lesson that runs solely as a group class says so (Spinning). */}
@@ -215,6 +214,8 @@ function DeckCard({
             <ArrowUpRight className="size-4" aria-hidden />
           </span>
         </motion.span>
+        {/* Spoken after the visible words, so the link's name still starts with what is on screen. */}
+        {!isFront && <span className="sr-only"> (öne getir)</span>}
       </Link>
     </motion.div>
   );

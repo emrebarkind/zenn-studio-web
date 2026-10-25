@@ -36,6 +36,8 @@ export async function generateMetadata({
       description: post.description,
       publishedTime: post.date,
       modifiedTime: post.updated ?? post.date,
+      // A page's own openGraph replaces the layout's, so the share picture is named again.
+      images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630 }],
     },
   };
 }

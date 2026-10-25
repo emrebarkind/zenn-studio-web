@@ -88,8 +88,9 @@ export function SiteHeader() {
         }`}
       >
         <div className="grid h-12 grid-cols-[1fr_auto_1fr] items-center pr-1.5 pl-4 sm:h-13 sm:pr-2 sm:pl-5">
-          <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)} className="min-h-11 content-center justify-self-start">
+          <Link href="/" onClick={() => setOpen(false)} className="min-h-11 content-center justify-self-start">
             <ZennWordmark className="text-[18px] sm:text-[19px]" />
+            <span className="sr-only"> ana sayfa</span>
           </Link>
           <nav aria-label="Ana menü" className="hidden items-center gap-6 lg:flex xl:gap-7">
             {items.map((item) => (

@@ -1,6 +1,7 @@
 "use server";
 
 import { randomUUID } from "node:crypto";
+import { headers } from "next/headers";
 import {
   crmPayload,
   inStudioFormat,
@@ -11,6 +12,7 @@ import {
 } from "@/domain/registration";
 import { sendRequestToCrm } from "@/lib/crm-request";
 import { company } from "@/content/company";
+import { createRateLimiter } from "@/lib/rate-limit";
 
 export type RegistrationState =
   | { status: "idle" }
@@ -21,6 +23,19 @@ export type RegistrationState =
 const FAILED = company.whatsapp
   ? `Talebin şu an iletilemedi. Birkaç dakika sonra yeniden dene ya da bize WhatsApp'tan yaz: +${company.whatsapp.replace(/^(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})$/, "$1 $2 $3 $4 $5")}`
   : "Talebin şu an iletilemedi. Birkaç dakika sonra yeniden dene.";
+
+// A person sends one request, maybe two; a burst from one address is a bot
+// filling the CRM. Counted only once a request is valid, so typos never lock anyone out.
+const requestLimit = createRateLimiter(5, 10 * 60 * 1000);
+const TOO_MANY = company.whatsapp
+  ? `Kısa sürede çok sayıda talep gönderildi. Birkaç dakika sonra yeniden dene ya da bize WhatsApp'tan yaz: +${company.whatsapp.replace(/^(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})$/, "$1 $2 $3 $4 $5")}`
+  : "Kısa sürede çok sayıda talep gönderildi. Birkaç dakika sonra yeniden dene.";
+
+async function overLimit(): Promise<boolean> {
+  const h = await headers();
+  const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
+  return !requestLimit(ip).ok;
+}
 
 function makeReference(): string {
   const n = crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000;
@@ -71,10 +86,12 @@ export async function submitRegistration(_prev: RegistrationState, formData: For
   // Honeypot: people never fill a field they cannot see.
   if (values.website) return { status: "ok", reference: makeReference(), summary: "" };
 
-  const parsed = registrationSchema.safeParse({ ...raw, days: formData.getAll("days") });
+  // The form channel only: the WhatsApp hand-off is gone, so a request always needs a phone number.
+  const parsed = registrationSchema.safeParse({ ...raw, channel: "form", days: formData.getAll("days") });
   if (!parsed.success) {
     return { status: "error", errors: fieldErrors(parsed.error.issues), message: "Bazı alanları kontrol et.", values };
   }
+  if (await overLimit()) return { status: "error", errors: {}, values, message: TOO_MANY };
 
   const sent = await deliver(parsed.data, "detailed");
   if (!sent.ok) return { status: "error", errors: {}, values, message: FAILED };
@@ -82,10 +99,9 @@ export async function submitRegistration(_prev: RegistrationState, formData: For
 }
 
 /**
- * The home page's step-by-step request and the six-question planner: lesson,
- * days, time, name (and the number when the visitor stays on the site). With
- * `channel=whatsapp` the visitor has just been sent to WhatsApp with the same
- * details; the request is still recorded in the CRM so the team sees it come.
+ * The home page's step-by-step request and the intake planner: lesson, days,
+ * time, name and phone. Always the form channel (the WhatsApp hand-off was
+ * removed, 2026-10-25), so every request carries a number to call back.
  */
 export async function submitStudioRequest(_prev: RegistrationState, formData: FormData): Promise<RegistrationState> {
   const values = textValues(formData);
@@ -105,7 +121,7 @@ export async function submitStudioRequest(_prev: RegistrationState, formData: Fo
     firstName: values.firstName ?? "",
     lastName: values.lastName ?? "",
     phone: values.phone ?? "",
-    channel: values.channel === "whatsapp" ? "whatsapp" : "form",
+    channel: "form",
     email: "",
     note: values.note ?? "",
     consent: values.consent,
@@ -114,9 +130,9 @@ export async function submitStudioRequest(_prev: RegistrationState, formData: Fo
     return { status: "error", errors: fieldErrors(parsed.error.issues), message: "Bazı alanları kontrol et.", values };
   }
 
+  if (await overLimit()) return { status: "error", errors: {}, values, message: TOO_MANY };
+
   const sent = await deliver(parsed.data, form);
-  // On WhatsApp the visitor already has the conversation open; a failed CRM copy must not show them an error.
-  if (!sent.ok && parsed.data.channel === "form") return { status: "error", errors: {}, values, message: FAILED };
-  const reference = sent.ok ? sent.reference : makeReference();
-  return { status: "ok", reference, summary: summarize(parsed.data, reference) };
+  if (!sent.ok) return { status: "error", errors: {}, values, message: FAILED };
+  return { status: "ok", reference: sent.reference, summary: summarize(parsed.data, sent.reference) };
 }

@@ -97,5 +97,10 @@ export function postProblems(post: Post): string[] {
   if (!post.keywords.some((k) => /tekirda|süleymanpaşa/i.test(k))) problems.push("anahtar kelimelerden biri Tekirdağ/Süleymanpaşa içermeli");
   if (!/tekirda/i.test(post.title + post.description)) problems.push("başlık ya da açıklama Tekirdağ'ı anmalı");
   for (const [re, why] of FORBIDDEN) if (re.test(post.body) || re.test(post.title)) problems.push(why);
+  // Posts go live without review: markdown only, and links only to safe places.
+  if (/<\/?[a-z][^>]*>/i.test(post.body)) problems.push("HTML etiketi yazma; sadece markdown kullan");
+  for (const [, href] of post.body.matchAll(/\]\(\s*([^)\s]+)/g)) {
+    if (!/^(https?:\/\/|\/(?!\/)|#|mailto:|tel:)/i.test(href)) problems.push(`güvensiz bağlantı: ${href}`);
+  }
   return problems;
 }

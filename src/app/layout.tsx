@@ -7,11 +7,19 @@ import { assistantLive } from "@/lib/assistant/config";
 import { studio } from "@/content/site";
 import "./globals.css";
 
-// Real italics too: headings carry one italic word for emphasis (owner, 2026-10-25).
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
-  style: ["normal", "italic"],
+});
+
+// Real italics for the one emphasised word in a heading (owner, 2026-10-25).
+// Not preloaded: it is a word or two per screen, so it must not hold up the
+// first paint; until it arrives that word shows upright for a moment.
+const interItalic = Inter({
+  variable: "--font-inter-italic",
+  subsets: ["latin", "latin-ext"],
+  style: "italic",
+  preload: false,
 });
 
 // The logo alone is set in Geist (owner, 2026-10-25); every other word stays Inter.
@@ -34,7 +42,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="tr" data-scroll-behavior="smooth" className={`${inter.variable} ${geist.variable} h-full antialiased`}>
+    <html lang="tr" data-scroll-behavior="smooth" className={`${inter.variable} ${interItalic.variable} ${geist.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <SiteHeader />
         <main className="flex-1">{children}</main>

@@ -53,6 +53,7 @@ h1, h2, h3 {
 
 /* The one italic word in a heading (<Em>, owner 2026-10-25): italic in the heading's own colour on light (no green), lime on dark. */
 .accent {
+  font-family: var(--font-inter-italic), var(--font-display), system-ui, sans-serif;
   font-style: italic;
   padding-inline-end: 0.04em;
 }

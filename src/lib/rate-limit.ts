@@ -1,4 +1,5 @@
-// Fixed-window limiter per key (client IP). In memory: on Vercel Fluid Compute
+// Fixed-window limiter per key (client IP), for the assistant and the lesson
+// request forms. In memory: on Vercel Fluid Compute
 // an instance is reused across requests, so this throttles bursts, but it is
 // per instance and resets on cold start — a cost guard, not a hard quota.
 

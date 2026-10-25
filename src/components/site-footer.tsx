@@ -105,7 +105,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-paper/10 pt-6 text-sm text-paper/45 sm:flex-row sm:items-start sm:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-paper/10 pt-6 text-sm text-paper/60 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
             {legal.map((line) => (
               <p key={line}>{line}</p>

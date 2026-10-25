@@ -56,7 +56,7 @@ export function FindUs() {
           href="https://www.openstreetmap.org/copyright"
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute right-3 bottom-2 z-10 text-[11px] text-ink/50 hover:text-ink/80"
+          className="absolute right-2 bottom-1 z-10 inline-flex min-h-6 items-center px-1.5 text-[11px] text-ink/60 hover:text-ink/80"
         >
           © OpenStreetMap katkıcıları
         </a>

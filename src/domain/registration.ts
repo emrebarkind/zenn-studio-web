@@ -66,11 +66,11 @@ export const registrationSchema = z
     people: z.coerce.number().int().min(1).max(PRIVATE_GROUP_MAX).default(1),
     slot: z.enum(["sabah", "öğle", "akşam", "farketmez"]).default("farketmez"),
     /** Days and a time range that suit the visitor (private and online lessons; optional). */
-    days: z.array(z.enum(weekdayIds)).default([]),
+    days: z.array(z.enum(weekdayIds)).max(7).default([]),
     timeFrom: z.union([z.literal(""), z.enum(HOURS)]).default(""),
     timeTo: z.union([z.literal(""), z.enum(HOURS)]).default(""),
-    firstName: z.string().trim().min(2, "Adını yaz."),
-    lastName: z.string().trim().min(2, "Soyadını yaz."),
+    firstName: z.string().trim().min(2, "Adını yaz.").max(60, "Ad en fazla 60 karakter olabilir."),
+    lastName: z.string().trim().min(2, "Soyadını yaz.").max(60, "Soyad en fazla 60 karakter olabilir."),
     phone: z
       .string()
       .default("")

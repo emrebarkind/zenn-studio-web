@@ -68,7 +68,7 @@ keywords: [main search, second, third]   # main search first; one must contain T
 discipline: reformer-pilates             # mat-pilates | spinning | reformer-pilates | kickboks | fonksiyonel-antrenman
 ---
 
-Body in Markdown. No "# " heading (the title is the page's h1).
+Body in Markdown. No "# " heading (the title is the page's h1). No raw HTML tags, and links only to `/...`, `https://`, `#`, `mailto:` or `tel:`: the tests reject anything else, and the site shows HTML as plain text.
 ```
 
 The post is published as soon as it reaches `main`. Do not add `reviewedBy` (it is for when a coach has actually read

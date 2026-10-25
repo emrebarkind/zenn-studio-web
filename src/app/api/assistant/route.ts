@@ -3,7 +3,7 @@ import { assistantLimits, assistantModel } from "@/lib/assistant/config";
 import { cannedReplies, findSensitiveData, guessLang, mentionsHealth } from "@/lib/assistant/guard";
 import { buildSystemPrompt } from "@/lib/assistant/prompt";
 import { HANDOFF_MARKER } from "@/lib/assistant/prompt-markers";
-import { createRateLimiter } from "@/lib/assistant/rate-limit";
+import { createRateLimiter } from "@/lib/rate-limit";
 import { assistantRequestSchema, withoutBlockedTurns } from "@/lib/assistant/request";
 
 // Zenn Asistan backend. Streams plain text (UTF-8) back to the chat panel.

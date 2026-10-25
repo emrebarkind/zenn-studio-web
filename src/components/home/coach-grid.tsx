@@ -20,7 +20,6 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
       <button
         type="button"
         aria-pressed={second}
-        aria-label={`${coach.name}${coach.surname ? ` ${coach.surname}` : ""}: diğer fotoğrafı göster`}
         onClick={() => setSecond((v) => !v)}
         onPointerEnter={(e) => e.pointerType === "mouse" && setSecond(true)}
         onPointerLeave={(e) => e.pointerType === "mouse" && setSecond(false)}
@@ -48,6 +47,10 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
         <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink to-transparent" />
         <span className="absolute inset-x-3 bottom-2.5 text-left text-[12px] leading-snug font-medium text-paper/85 sm:inset-x-5 sm:bottom-3 sm:text-[14px]">
           {coach.areas.join(" · ")}
+        </span>
+        <span className="sr-only">
+          {coach.name}
+          {coach.surname ? ` ${coach.surname}` : ""}: diğer fotoğrafı göster
         </span>
       </button>
       {/* First name small, surname large (owner, 2026-10-25); sized so the longest surname fits a phone card. */}
