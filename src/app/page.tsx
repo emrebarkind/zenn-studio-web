@@ -1,11 +1,10 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowUpRight, ChevronsDown } from "lucide-react";
+import { ChevronsDown } from "lucide-react";
 import { coaches, disciplines, faqs, studioLocation } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { company } from "@/content/company";
-import { DisciplineVisual } from "@/components/discipline-visual";
 import { HeroVideo } from "@/components/home/hero-video";
+import { ServiceDeck } from "@/components/home/service-deck";
 import { RequestWizard } from "@/components/home/request-wizard";
 import { Planner } from "@/components/home/planner";
 import { CoachGrid, type CoachCard } from "@/components/home/coach-grid";
@@ -69,40 +68,13 @@ export default function StudioHome() {
         </Container>
       </section>
 
-      {/* Hizmetlerimiz: five big photo cards, centred (3 + 2 on a wide screen); on a phone a row to swipe through. */}
+      {/* Hizmetlerimiz: a stacked deck of the five lessons; it flows toward the mouse at an edge, a click brings a card to the front. */}
       <section id="hizmetler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
         <Container className="fit leave lg:max-w-7xl">
-          <SectionHeading title="Hizmetlerimiz" lead="Beş branşta ders veriyoruz. Birine dokun, nasıl çalıştığımızı gör." />
-          <ul className="rise -mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:mt-10 lg:grid-cols-5 [&::-webkit-scrollbar]:hidden">
-            {disciplines.map((d, i) => (
-              <li key={d.slug} className={`w-[80%] shrink-0 snap-start sm:w-auto ${i === 4 ? "sm:col-span-2 lg:col-span-1" : ""}`}>
-                <Link
-                  href={`/branslar/${d.slug}`}
-                  className={`group on-ink @container relative block overflow-hidden bg-ink text-paper ${i === 4 ? "aspect-[4/5] sm:aspect-[16/9]" : "aspect-[4/5]"} rounded-[22px] sm:rounded-[28px] lg:aspect-auto lg:h-[clamp(320px,56svh,580px)]`}
-                >
-                  <DisciplineVisual
-                    d={d}
-                    morph
-                    sizes="(min-width: 1024px) 250px, (min-width: 640px) 50vw, 100vw"
-                    className="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                  />
-                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/0" />
-                  <div className="absolute inset-x-0 bottom-0 p-6 text-center lg:p-5">
-                    {/* Only a lesson that runs solely as a group class says so (Spinning). */}
-                    {d.formats.every((f) => f === "group") && (
-                      <p className="mx-auto mb-3 w-fit rounded-full bg-paper/15 px-3 py-1 text-[13px] font-semibold backdrop-blur">Grup dersi</p>
-                    )}
-                    <h3 className="text-[2rem] leading-[1.02] font-semibold tracking-[-0.035em]">{d.name}</h3>
-                    <p className="mt-1.5 text-[15px] text-paper/80">{d.tagline}</p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-lime">
-                      İncele
-                      <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
-                    </span>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <SectionHeading title="Hizmetlerimiz" lead="Beş branşta ders veriyoruz. Kartlara dokun ya da kaydır; öndekine tıklayınca ayrıntıları gör." />
+          <div className="rise mt-8 lg:mt-4">
+            <ServiceDeck />
+          </div>
         </Container>
       </section>
 
