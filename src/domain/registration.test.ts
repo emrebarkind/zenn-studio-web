@@ -6,7 +6,10 @@ const base = {
   format: "private",
   plan: "",
   people: "3",
-  slot: "akşam",
+  slot: "farketmez",
+  days: ["car", "pzt"],
+  timeFrom: "18:00",
+  timeTo: "21:00",
   firstName: "Deniz",
   lastName: "Aksoy",
   phone: "0532 123 45 67",
@@ -42,11 +45,21 @@ describe("lesson request", () => {
       format: { id: "private", name: "Bireysel ve küçük grup" },
       plan: null,
       people: 3,
-      slot: "akşam",
+      slot: null,
+      days: ["Pzt", "Çar"],
+      timeFrom: "18:00",
+      timeTo: "21:00",
     });
     const quick = crmPayload(r, { ...meta, form: "quick" });
     expect(quick.people).toBeNull();
     expect(quick.slot).toBeNull();
+  });
+
+  it("puts the days and time range in the summary and refuses an end before the start", () => {
+    const r = registrationSchema.parse(base);
+    expect(summarize(r, "ZS-000001")).toContain("Uygun günler: Pzt, Çar");
+    expect(summarize(r, "ZS-000001")).toContain("Saat aralığı: 18:00-21:00");
+    expect(registrationSchema.safeParse({ ...base, timeFrom: "20:00", timeTo: "19:00" }).success).toBe(false);
   });
 
   it("names the group package when one was chosen", () => {

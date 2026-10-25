@@ -45,6 +45,7 @@ export function SectionHeading({
   lead,
   tone = "ink",
   size = "lg",
+  align = "center",
   className = "",
 }: {
   title: React.ReactNode;
@@ -52,10 +53,12 @@ export function SectionHeading({
   tone?: "ink" | "paper";
   /** "md" for a heading that shares its row with a form or a picture. */
   size?: "lg" | "md";
+  /** The home page flows down the middle; pages with a side picture align left. */
+  align?: "center" | "left";
   className?: string;
 }) {
   return (
-    <div className={`max-w-3xl ${className}`}>
+    <div className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`}>
       <h2
         className={`font-semibold tracking-[-0.045em] text-balance ${
           size === "lg" ? "text-[clamp(2.5rem,6.5vw,5rem)] leading-[0.98]" : "text-[clamp(2.25rem,4.2vw,3.5rem)] leading-[1.02]"
@@ -64,7 +67,7 @@ export function SectionHeading({
         {title}
       </h2>
       {lead && (
-        <p className={`mt-4 max-w-xl text-lg leading-relaxed ${tone === "paper" ? "text-paper/70" : "text-ink-soft"}`}>{lead}</p>
+        <p className={`mt-4 max-w-xl text-lg leading-relaxed ${align === "center" ? "mx-auto" : ""} ${tone === "paper" ? "text-paper/70" : "text-ink-soft"}`}>{lead}</p>
       )}
     </div>
   );

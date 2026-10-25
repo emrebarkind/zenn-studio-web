@@ -20,6 +20,36 @@ export const paymentMethods: {
 ];
 
 const disciplineSlugs = disciplines.map((d) => d.slug) as [string, ...string[]];
+
+/** Days a visitor can say suit them, Monday first. */
+export const WEEKDAYS = [
+  { id: "pzt", label: "Pzt" },
+  { id: "sal", label: "Sal" },
+  { id: "car", label: "Çar" },
+  { id: "per", label: "Per" },
+  { id: "cum", label: "Cum" },
+  { id: "cmt", label: "Cmt" },
+  { id: "paz", label: "Paz" },
+] as const;
+export type WeekdayId = (typeof WEEKDAYS)[number]["id"];
+const weekdayIds = WEEKDAYS.map((d) => d.id) as [WeekdayId, ...WeekdayId[]];
+
+/** Whole hours the studio is open for a time range, 07:00 to 22:00. */
+export const HOURS = Array.from({ length: 16 }, (_, i) => `${String(i + 7).padStart(2, "0")}:00`) as [string, ...string[]];
+
+/** "18:00-21:00", "18:00 sonrası", "21:00 öncesi" or null. */
+export function timeRangeLabel(from: string, to: string): string | null {
+  if (from && to) return `${from}-${to}`;
+  if (from) return `${from} sonrası`;
+  if (to) return `${to} öncesi`;
+  return null;
+}
+
+/** "Pzt, Çar, Cum" from the chosen day ids, in week order. */
+export function daysLabel(days: readonly string[]): string | null {
+  const labels = WEEKDAYS.filter((d) => days.includes(d.id)).map((d) => d.label);
+  return labels.length ? labels.join(", ") : null;
+}
 const groupPlanIds = plans.filter((p) => p.format === "group").map((p) => p.id) as [string, ...string[]];
 
 /**
@@ -35,6 +65,10 @@ export const registrationSchema = z
     plan: z.union([z.literal(""), z.enum(groupPlanIds)]).default(""),
     people: z.coerce.number().int().min(1).max(PRIVATE_GROUP_MAX).default(1),
     slot: z.enum(["sabah", "öğle", "akşam", "farketmez"]).default("farketmez"),
+    /** Days and a time range that suit the visitor (private and online lessons; optional). */
+    days: z.array(z.enum(weekdayIds)).default([]),
+    timeFrom: z.union([z.literal(""), z.enum(HOURS)]).default(""),
+    timeTo: z.union([z.literal(""), z.enum(HOURS)]).default(""),
     firstName: z.string().trim().min(2, "Adını yaz."),
     lastName: z.string().trim().min(2, "Soyadını yaz."),
     phone: z
@@ -49,6 +83,9 @@ export const registrationSchema = z
     const discipline = disciplines.find((d) => d.slug === v.discipline);
     if (discipline && !discipline.formats.includes(v.format as FormatId)) {
       ctx.addIssue({ code: "custom", path: ["format"], message: "Bu branş bu şekilde verilmiyor." });
+    }
+    if (v.timeFrom && v.timeTo && v.timeTo <= v.timeFrom) {
+      ctx.addIssue({ code: "custom", path: ["timeTo"], message: "Bitiş saati başlangıçtan sonra olmalı." });
     }
   });
 
@@ -68,7 +105,9 @@ export function summarize(r: Registration, reference: string): string {
     `Şekil: ${way}`,
     r.format === "group" && `Paket: ${plan ?? "görüşmede belirlenecek"}`,
     r.format === "private" && `Kişi sayısı: ${r.people}`,
-    r.format !== "online" && `Saat tercihi: ${r.slot === "farketmez" ? "fark etmez" : r.slot}`,
+    r.format === "group" && `Grup: ${r.slot === "farketmez" ? "fark etmez" : r.slot}`,
+    daysLabel(r.days) && `Uygun günler: ${daysLabel(r.days)}`,
+    timeRangeLabel(r.timeFrom, r.timeTo) && `Saat aralığı: ${timeRangeLabel(r.timeFrom, r.timeTo)}`,
     r.note && `Not: ${r.note}`,
   ]
     .filter(Boolean)
@@ -108,9 +147,13 @@ export function crmPayload(
     discipline: { slug: r.discipline, name: discipline?.name ?? r.discipline },
     format: { id: r.format, name: format?.name ?? r.format },
     plan: plan ? { id: plan.id, name: plan.name } : null,
-    // The quick form never asks how many or when; say nothing rather than "1 kişi, fark etmez".
+    // The quick form never asks how many; say nothing rather than "1 kişi".
     people: r.format === "private" && meta.form === "detailed" ? r.people : null,
-    slot: r.format === "online" || meta.form === "quick" ? null : r.slot,
+    // Morning / evening group only means something for a group class.
+    slot: r.format === "group" && meta.form === "detailed" ? r.slot : null,
+    days: WEEKDAYS.filter((d) => r.days.includes(d.id)).map((d) => d.label),
+    timeFrom: r.timeFrom || null,
+    timeTo: r.timeTo || null,
     note: r.note,
   };
 }

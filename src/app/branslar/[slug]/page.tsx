@@ -114,7 +114,7 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
       {/* How this discipline is offered. */}
       <section className="pb-20 sm:pb-28">
         <Container>
-          <SectionHeading size="md" title="Nasıl çalışırsın" lead="Fiyatı seni aradığımızda paylaşırız. Ödeme alınmaz." />
+          <SectionHeading size="md" align="left" title="Nasıl çalışırsın" lead="Fiyatı seni aradığımızda paylaşırız. Ödeme alınmaz." />
           <div className="mt-10 grid gap-4 lg:grid-cols-12">
             {group ? (
               <GroupPackageCard discipline={d.slug} subtitle={d.name} className="lg:col-span-8" />

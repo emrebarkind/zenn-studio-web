@@ -3,19 +3,10 @@ import hero from "@/assets/photos/hero.jpg";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
 import birebirWide from "@/assets/photos/birebir-wide.jpg";
-import matPilates from "@/assets/photos/mat-pilates.jpg";
-import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
-import kickboks from "@/assets/photos/kickboks.jpg";
-import reformerKollar from "@/assets/photos/reformer-kollar.jpg";
 import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
-import cadillac from "@/assets/photos/cadillac.jpg";
-import amut from "@/assets/photos/amut.jpg";
 import matGrup from "@/assets/photos/mat-grup.jpg";
 import zeynepDers from "@/assets/photos/zeynep-ders.jpg";
-import zeynepSalon from "@/assets/photos/zeynep-salon.jpg";
 import kickboksTorba from "@/assets/photos/kickboks-torba.jpg";
-import kickboksGard from "@/assets/photos/kickboks-gard.jpg";
-import kickboksPortre from "@/assets/photos/kickboks-portre.jpg";
 import barisDambil from "@/assets/photos/baris-dambil.jpg";
 import antrenorAli from "@/assets/photos/antrenor-ali.jpg";
 import antrenorSuheda from "@/assets/photos/antrenor-suheda.jpg";
@@ -212,24 +203,6 @@ export const coaches: Coach[] = [
   },
   { name: "Ece", disciplines: ["mat-pilates", "reformer-pilates", "fonksiyonel-antrenman"], portrait: null, action: null },
   { name: "Sude", disciplines: ["reformer-pilates", "fonksiyonel-antrenman"], portrait: null, action: null },
-];
-
-/** The hero's flowing ring: one photo per card, disciplines interleaved so neighbours differ. */
-export const ringPhotos: Photo[] = [
-  { src: reformerTeaser, alt: "Reformer Pilates", position: "50% 55%" },
-  { src: kickboksTorba, alt: "Kickboks", position: "45% 30%" },
-  { src: matGrup, alt: "Mat Pilates dersi", position: "50% 60%" },
-  { src: cadillac, alt: "Cadillac üzerinde pilates", position: "50% 45%" },
-  { src: barisDambil, alt: "Fonksiyonel antrenman", position: "50% 30%" },
-  { src: zeynepDers, alt: "Mat Pilates, antrenör düzeltmesi", position: "50% 45%" },
-  { src: kickboksGard, alt: "Kickboks gardı", position: "50% 30%" },
-  { src: amut, alt: "Pilates aletinde amut", position: "50% 50%" },
-  { src: matPilates, alt: "Mat üzerinde esneme", position: "50% 40%" },
-  { src: kickboksPortre, alt: "Eldivenli kickboksçu", position: "50% 25%" },
-  { src: reformerKollar, alt: "Reformer kayışlarıyla çalışma", position: "50% 35%" },
-  { src: zeynepSalon, alt: "Salonda antrenör", position: "50% 30%" },
-  { src: kickboks, alt: "Kickboks yumruğu", position: "50% 30%" },
-  { src: fonksiyonel, alt: "Matta fonksiyonel çalışma", position: "50% 45%" },
 ];
 
 export type PlanId = "group-8" | "group-12" | "private" | "online";

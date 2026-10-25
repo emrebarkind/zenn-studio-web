@@ -23,8 +23,12 @@ function makeReference(): string {
   return `ZS-${n.toString().padStart(6, "0")}`;
 }
 
-function textValues(raw: Record<string, FormDataEntryValue>): Record<string, string> {
-  return Object.fromEntries(Object.entries(raw).filter((e): e is [string, string] => typeof e[1] === "string"));
+function textValues(formData: FormData): Record<string, string> {
+  const raw = Object.fromEntries(formData);
+  const values = Object.fromEntries(Object.entries(raw).filter((e): e is [string, string] => typeof e[1] === "string"));
+  // A multi-choice field comes back comma-joined, so the form can restore every tick.
+  values.days = formData.getAll("days").join(",");
+  return values;
 }
 
 function fieldErrors(issues: { path: PropertyKey[]; message: string }[]): Record<string, string> {
@@ -59,11 +63,11 @@ async function deliver(r: Registration, form: RequestForm): Promise<{ ok: true; 
 export async function submitRegistration(_prev: RegistrationState, formData: FormData): Promise<RegistrationState> {
   const raw = Object.fromEntries(formData);
   // Echoed back so the form can restore what was typed.
-  const values = textValues(raw);
+  const values = textValues(formData);
   // Honeypot: people never fill a field they cannot see.
   if (values.website) return { status: "ok", reference: makeReference(), summary: "" };
 
-  const parsed = registrationSchema.safeParse(raw);
+  const parsed = registrationSchema.safeParse({ ...raw, days: formData.getAll("days") });
   if (!parsed.success) {
     return { status: "error", errors: fieldErrors(parsed.error.issues), message: "Bazı alanları kontrol et.", values };
   }
@@ -76,12 +80,11 @@ export async function submitRegistration(_prev: RegistrationState, formData: For
 /**
  * The short form on the home page: which lesson, name, mobile. The way to
  * train follows from the lesson (group classes are group, the rest private),
- * Mat Pilates can be asked for online; package, people and time are settled
- * on the call.
+ * Mat Pilates can be asked for online, and the days and time range that suit
+ * the visitor are optional; package and people are settled on the call.
  */
 export async function submitQuickRequest(_prev: RegistrationState, formData: FormData): Promise<RegistrationState> {
-  const raw = Object.fromEntries(formData);
-  const values = textValues(raw);
+  const values = textValues(formData);
   if (values.website) return { status: "ok", reference: makeReference(), summary: "" };
 
   const discipline = values.discipline ?? "";
@@ -92,6 +95,9 @@ export async function submitQuickRequest(_prev: RegistrationState, formData: For
     plan: "",
     people: "1",
     slot: "farketmez",
+    days: formData.getAll("days"),
+    timeFrom: values.timeFrom ?? "",
+    timeTo: values.timeTo ?? "",
     firstName: values.firstName ?? "",
     lastName: values.lastName ?? "",
     phone: values.phone ?? "",

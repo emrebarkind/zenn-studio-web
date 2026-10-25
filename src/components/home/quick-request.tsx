@@ -7,13 +7,14 @@ import { disciplines } from "@/content/site";
 import { submitQuickRequest } from "@/app/kayit/actions";
 import type { RegistrationState } from "@/app/kayit/actions";
 import { buttonClass } from "@/components/ui";
+import { DayTimePicker } from "@/components/day-time-picker";
 
 const input =
   "mt-1.5 block min-h-12 w-full rounded-2xl bg-paper px-4 text-[16px] ring-1 ring-ink/15 outline-none transition-shadow focus:ring-2 focus:ring-ink aria-invalid:ring-2 aria-invalid:ring-danger";
 
 /**
- * The short request: which lesson, name, mobile, consent. Everything else
- * (package, people, time, price) is settled on the call. The request goes to
+ * The short request: which lesson, name, mobile, and (optionally) the days
+ * and hours that suit; package, people and price are settled on the call. The request goes to
  * the CRM's "Gelen aramalar".
  */
 export function QuickRequest() {
@@ -109,6 +110,10 @@ export function QuickRequest() {
           />
           {errors.phone && <span className="mt-1 block text-sm font-medium text-danger">{errors.phone}</span>}
         </label>
+      </div>
+
+      <div className="mt-7 border-t border-ink/10 pt-7">
+        <DayTimePicker days={values.days ? values.days.split(",") : []} timeFrom={values.timeFrom} timeTo={values.timeTo} error={errors.timeTo} />
       </div>
 
       {/* Honeypot: hidden from people, filled by bots; such a request is never sent. */}

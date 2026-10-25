@@ -81,45 +81,11 @@ body {
 .settle > *:nth-child(3) { animation-delay: 180ms; }
 .settle > *:nth-child(4) { animation-delay: 270ms; }
 
-/* The hero's ring: photos on the inside wall of a slowly turning cylinder,
-   seen from just outside it, so the far wall faces you and the sides curve
-   toward you. Pure CSS (one animated transform); stops under reduced motion
-   and with the pause button. */
-.ring-stage {
-  --card-w: clamp(205px, min(22vw, 33vh), 300px);
-  --card-h: calc(var(--card-w) * 1.4);
-  --ring-r: calc(var(--card-w) * 2.6);
-  perspective: calc(var(--card-w) * 6);
-  perspective-origin: 50% 50%;
-  overflow: hidden;
+/* The hero photograph: a slow push-in while it is on screen. */
+@keyframes hero-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.07); }
 }
-.ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform-style: preserve-3d;
-  transform: translateZ(var(--ring-r)) rotateY(0deg);
-  animation: ring-spin 110s linear infinite;
-}
-.ring[data-paused="true"] {
-  animation-play-state: paused;
-}
-.ring-card {
-  position: absolute;
-  left: calc(var(--card-w) * -0.5);
-  top: calc(var(--card-h) * -0.5);
-  width: var(--card-w);
-  height: var(--card-h);
-  overflow: hidden;
-  border-radius: 26px;
-  background: #232823;
-  backface-visibility: hidden;
-  transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(calc(var(--ring-r) * -1));
-}
-@keyframes ring-spin {
-  from { transform: translateZ(var(--ring-r)) rotateY(0deg); }
-  to { transform: translateZ(var(--ring-r)) rotateY(360deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ring { animation: none; }
+.hero-zoom {
+  animation: hero-zoom 8s ease-out both;
 }

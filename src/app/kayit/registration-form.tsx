@@ -15,6 +15,7 @@ import {
 } from "@/content/site";
 import { company } from "@/content/company";
 import { buttonClass } from "@/components/ui";
+import { DayTimePicker } from "@/components/day-time-picker";
 import { submitRegistration, type RegistrationState } from "./actions";
 
 function pick<T extends string>(value: string | null, allowed: readonly T[]): T | null {
@@ -140,8 +141,8 @@ export function RegistrationForm() {
 
   const chip =
     "cursor-pointer rounded-full bg-card px-4 py-2 ring-1 ring-ink/15 has-[:checked]:bg-lime has-[:checked]:ring-ink has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ink";
-  const slots = format === "private" ? (["sabah", "öğle", "akşam", "farketmez"] as const) : (["sabah", "akşam", "farketmez"] as const);
-  const slotLabel = { sabah: "Sabah", öğle: "Öğle", akşam: "Akşam", farketmez: "Fark etmez" } as const;
+  const slots = ["sabah", "akşam", "farketmez"] as const;
+  const slotLabel = { sabah: "Sabah", akşam: "Akşam", farketmez: "Fark etmez" } as const;
 
   return (
     <form
@@ -244,21 +245,26 @@ export function RegistrationForm() {
             </div>
           </div>
         ) : format === "online" ? (
-          <p className="text-ink-soft">Online Mat Pilates: antrenörümüz uygun gün ve saati seninle konuşur.</p>
+          <p className="text-ink-soft">Online Mat Pilates: evden, canlı ders.</p>
         ) : (
           <p className="text-ink-soft">Önce nasıl çalışmak istediğini seç.</p>
         )}
-        {format && format !== "online" && (
+        {format === "group" && (
           <div className="mt-5">
-            <p className="text-sm font-semibold">{format === "group" ? "Hangi grup" : "Sana uygun zaman"}</p>
+            <p className="text-sm font-semibold">Hangi grup</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {slots.map((sl) => (
                 <label key={sl} className={chip}>
                   <input type="radio" name="slot" value={sl} defaultChecked={sl === (values.slot ?? "farketmez")} className="sr-only" />
-                  {sl === "farketmez" ? slotLabel[sl] : format === "group" ? `${slotLabel[sl]} grubu` : slotLabel[sl]}
+                  {sl === "farketmez" ? slotLabel[sl] : `${slotLabel[sl]} grubu`}
                 </label>
               ))}
             </div>
+          </div>
+        )}
+        {(format === "private" || format === "online") && (
+          <div className="mt-6">
+            <DayTimePicker days={values.days ? values.days.split(",") : []} timeFrom={values.timeFrom} timeTo={values.timeTo} error={errors.timeTo} />
           </div>
         )}
       </Step>
