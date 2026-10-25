@@ -41,7 +41,7 @@ const disciplineName = Object.fromEntries(disciplines.map((d) => [d.slug, d.name
 
 const coachCards: CoachCard[] = coaches.flatMap((c) =>
   c.portrait && c.action
-    ? [{ name: c.name, surname: c.surname, branches: c.disciplines.map((s) => disciplineName[s]).join(", "), portrait: c.portrait, action: c.action }]
+    ? [{ name: c.name, surname: c.surname, areas: c.areas ?? c.disciplines.map((s) => disciplineName[s]), portrait: c.portrait, action: c.action }]
     : [],
 );
 // On a wide screen every section is one screen tall and the page settles on
@@ -135,7 +135,7 @@ export default function StudioHome() {
       {/* Coaches: big portraits, three to a row; hover or tap for a second one. */}
       <section id="antrenorler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
         <Container className="fit leave lg:max-w-[1400px]">
-          <SectionHeading title="Antrenörler" lead="Derslerimizi bu ekip veriyor. Fotoğrafın üzerine gel ya da dokun." />
+          <SectionHeading title="Eğitmen Kadromuz" lead="Derslerimizi bu ekip veriyor. Fotoğrafın üzerine gel ya da dokun." />
           <div className="mt-14 lg:mt-10">
             <CoachGrid coaches={coachCards} />
           </div>

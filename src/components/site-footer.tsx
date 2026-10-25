@@ -55,7 +55,7 @@ export function SiteFooter() {
               <h2 className="text-sm font-semibold">Stüdyo</h2>
               <ul className="mt-4 space-y-2.5 text-paper/60">
                 <li><Link className={link} href="/paketler">Paketler</Link></li>
-                <li><Link className={link} href="/#antrenorler">Antrenörler</Link></li>
+                <li><Link className={link} href="/#antrenorler">Eğitmen Kadromuz</Link></li>
                 <li><Link className={link} href="/ders-bul">Sana uygun ders</Link></li>
                 <li><Link className={link} href="/#sss">Sık sorulanlar</Link></li>
                 <li><Link className={link} href="/blog">Blog</Link></li>

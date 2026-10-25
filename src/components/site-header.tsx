@@ -25,7 +25,7 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
   ],
   studio: [
     { href: "/#hizmetler", label: "Hizmetlerimiz" },
-    { href: "/#antrenorler", label: "Antrenörler" },
+    { href: "/#antrenorler", label: "Eğitmen Kadromuz" },
     { href: "/#plan", label: "Sana uygun ders" },
     { href: "/#konum", label: "Konum" },
     { href: "/blog", label: "Blog" },

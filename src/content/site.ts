@@ -194,6 +194,8 @@ export type Coach = {
   name: string;
   /** Shown after the first name on the site (owner, 2026-10-25). */
   surname?: string;
+  /** What the coach works in professionally, as shown on their card when it differs from the lessons (Barış: Fitness). */
+  areas?: string[];
   disciplines: DisciplineSlug[];
   /** Portrait, then a photo from a lesson; hovering (or tapping) the card swaps them. null until sent. */
   portrait: Photo | null;
@@ -233,6 +235,7 @@ export const coaches: Coach[] = [
   {
     name: "Barış",
     surname: "Öngören",
+    areas: ["Fitness"],
     disciplines: ["fonksiyonel-antrenman"],
     portrait: { src: antrenorBaris, alt: "Antrenör Barış", position: "50% 20%" },
     action: { src: antrenorBaris2, alt: "Antrenör Barış", position: "50% 20%" },

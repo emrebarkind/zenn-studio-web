@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import type { Photo } from "@/content/site";
 
-export type CoachCard = { name: string; surname?: string; branches: string; portrait: Photo; action: Photo };
+export type CoachCard = { name: string; surname?: string; areas: string[]; portrait: Photo; action: Photo };
 
 /** Portrait first; pointing at it (or tapping it) turns to a second portrait from another angle (Ali: at the bag). */
 function Card({ coach, className = "" }: { coach: CoachCard; className?: string }) {
@@ -39,11 +39,21 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
           className={`${fade} ${second ? "scale-100 opacity-100" : "scale-[1.03] opacity-0"}`}
           style={{ objectPosition: coach.action.position }}
         />
+        {/* What they work in, on the photo itself. */}
+        <span aria-hidden className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 to-transparent" />
+        <span className="on-ink absolute inset-x-2 bottom-2.5 flex flex-wrap justify-center gap-1.5">
+          {coach.areas.map((a) => (
+            <span key={a} className="rounded-full bg-paper/20 px-2 py-1 text-[11px] leading-none font-semibold whitespace-nowrap text-paper backdrop-blur-md sm:px-2.5 sm:text-[13px]">
+              {a}
+            </span>
+          ))}
+        </span>
       </button>
-      {/* First name large, surname under it: long surnames never overflow a narrow card. */}
-      <p className="mt-5 text-[1.75rem] leading-none font-semibold tracking-[-0.035em] sm:text-[2rem]">{coach.name}</p>
-      {coach.surname && <p className="mt-1.5 text-[1.05rem] leading-tight font-medium tracking-[-0.01em] break-words">{coach.surname}</p>}
-      <p className="mt-2 text-base leading-snug text-ink-soft">{coach.branches}</p>
+      {/* First name small, surname large (owner, 2026-10-25); sized so the longest surname fits a phone card. */}
+      {coach.surname && <p className="mt-4 text-[15px] leading-tight font-medium text-ink-soft sm:text-base">{coach.name}</p>}
+      <p className={`${coach.surname ? "mt-0.5" : "mt-4"} text-[1.3rem] leading-[1.05] font-semibold tracking-[-0.03em] break-words sm:text-[1.6rem]`}>
+        {coach.surname ?? coach.name}
+      </p>
     </li>
   );
 }
