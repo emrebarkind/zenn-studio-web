@@ -73,7 +73,7 @@ export function SectionHeading({
   );
 }
 
-/** The one word of a heading that should catch the eye: italic, moss on light, lime on dark. */
+/** The one word of a heading that should catch the eye: italic, in the heading's colour on light, lime on dark. */
 export function Em({ children }: { children: React.ReactNode }) {
   return <em className="accent">{children}</em>;
 }

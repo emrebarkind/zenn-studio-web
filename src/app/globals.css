@@ -51,10 +51,9 @@ h1, h2, h3 {
   font-family: var(--font-display), system-ui, sans-serif;
 }
 
-/* The one italic word in a heading (<Em>, owner 2026-10-25): moss on light, lime on dark. */
+/* The one italic word in a heading (<Em>, owner 2026-10-25): italic in the heading's own colour on light (no green), lime on dark. */
 .accent {
   font-style: italic;
-  color: var(--moss);
   padding-inline-end: 0.04em;
 }
 .on-ink .accent {
