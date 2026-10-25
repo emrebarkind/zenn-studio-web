@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
-import { coaches, disciplines, faqs, formats } from "@/content/site";
+import { coaches, disciplines, faqs, formats, studioLocation } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { ZennWordmark } from "@/components/brand";
 import { company } from "@/content/company";
@@ -12,6 +12,7 @@ import { Planner } from "@/components/home/planner";
 import { CoachGrid, type CoachCard } from "@/components/home/coach-grid";
 import { MobileRequestBar } from "@/components/home/mobile-request-bar";
 import { SectionSnap } from "@/components/home/section-snap";
+import { FindUs } from "@/components/home/find-us";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
 import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
 import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
@@ -22,7 +23,7 @@ import fonksiyonel from "@/assets/photos/fonksiyonel.jpg";
 import zeynepDers from "@/assets/photos/zeynep-ders.jpg";
 
 export const metadata: Metadata = {
-  title: { absolute: "Zenn Studio | Pilates, Kickboks ve Fonksiyonel antrenman, İstanbul" },
+  title: { absolute: "Zenn Studio | Pilates, Kickboks ve Fonksiyonel antrenman, Tekirdağ" },
   alternates: { canonical: "/" },
 };
 
@@ -66,10 +67,10 @@ export default function StudioHome() {
           <div className="settle max-w-2xl">
             <h1>
               <ZennWordmark className="text-[clamp(2.75rem,7vw,5.5rem)]" />
-              <span className="sr-only">: İstanbul&apos;da Mat Pilates, Spinning, Reformer Pilates, Kickboks ve Fonksiyonel antrenman</span>
+              <span className="sr-only">: Tekirdağ&apos;da Mat Pilates, Spinning, Reformer Pilates, Kickboks ve Fonksiyonel antrenman</span>
             </h1>
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">
-              Pilates, kickboks ve fonksiyonel antrenman. Grup dersiyle ya da 6 kişiye kadar özel dersle.
+              Tekirdağ&apos;da pilates, kickboks ve fonksiyonel antrenman veriyoruz: grup derslerinde ya da 6 kişiye kadar özel derslerde.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="#talep" className="min-h-14 px-8 text-base">
@@ -86,7 +87,7 @@ export default function StudioHome() {
       {/* Hizmetlerimiz: five big photo cards, centred (3 + 2 on a wide screen); on a phone a row to swipe through. */}
       <section id="hizmetler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
         <Container className="fit leave lg:max-w-7xl">
-          <SectionHeading title="Hizmetlerimiz" lead="Beş branş. Belli günlerde grup dersi ya da 1-6 kişilik özel ders." />
+          <SectionHeading title="Hizmetlerimiz" lead="Beş branşta ders veriyoruz: belli günlerde grup dersleri, tek başına ya da 6 kişiye kadar özel dersler." />
           <ul className="rise -mx-4 mt-12 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:mt-10 lg:grid-cols-5 [&::-webkit-scrollbar]:hidden">
             {disciplines.map((d, i) => (
               <li key={d.slug} className={`w-[80%] shrink-0 snap-start sm:w-auto ${i === 4 ? "sm:col-span-2 lg:col-span-1" : ""}`}>
@@ -132,7 +133,7 @@ export default function StudioHome() {
       {/* Coaches: big portraits, three to a row; hover or tap for a second one. */}
       <section id="antrenorler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
         <Container className="fit leave lg:max-w-[1400px]">
-          <SectionHeading title="Antrenörler" lead="Derslerin bu ekiple. Fotoğrafın üzerine gel ya da dokun." />
+          <SectionHeading title="Antrenörler" lead="Derslerimizi bu ekip veriyor. Fotoğrafın üzerine gel ya da dokun." />
           <div className="mt-14 lg:mt-10">
             <CoachGrid coaches={coachCards} />
           </div>
@@ -149,6 +150,19 @@ export default function StudioHome() {
           />
           <div className="rise mt-12 lg:mt-8">
             <Planner />
+          </div>
+        </Container>
+      </section>
+
+      {/* Where we are: the map, toned to the site, with the address and directions. */}
+      <section id="konum" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
+        <Container className="fit leave">
+          <SectionHeading
+            title="Bizi nerede bulabilirsin?"
+            lead={`${studioLocation.district}'da, Şehit Mesut Bakan Caddesi'ndeyiz. Yol tarifini haritadan alabilir, gelmeden önce WhatsApp'tan bize yazabilirsin.`}
+          />
+          <div className="rise mt-12 lg:mt-8">
+            <FindUs />
           </div>
         </Container>
       </section>

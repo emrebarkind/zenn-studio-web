@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { company, contactChannels } from "@/content/company";
-import { disciplines } from "@/content/site";
+import { disciplines, studioLocation } from "@/content/site";
 import { ZennWordmark } from "@/components/brand";
 import { ButtonLink } from "@/components/ui";
 
@@ -25,8 +25,8 @@ export function SiteFooter() {
               <ZennWordmark className="text-[clamp(2.75rem,7vw,4rem)]" />
             </Link>
             <p className="mt-5 max-w-sm leading-relaxed text-paper/60">
-              Mat Pilates ve Spinning grup dersleri; Reformer Pilates, Kickboks ve Fonksiyonel antrenman tek başına ya da 6 kişiye
-              kadar. {company.city}.
+              Mat Pilates ve Spinning grup dersleri veriyoruz; Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda tek başına ya da
+              6 kişiye kadar çalışıyoruz. {studioLocation.district}, {studioLocation.city}.
             </p>
             <ButtonLink href="/#talep" className="mt-7">
               Ders talebi
@@ -71,8 +71,17 @@ export function SiteFooter() {
                         {company.address}, {company.city}
                       </a>
                     ) : (
-                      `${company.address}, ${company.city}`
+                      <Link className={link} href="/#konum">
+                        {company.address}, {company.city}
+                      </Link>
                     )}
+                  </p>
+                )}
+                {!company.address && (
+                  <p>
+                    <Link className={link} href="/#konum">
+                      {studioLocation.neighbourhood}, {studioLocation.district} / {studioLocation.city}
+                    </Link>
                   </p>
                 )}
                 {channels.map((c) => (

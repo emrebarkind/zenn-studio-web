@@ -27,6 +27,7 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
     { href: "/#hizmetler", label: "Hizmetlerimiz" },
     { href: "/#antrenorler", label: "Antrenörler" },
     { href: "/#plan", label: "Sana uygun ders" },
+    { href: "/#konum", label: "Konum" },
     { href: "/#sss", label: "Sorular" },
   ],
 };

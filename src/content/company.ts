@@ -32,8 +32,8 @@ export type Company = {
 
 export const company: Company = {
   legalName: "",
-  address: "",
-  city: "İstanbul",
+  address: "Hürriyet Mahallesi, Şehit Mesut Bakan Cd. No:2, Süleymanpaşa",
+  city: "Tekirdağ",
   taxOffice: "",
   taxNumber: "",
   mersis: "",

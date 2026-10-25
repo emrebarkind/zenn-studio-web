@@ -121,7 +121,7 @@ export function GroupPackageCard({
         })}
       </ol>
       <p className="mt-5 text-ink-soft">
-        4 hafta boyunca {joinTr(days.map((n) => DAY_NAMES[n - 1]))} {slot} grubundasın. Telafi yok; stüdyonun iptal ettiği ders paketin sonuna eklenir.
+        4 hafta boyunca {joinTr(days.map((n) => DAY_NAMES[n - 1]))} {slot} grubundasın. Telafi yok; bizim iptal ettiğimiz ders paketin sonuna eklenir.
       </p>
       <div className="mt-auto pt-8">
         <ButtonLink href={`/kayit?format=group&paket=${plan.id}${bransQuery(discipline)}`} variant="ink">

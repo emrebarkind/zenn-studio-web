@@ -8,6 +8,7 @@ import {
   planRules,
   plans,
   studio,
+  studioLocation,
 } from "@/content/site";
 import { goalFit, questions } from "@/domain/matcher";
 import { paymentMethods } from "@/domain/registration";
@@ -26,7 +27,7 @@ export function buildKnowledge(): string {
 
   lines.push(`# ${studio.name} (${studio.domain})`);
   lines.push(
-    `İstanbul'da bir stüdyo. Mat Pilates ve Spinning grup dersleri; Reformer Pilates, Kickboks ve Fonksiyonel antrenman tek başına ya da 6 kişiye kadar küçük grupla; talep üzerine yalnız Mat Pilates için online ders.`,
+    `Tekirdağ'da bir stüdyo; adres: ${studioLocation.neighbourhood}, ${studioLocation.street}, ${studioLocation.district}/${studioLocation.city}. Mat Pilates ve Spinning grup dersleri; Reformer Pilates, Kickboks ve Fonksiyonel antrenman tek başına ya da 6 kişiye kadar küçük grupla; talep üzerine yalnız Mat Pilates için online ders.`,
   );
 
   h("Formatlar");

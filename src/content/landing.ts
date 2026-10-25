@@ -34,7 +34,7 @@ export const landing: Record<Lang, LandingCopy> = {
     meta: {
       title: "Zenn — fitness stüdyoları için yapay zekâ destekli satış ve müşteri hizmetleri",
       description:
-        "Zenn, fitness stüdyoları için Claude ile çalışan bir satış ve müşteri hizmetleri asistanı geliştiriyor. İstanbul'daki kendi stüdyomuzun içinde.",
+        "Zenn, fitness stüdyoları için Claude ile çalışan bir satış ve müşteri hizmetleri asistanı geliştiriyor. Tekirdağ'daki kendi stüdyomuzun içinde.",
     },
     ids: { product: "urun", demo: "demo", how: "nasil", trust: "guven", customer: "studyo", contact: "iletisim" },
     heroAlt: "Zenn Studio'da reformer üzerinde egzersiz yapan sporcu",
@@ -104,9 +104,9 @@ export const landing: Record<Lang, LandingCopy> = {
     },
     customer: {
       title: "İlk müşterimiz: kendi stüdyomuz",
-      lead: "Zenn Studio 2025'te İstanbul'da kuruldu. Ürünü üyelerimizin ve antrenörlerimizin her gün içinde olduğu bir stüdyoda geliştiriyoruz.",
+      lead: "Zenn Studio 2025'te Tekirdağ'da kuruldu. Ürünü üyelerimizin ve antrenörlerimizin her gün içinde olduğu bir stüdyoda geliştiriyoruz.",
       facts: [
-        { value: "İstanbul", label: "Stüdyo" },
+        { value: "Tekirdağ", label: "Stüdyo" },
         { value: "2025", label: "Kuruluş" },
         { value: "68", label: "Üye" },
         { value: "2", label: "Yazılımcı" },
@@ -142,7 +142,7 @@ export const landing: Record<Lang, LandingCopy> = {
     meta: {
       title: "Zenn — AI sales and customer service for fitness studios",
       description:
-        "Zenn builds a Claude-powered sales and customer-service assistant for fitness studios, developed inside our own studio in Istanbul.",
+        "Zenn builds a Claude-powered sales and customer-service assistant for fitness studios, developed inside our own studio in Tekirdağ.",
     },
     ids: { product: "product", demo: "demo", how: "how", trust: "trust", customer: "studio", contact: "contact" },
     heroAlt: "Athlete exercising on a reformer at Zenn Studio",
@@ -212,9 +212,9 @@ export const landing: Record<Lang, LandingCopy> = {
     },
     customer: {
       title: "Our first customer: our own studio",
-      lead: "Zenn Studio was founded in Istanbul in 2025. We build the product inside a studio our members and coaches use every day.",
+      lead: "Zenn Studio was founded in Tekirdağ in 2025. We build the product inside a studio our members and coaches use every day.",
       facts: [
-        { value: "Istanbul", label: "Studio" },
+        { value: "Tekirdağ", label: "Studio" },
         { value: "2025", label: "Founded" },
         { value: "68", label: "Members" },
         { value: "2", label: "Software engineers" },

@@ -32,6 +32,23 @@ export const studio = {
 // Contact and legal details live in ./company.ts.
 
 /**
+ * Where we are (owner, 2026-10-25): Süleymanpaşa, Tekirdağ. Shown by its
+ * coordinates only, never through the Google business listing, which still
+ * carries a previous business's name until the owner sorts it out.
+ */
+export const studioLocation = {
+  neighbourhood: "Hürriyet Mahallesi",
+  street: "Şehit Mesut Bakan Cd. No:2",
+  district: "Süleymanpaşa",
+  city: "Tekirdağ",
+  lat: 40.9811393,
+  lng: 27.5509916,
+};
+
+/** Directions to the coordinates (no business name attached). */
+export const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${studioLocation.lat},${studioLocation.lng}`;
+
+/**
  * How we work (2026-10-25): the studio's own services first, group classes
  * and individual / small-group training for 1-6 people. Online is Mat Pilates
  * only, on request, and kept low-key: a tick box on the request form, not a
@@ -53,22 +70,22 @@ export const formats: Format[] = [
     id: "group",
     name: "Grup dersleri",
     short: "Grup dersi",
-    summary: "Belli günlerde, sabah ya da akşam grubunda.",
+    summary: "Grup derslerimizi belli günlerde, sabah ve akşam gruplarıyla veriyoruz.",
     points: ["Mat Pilates ve Spinning", "8 ya da 12 derslik, 4 haftalık paket", "Sabah ya da akşam grubu"],
   },
   {
     id: "private",
     name: "Bireysel ve küçük grup",
     short: "1-6 kişi",
-    summary: "Tek başına ya da 6 kişiye kadar; gün ve saati antrenörünle belirlersin.",
+    summary: "Tek başına ya da 6 kişiye kadar; gün ve saati seninle birlikte belirliyoruz.",
     points: ["Reformer Pilates, Kickboks, Fonksiyonel antrenman", "Tek başına, eşinle ya da arkadaşlarınla", "Saat ve günler sana göre"],
   },
   {
     id: "online",
     name: "Online ders",
     short: "Online",
-    summary: "Mat Pilates, evden canlı ders; talep üzerine.",
-    points: ["Yalnız Mat Pilates", "Antrenörün seni ekranda görür", "Gün ve saati birlikte planlarız"],
+    summary: "Mat Pilates'i talep üzerine evden, canlı olarak da veriyoruz.",
+    points: ["Yalnız Mat Pilates", "Antrenörümüz seni ekranda görür", "Gün ve saati birlikte planlarız"],
   },
 ];
 
@@ -114,7 +131,7 @@ export const disciplines: Discipline[] = [
     name: "Mat Pilates",
     tagline: "Tek ekipman: kendi vücudun.",
     description:
-      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Sabah ya da akşam grubunda, haftada 2 ya da 3 gün.",
+      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Sabah ve akşam gruplarımızda haftada 2 ya da 3 gün çalışıyoruz.",
     goodFor: ["Merkez gücü ve nefes", "Duruş ve bel-sırt sağlığı", "Grup enerjisiyle çalışmayı sevenler"],
     bring: "Rahat kıyafet ve su.",
     formats: ["group", "online"],
@@ -126,7 +143,7 @@ export const disciplines: Discipline[] = [
     name: "Spinning",
     tagline: "Müzikle, ritimle, tempoyla.",
     description:
-      "Sabit bisiklette müzik eşliğinde, aralıklı tempo ile kondisyon antrenmanı. Direnci herkes kendi seviyesine göre ayarlar; aynı grupta yeni başlayan da düzenli gelen de rahatça çalışır.",
+      "Sabit bisiklette, müzik eşliğinde aralıklı tempoyla kondisyon çalışıyoruz. Direnci herkes kendi seviyesine göre ayarlar; aynı grupta yeni başlayan da düzenli gelen de rahatça çalışır.",
     goodFor: ["Kondisyon ve yağ yakımı", "Eklemleri yormadan kardiyo", "Grup enerjisiyle çalışmayı sevenler"],
     bring: "Spor ayakkabı, havlu ve su.",
     formats: ["group"],
@@ -139,7 +156,7 @@ export const disciplines: Discipline[] = [
     name: "Reformer Pilates",
     tagline: "Yaylı direnç, kontrollü hareket.",
     description:
-      "Reformer'ın yay direnci her hareketi hem destekler hem zorlar. Derin karın kaslarını, duruşu ve eklem hareket açıklığını birlikte çalışırsın. Tek başına ya da 6 kişiye kadar küçük grupla.",
+      "Reformer'ın yay direnci her hareketi hem destekler hem zorlar. Derin karın kaslarını, duruşu ve eklem hareket açıklığını birlikte çalışıyoruz. Derslerimizi tek başına ya da 6 kişiye kadar küçük gruplarla veriyoruz.",
     goodFor: ["Duruş ve bel-sırt sağlığı", "Güç kaybetmeden esneklik", "Pilatese yeni başlayanlar"],
     bring: "Kaymaz çorap ve rahat kıyafet.",
     formats: ["private"],
@@ -151,9 +168,9 @@ export const disciplines: Discipline[] = [
     name: "Kickboks",
     tagline: "Tempo, teknik, kafayı boşaltmak.",
     description:
-      "Yumruk ve tekme kombinasyonları, ayak hareketi ve kondisyon blokları. Teknik önce gelir; tempo seviyene göre artar. Pad çalışmasıyla, tek başına ya da 6 kişiye kadar.",
+      "Yumruk ve tekme kombinasyonları, ayak hareketi ve kondisyon blokları. Teknikle başlıyoruz, tempoyu seviyene göre artırıyoruz. Pad çalışmasıyla, tek başına ya da 6 kişiye kadar.",
     goodFor: ["Kondisyon ve yağ yakımı", "Stres atmak", "Koordinasyon ve refleks"],
-    bring: "Bandaj ve eldiven; ilk derste stüdyodakileri kullanabilirsin.",
+    bring: "Bandaj ve eldiven; ilk derste bizimkileri kullanabilirsin.",
     formats: ["private"],
     coaches: ["Ali"],
     photo: { src: kickboksTorba, alt: "Kum torbasına yumruk atan kickboks antrenörü", position: "45% 30%" },
@@ -163,7 +180,7 @@ export const disciplines: Discipline[] = [
     name: "Fonksiyonel antrenman",
     tagline: "Günlük hayatta işe yarayan güç.",
     description:
-      "Çekme, itme, çömelme, taşıma: vücudun gerçek hayatta yaptığı hareketlerle güç ve dayanıklılık. Hedefine göre kurulan bireysel antrenman; istersen 6 kişiye kadar küçük grupla.",
+      "Çekme, itme, çömelme, taşıma: vücudun gerçek hayatta yaptığı hareketlerle güç ve dayanıklılık. Programı hedefine göre birlikte kuruyoruz; istersen 6 kişiye kadar küçük grupla.",
     goodFor: ["Kişisel hedefe göre program", "Güç ve dayanıklılık", "Bireysel takip isteyenler"],
     bring: "Spor ayakkabı, havlu, su.",
     formats: ["private"],
@@ -294,7 +311,7 @@ export const faqs = [
   },
   {
     q: "Grup dersi ile bireysel ders arasındaki fark ne?",
-    a: "Grup dersleri (Mat Pilates, Spinning) belli günlerde sabah ya da akşam grubunda yapılır. Reformer Pilates, Kickboks ve Fonksiyonel antrenman ise tek başına ya da 6 kişiye kadar küçük grupla, gün ve saati antrenörünle belirleyerek yapılır.",
+    a: "Grup derslerimizi (Mat Pilates, Spinning) belli günlerde sabah ve akşam gruplarıyla veriyoruz. Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda ise tek başına ya da 6 kişiye kadar küçük grupla çalışıyoruz; gün ve saati seninle birlikte belirliyoruz.",
   },
   {
     q: "Arkadaşlarımla birlikte gelebilir miyim?",
@@ -302,11 +319,11 @@ export const faqs = [
   },
   {
     q: "Kaçırdığım grup dersinin yerine başka gün gelebilir miyim?",
-    a: "8 ve 12 derslik grup paketlerinde telafi yoktur; seçtiğin sabah ya da akşam grubuna devam edersin. Stüdyonun iptal ettiği ders ise paketinin sonuna eklenir.",
+    a: "8 ve 12 derslik grup paketlerinde telafi yoktur; seçtiğin sabah ya da akşam grubuna devam edersin. Bizim iptal ettiğimiz ders ise paketinin sonuna eklenir.",
   },
   {
     q: "Online ders de veriyor musunuz?",
-    a: "Yalnız Mat Pilates için ve talep üzerine. Talep formunda \"Online ders talebi\" kutusunu işaretle; antrenörümüz uygun saati seninle konuşur.",
+    a: "Yalnız Mat Pilates için ve talep üzerine veriyoruz. Talep formunda \"Online ders talebi\" kutusunu işaretle; antrenörümüz uygun saati seninle konuşur.",
   },
   {
     q: "Fiyatları nereden öğrenirim?",
@@ -319,7 +336,7 @@ export const planRules = [
   "Grup paketleri 4 hafta geçerlidir ve seçtiğin sabah ya da akşam grubunda devam eder.",
   "8 derslik grup paketi pazartesi ve çarşamba, 12 derslik grup paketi pazartesi, çarşamba ve cuma günleridir.",
   "Grup derslerinde telafi yoktur; katılmadığın ders de paketinden düşer.",
-  "Stüdyonun iptal ettiği ders paketinin sonuna eklenir.",
+  "Bizim iptal ettiğimiz ders paketinin sonuna eklenir.",
 ];
 
 /** How an online Mat Pilates lesson works, step by step (shown on /online). */
