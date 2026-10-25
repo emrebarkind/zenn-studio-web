@@ -19,7 +19,7 @@ export default function BlogIndex() {
     <>
       <section className="pt-10 pb-12 sm:pt-16">
         <Container>
-          <h1 className="text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.92] font-bold tracking-[-0.05em] text-balance">Blog</h1>
+          <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">Blog</h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
             Stüdyomuzda en çok duyduğumuz soruları yazıya döküyoruz: hangi dersle başlanır, hangisi kime iyi gelir, ilk derste ne olur.
           </p>

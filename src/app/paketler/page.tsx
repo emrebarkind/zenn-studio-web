@@ -14,7 +14,7 @@ export default function PlansPage() {
     <>
       <section className="pt-10 pb-12 sm:pt-16">
         <Container>
-          <h1 className="text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.92] font-bold tracking-[-0.05em] text-balance">Dersler ve paketler</h1>
+          <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">Dersler ve paketler</h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
             Grup dersinde haftanın günleri pakete göre bellidir; özel derste günü ve saati antrenörünle belirlersin. Fiyatı seni
             aradığımızda paylaşırız, ödeme alınmaz.

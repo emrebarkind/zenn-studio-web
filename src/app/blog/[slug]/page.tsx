@@ -102,7 +102,7 @@ async function PostContent({
               <ArrowLeft className="size-4" aria-hidden />
               Blog
             </Link>
-            <h1 className="mt-4 text-[clamp(2.25rem,6vw,3.75rem)] leading-[1.02] font-bold tracking-[-0.045em] text-balance">
+            <h1 className="mt-4 text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">
               {post.title}
             </h1>
             <p className="mt-5 text-sm text-ink-soft">

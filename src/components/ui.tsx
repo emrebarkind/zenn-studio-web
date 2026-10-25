@@ -60,14 +60,14 @@ export function SectionHeading({
   return (
     <div className={`rise max-w-3xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`}>
       <h2
-        className={`font-semibold tracking-[-0.045em] text-balance ${
-          size === "lg" ? "text-[clamp(2.5rem,6.5vw,5rem)] leading-[0.98]" : "text-[clamp(2.25rem,4.2vw,3.5rem)] leading-[1.02]"
+        className={`font-semibold tracking-[-0.035em] text-balance ${
+          size === "lg" ? "text-[clamp(2rem,3.8vw,3.25rem)] leading-[1.05]" : "text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.08]"
         }`}
       >
         {title}
       </h2>
       {lead && (
-        <p className={`mt-4 max-w-xl text-lg leading-relaxed ${align === "center" ? "mx-auto" : ""} ${tone === "paper" ? "text-paper/70" : "text-ink-soft"}`}>{lead}</p>
+        <p className={`mt-3 max-w-[38rem] text-base leading-relaxed sm:text-lg ${align === "center" ? "mx-auto" : ""} ${tone === "paper" ? "text-paper/70" : "text-ink-soft"}`}>{lead}</p>
       )}
     </div>
   );

@@ -15,7 +15,7 @@ export default function FindClassPage() {
     <section className="on-ink bg-ink pt-12 pb-24 text-paper sm:pt-20 sm:pb-32">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-[clamp(2.5rem,7vw,4.5rem)] leading-[0.98] font-semibold tracking-[-0.045em] text-balance">
+          <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">
             Sana uygun dersi birlikte seçelim.
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-paper/75">

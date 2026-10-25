@@ -45,7 +45,7 @@ export default function KvkkPage() {
   return (
     <section className="pt-12 pb-24 sm:pt-20">
       <Container className="max-w-3xl">
-        <h1 className="font-display text-[clamp(2.25rem,6vw,3.75rem)] leading-[0.95] font-extrabold tracking-[-0.04em]">
+        <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em]">
           KVKK aydınlatma metni
         </h1>
         <div className="mt-10 space-y-8">

@@ -264,10 +264,11 @@ body {
 .prose-zenn li + li { margin-top: 0.4em; }
 .prose-zenn li::marker { color: var(--moss); }
 .prose-zenn strong { font-weight: 600; color: var(--ink); }
+/* No italic: Inter is loaded upright only, and a synthesized slant looks broken. */
 .prose-zenn blockquote {
   border-left: 3px solid var(--lime-hover);
   padding-left: 1em;
-  font-style: italic;
+  color: var(--ink-soft);
 }
 .prose-zenn table { width: 100%; border-collapse: collapse; font-size: 1rem; display: block; overflow-x: auto; }
 .prose-zenn th, .prose-zenn td { border-bottom: 1px solid color-mix(in oklab, var(--ink) 12%, transparent); padding: 0.6em 0.8em 0.6em 0; text-align: left; vertical-align: top; }

@@ -24,7 +24,7 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
         onClick={() => setSecond((v) => !v)}
         onPointerEnter={(e) => e.pointerType === "mouse" && setSecond(true)}
         onPointerLeave={(e) => e.pointerType === "mouse" && setSecond(false)}
-        className="relative -mt-px block aspect-[4/5] w-full overflow-hidden rounded-2xl lg:aspect-[3/5] lg:max-h-[48svh]"
+        className="relative -mt-px block aspect-[4/5] w-full overflow-hidden rounded-2xl lg:aspect-[5/4]"
       >
         <Image
           src={coach.portrait.src}
@@ -72,8 +72,8 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
 
 export function CoachGrid({ coaches }: { coaches: CoachCard[] }) {
   return (
-    // Three to a row, a short last row centred (six columns, two each); all five in one row on a wide screen.
-    <ul className="mx-auto grid grid-cols-2 gap-3 sm:grid-cols-6 sm:gap-5 lg:grid-cols-5">
+    // Three to a row and the last two centred under them (six columns, two each), owner 2026-10-25.
+    <ul className="mx-auto grid grid-cols-2 gap-3 sm:grid-cols-6 sm:gap-5 lg:max-w-[52rem]">
       {coaches.map((c, i) => {
         const rest = coaches.length % 3;
         const lastRow = i >= coaches.length - rest;
@@ -82,7 +82,7 @@ export function CoachGrid({ coaches }: { coaches: CoachCard[] }) {
           <Card
             key={c.name}
             coach={c}
-            className={`sm:col-span-2 lg:col-span-1 lg:col-start-auto ${lastRow && firstOfLastRow ? (rest === 2 ? "sm:col-start-2" : "sm:col-start-3") : ""} ${
+            className={`sm:col-span-2 ${lastRow && firstOfLastRow ? (rest === 2 ? "sm:col-start-2" : "sm:col-start-3") : ""} ${
               coaches.length % 2 === 1 && i === coaches.length - 1 ? "col-span-2 mx-auto w-[calc(50%-0.375rem)] sm:mx-0 sm:w-full" : ""
             }`}
           />

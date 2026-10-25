@@ -22,7 +22,7 @@ export function SiteFooter() {
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Link href="/" aria-label="Zenn Studio ana sayfa">
-              <ZennWordmark className="text-[clamp(2.75rem,7vw,4rem)]" />
+              <ZennWordmark className="text-[clamp(2.25rem,4.5vw,3rem)]" />
             </Link>
             <p className="mt-5 max-w-sm leading-relaxed text-paper/60">
               Mat Pilates ve Spinning grup dersleri veriyoruz; Mat ve Reformer Pilates, Kickboks ve Fonksiyonel antrenmanda tek başına ya da

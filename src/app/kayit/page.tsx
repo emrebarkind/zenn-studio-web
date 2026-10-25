@@ -12,7 +12,7 @@ export default function RegistrationPage() {
   return (
     <section className="pt-12 pb-24 sm:pt-20">
       <Container className="max-w-3xl">
-        <h1 className="font-display text-[clamp(2.75rem,8vw,5rem)] leading-[0.92] font-extrabold tracking-[-0.05em]">
+        <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">
           Ders talebi
         </h1>
         <p className="mt-5 max-w-xl text-lg text-ink-soft">

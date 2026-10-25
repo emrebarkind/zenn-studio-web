@@ -29,7 +29,7 @@ export default function OnlinePage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" aria-hidden />
             <div className="relative flex min-h-[480px] flex-col justify-end p-6 sm:min-h-[560px] sm:p-10">
               <span className="w-fit rounded-full px-3 py-1 text-xs font-semibold ring-1 ring-paper/40">Talep üzerine</span>
-              <h1 className="mt-4 max-w-3xl text-[clamp(2.5rem,7vw,5rem)] leading-[0.98] font-semibold tracking-[-0.045em]">
+              <h1 className="mt-4 max-w-3xl text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em]">
                 Online Mat Pilates
               </h1>
               <p className="mt-4 max-w-xl text-lg text-paper/80">{online.summary}</p>

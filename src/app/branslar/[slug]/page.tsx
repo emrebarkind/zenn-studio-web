@@ -54,7 +54,7 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
             <DisciplineVisual d={d} morph priority sizes="(min-width: 1024px) 560px, 100vw" />
           </div>
           <div className="lg:order-1 lg:col-span-6">
-            <h1 className="text-[clamp(3rem,8.5vw,6.5rem)] leading-[0.92] font-bold tracking-[-0.05em] text-balance">{d.name}</h1>
+            <h1 className="text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.02] font-semibold tracking-[-0.04em] text-balance">{d.name}</h1>
             <p className="mt-5 text-2xl font-semibold tracking-tight text-moss">{d.tagline}</p>
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-soft">{d.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">

@@ -89,7 +89,7 @@ export default function StudioHome() {
 
       {/* Coaches: big portraits, three to a row; hover or tap for a second one. */}
       <section id="antrenorler" className={`scroll-mt-24 py-24 sm:py-32 ${screen}`}>
-        <Container className="fit leave lg:max-w-[1400px]">
+        <Container className="fit leave">
           <SectionHeading title="Eğitmen Kadromuz" lead="Derslerimizi bu ekip veriyor. Fotoğrafın üzerine gel ya da dokun." />
           <div className="mt-14 lg:mt-10">
             <CoachGrid coaches={coachCards} />
