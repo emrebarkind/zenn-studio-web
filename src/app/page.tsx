@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { coaches, disciplines, faqs, studioLocation } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
-import { ZennWordmark } from "@/components/brand";
 import { company } from "@/content/company";
 import { DisciplineVisual } from "@/components/discipline-visual";
 import { HeroPhotos, type HeroSlide } from "@/components/home/hero-photos";
@@ -65,13 +64,15 @@ export default function StudioHome() {
         <div aria-hidden className="absolute inset-0 bg-black/25" />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/30 to-transparent" />
         <Container className="hero-out relative z-10 pt-32 pb-16 sm:pb-20">
-          <div className="settle max-w-2xl">
-            <h1>
-              <ZennWordmark className="text-[clamp(2.75rem,7vw,5.5rem)]" />
-              <span className="sr-only">: Tekirdağ&apos;da Mat Pilates, Spinning, Reformer Pilates, Kickboks ve Fonksiyonel antrenman</span>
+          <div className="settle max-w-4xl">
+            {/* The slogan leads (owner, 2026-10-25); the name is already in the header. */}
+            <h1 className="text-[clamp(2.35rem,7vw,5.75rem)] leading-[0.98] font-bold tracking-[-0.045em]">
+              Bugün daha güçlü,
+              <span className="block text-lime">yarın daha iyi.</span>
             </h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">
-              Tekirdağ&apos;da pilates, kickboks ve fonksiyonel antrenman veriyoruz: grup derslerinde ya da 6 kişiye kadar özel derslerde.
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">
+              Tekirdağ Süleymanpaşa&apos;da pilates, spinning, kickboks ve fonksiyonel antrenman. Seviyen ne olursa olsun seni tanıyor,
+              kendi temponda ve adım adım ilerletiyoruz.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="#talep" className="min-h-14 px-8 text-base">
