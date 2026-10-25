@@ -90,46 +90,6 @@ body {
   animation: step-in 380ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-/*
- * Scrolling has weight: each block rises into place as it comes into view,
- * and in the hero the photograph drifts slower than the page while the text
- * lifts away. CSS scroll-driven animations only; where they are missing, or
- * under reduced motion, everything is simply there.
- */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(56px) scale(0.98); }
-      to { opacity: 1; transform: none; }
-    }
-    .rise {
-      animation: rise linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 100%;
-    }
-    /* Side-by-side cards arrive one after another rather than as a block. */
-    .rise:nth-child(3n + 2) { animation-range: entry 12% entry 100%; }
-    .rise:nth-child(3n) { animation-range: entry 24% entry 100%; }
-
-    @keyframes hero-drift {
-      to { transform: translateY(22%); }
-    }
-    .hero-drift {
-      animation: hero-drift linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 100svh;
-    }
-    @keyframes hero-out {
-      to { opacity: 0; transform: translateY(-72px); }
-    }
-    .hero-out {
-      animation: hero-out linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 65svh;
-    }
-  }
-}
-
 /* Page changes (src/app/template.tsx): the old page steps back fast, the new one rises in. The header stays put. */
 ::view-transition {
   pointer-events: none;
@@ -181,28 +141,6 @@ body {
   }
 }
 
-/*
- * Wide screens: the home page reads as a stack of screens. Each one comes to
- * rest flush with the top (SectionSnap glides it there once scrolling stops;
- * no CSS snapping, so scrolling itself stays free), and the section on its
- * way out steps back as the next one arrives.
- */
-@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    @keyframes leave {
-      to { opacity: 0.15; transform: translateY(-40px) scale(0.95); }
-    }
-    .leave {
-      animation: leave linear both;
-      animation-timeline: view();
-      animation-range: exit 0% exit 90%;
-    }
-  }
-}
-/* Shorter laptop screens: the whole section scales down together so it still fits one screen. */
-@media (min-width: 1024px) and (max-height: 860px) {
-  .fit { zoom: 0.9; }
-}
 @media (min-width: 1024px) and (max-height: 780px) {
   .fit { zoom: 0.82; }
 }

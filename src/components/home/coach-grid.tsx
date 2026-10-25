@@ -16,7 +16,7 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
   const [second, setSecond] = useState(false);
   const fade = "object-cover transition-[opacity,transform] duration-500 ease-out";
   return (
-    <li className={`rise on-ink overflow-hidden rounded-2xl bg-ink text-paper ${className}`}>
+    <li className={`on-ink overflow-hidden rounded-2xl bg-ink text-paper ${className}`}>
       <button
         type="button"
         aria-pressed={second}

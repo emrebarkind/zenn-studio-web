@@ -58,7 +58,7 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <div className={`rise max-w-3xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`}>
+    <div className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : ""} ${className}`}>
       <h2
         className={`font-semibold tracking-[-0.035em] text-balance ${
           size === "lg" ? "text-[clamp(2rem,3.8vw,3.25rem)] leading-[1.05]" : "text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.08]"
