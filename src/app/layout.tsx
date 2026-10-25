@@ -7,9 +7,11 @@ import { assistantLive } from "@/lib/assistant/config";
 import { studio } from "@/content/site";
 import "./globals.css";
 
+// Real italics too: headings carry one italic word for emphasis (owner, 2026-10-25).
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
+  style: ["normal", "italic"],
 });
 
 // The logo alone is set in Geist (owner, 2026-10-25); every other word stays Inter.

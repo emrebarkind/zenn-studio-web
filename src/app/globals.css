@@ -46,6 +46,21 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+/* Headings take the display face (one place to change it). */
+h1, h2, h3 {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+/* The one italic word in a heading (<Em>, owner 2026-10-25): moss on light, lime on dark. */
+.accent {
+  font-style: italic;
+  color: var(--moss);
+  padding-inline-end: 0.04em;
+}
+.on-ink .accent {
+  color: var(--lime);
+}
+
 :focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;

@@ -73,6 +73,11 @@ export function SectionHeading({
   );
 }
 
+/** The one word of a heading that should catch the eye: italic, moss on light, lime on dark. */
+export function Em({ children }: { children: React.ReactNode }) {
+  return <em className="accent">{children}</em>;
+}
+
 export function SoonTag() {
   return (
     <span className="rounded-full px-2.5 py-0.5 text-xs font-semibold text-ink-soft ring-1 ring-ink/20">Yakında</span>
