@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { coaches, disciplines, faqs } from "@/content/site";
+import { coachFullName, coaches, disciplines, faqs } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { DisciplineVisual } from "@/components/discipline-visual";
 import { GroupPackageCard, PrivateLessonCard } from "@/components/home/ways-to-train";
@@ -104,7 +104,7 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
                         {c.name.charAt(0)}
                       </span>
                     )}
-                    <span className="font-semibold">{c.name}</span>
+                    <span className="font-semibold">{coachFullName(c)}</span>
                   </li>
                 ))}
               </ul>

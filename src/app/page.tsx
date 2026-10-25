@@ -42,7 +42,7 @@ const disciplineName = Object.fromEntries(disciplines.map((d) => [d.slug, d.name
 
 const coachCards: CoachCard[] = coaches.flatMap((c) =>
   c.portrait && c.action
-    ? [{ name: c.name, branches: c.disciplines.map((s) => disciplineName[s]).join(", "), portrait: c.portrait, action: c.action }]
+    ? [{ name: c.name, surname: c.surname, branches: c.disciplines.map((s) => disciplineName[s]).join(", "), portrait: c.portrait, action: c.action }]
     : [],
 );
 // On a wide screen every section is one screen tall and the page settles on

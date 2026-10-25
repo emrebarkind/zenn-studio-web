@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import type { Photo } from "@/content/site";
 
-export type CoachCard = { name: string; branches: string; portrait: Photo; action: Photo };
+export type CoachCard = { name: string; surname?: string; branches: string; portrait: Photo; action: Photo };
 
 /** Portrait first; pointing at it (or tapping it) turns to a second portrait from another angle (Ali: at the bag). */
 function Card({ coach, className = "" }: { coach: CoachCard; className?: string }) {
@@ -15,7 +15,7 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
       <button
         type="button"
         aria-pressed={second}
-        aria-label={`${coach.name}: diğer fotoğrafı göster`}
+        aria-label={`${coach.name}${coach.surname ? ` ${coach.surname}` : ""}: diğer fotoğrafı göster`}
         onClick={() => setSecond((v) => !v)}
         onPointerEnter={(e) => e.pointerType === "mouse" && setSecond(true)}
         onPointerLeave={(e) => e.pointerType === "mouse" && setSecond(false)}
@@ -40,7 +40,9 @@ function Card({ coach, className = "" }: { coach: CoachCard; className?: string 
           style={{ objectPosition: coach.action.position }}
         />
       </button>
+      {/* First name large, surname under it: long surnames never overflow a narrow card. */}
       <p className="mt-5 text-[1.75rem] leading-none font-semibold tracking-[-0.035em] sm:text-[2rem]">{coach.name}</p>
+      {coach.surname && <p className="mt-1.5 text-[1.05rem] leading-tight font-medium tracking-[-0.01em] break-words">{coach.surname}</p>}
       <p className="mt-2 text-base leading-snug text-ink-soft">{coach.branches}</p>
     </li>
   );

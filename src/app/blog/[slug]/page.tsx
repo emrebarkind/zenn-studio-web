@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { disciplines, studio } from "@/content/site";
+import { coachFullName, coaches, disciplines, studio } from "@/content/site";
 import { ButtonLink, Container } from "@/components/ui";
 import { allPosts, findPost, renderPost } from "@/lib/blog";
 import { formatPostDate } from "@/lib/blog-format";
@@ -56,6 +56,8 @@ async function PostContent({
   if (!post) notFound();
 
   const d = disciplines.find((x) => x.slug === post.discipline);
+  const reviewerCoach = coaches.find((c) => c.name === post.reviewedBy);
+  const reviewer = reviewerCoach ? coachFullName(reviewerCoach) : post.reviewedBy;
   const others = allPosts()
     .filter((p) => p.slug !== post.slug)
     .slice(0, 2);
@@ -77,7 +79,7 @@ async function PostContent({
       ? {
           contributor: {
             "@type": "Person",
-            name: post.reviewedBy,
+            name: reviewer,
             jobTitle: "Antrenör",
           },
         }
@@ -105,7 +107,7 @@ async function PostContent({
             </h1>
             <p className="mt-5 text-sm text-ink-soft">
               {formatPostDate(post.date)} · {post.readingMinutes} dk okuma
-              {post.reviewedBy && <> · Antrenörümüz {post.reviewedBy} okudu</>}
+              {reviewer && <> · Antrenörümüz {reviewer} okudu</>}
               {post.draft && (
                 <span className="ml-2 rounded-full bg-danger/15 px-2 py-0.5 font-semibold text-danger">
                   Taslak: canlı sitede görünmez

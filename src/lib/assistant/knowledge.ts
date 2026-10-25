@@ -1,5 +1,7 @@
 import { company, contactChannels } from "@/content/company";
 import {
+  coachFullName,
+  coaches,
   coachingFlow,
   comingSoon,
   disciplines,
@@ -40,7 +42,7 @@ export function buildKnowledge(): string {
     lines.push(
       `- ${d.name} (slug: ${d.slug}): ${d.tagline} ${d.description} Kimler için iyi: ${d.goodFor.join(", ")}. Yanına al: ${d.bring} Verildiği formatlar: ${d.formats
         .map((f) => `${formatName[f]} (${f})`)
-        .join(", ")}.${d.coaches.length ? ` Antrenör: ${d.coaches.join(", ")}.` : ""}`,
+        .join(", ")}.${d.coaches.length ? ` Antrenör: ${d.coaches.map((n) => coachFullName(coaches.find((c) => c.name === n) ?? { name: n })).join(", ")}.` : ""}`,
     );
   }
 

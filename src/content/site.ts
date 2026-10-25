@@ -190,43 +190,56 @@ export const disciplines: Discipline[] = [
 ];
 
 export type Coach = {
+  /** First name: the key everything else uses (lesson teams, blog reviewedBy, the CRM's coach list). */
   name: string;
+  /** Shown after the first name on the site (owner, 2026-10-25). */
+  surname?: string;
   disciplines: DisciplineSlug[];
   /** Portrait, then a photo from a lesson; hovering (or tapping) the card swaps them. null until sent. */
   portrait: Photo | null;
   action: Photo | null;
 };
 
+/** "Ece Pekmezcioğulları", or just the first name when we have no surname yet. */
+export function coachFullName(c: Pick<Coach, "name" | "surname">): string {
+  return c.surname ? `${c.name} ${c.surname}` : c.name;
+}
+
 // Branşlar follow what each coach actually teaches in the CRM (2026-10-25).
 // Second photo: another portrait from the same shoot (a different angle), Ali at the bag.
-// TODO(studio): Sude's portrait; surnames and short bios once approved.
+// TODO(studio): Sude's portrait and surname; short bios once approved.
 export const coaches: Coach[] = [
   {
     name: "Zeynep",
+    surname: "Doğan",
     disciplines: ["mat-pilates", "fonksiyonel-antrenman"],
     portrait: { src: antrenorZeynep, alt: "Antrenör Zeynep", position: "50% 20%" },
     action: { src: antrenorZeynep2, alt: "Antrenör Zeynep", position: "50% 20%" },
   },
   {
     name: "Ece",
+    surname: "Pekmezcioğulları",
     disciplines: ["mat-pilates", "reformer-pilates", "fonksiyonel-antrenman"],
     portrait: { src: antrenorEce, alt: "Antrenör Ece", position: "50% 20%" },
     action: { src: antrenorEce2, alt: "Antrenör Ece", position: "50% 15%" },
   },
   {
     name: "Şüheda",
+    surname: "Küçük",
     disciplines: ["reformer-pilates"],
     portrait: { src: antrenorSuheda, alt: "Antrenör Şüheda", position: "50% 20%" },
     action: { src: antrenorSuheda2, alt: "Antrenör Şüheda", position: "50% 20%" },
   },
   {
     name: "Barış",
+    surname: "Öngören",
     disciplines: ["fonksiyonel-antrenman"],
     portrait: { src: antrenorBaris, alt: "Antrenör Barış", position: "50% 20%" },
     action: { src: antrenorBaris2, alt: "Antrenör Barış", position: "50% 20%" },
   },
   {
     name: "Ali",
+    surname: "Novruzov",
     disciplines: ["kickboks"],
     portrait: { src: antrenorAli, alt: "Antrenör Ali", position: "50% 20%" },
     action: { src: kickboksTorba, alt: "Ali kum torbasında", position: "45% 30%" },
