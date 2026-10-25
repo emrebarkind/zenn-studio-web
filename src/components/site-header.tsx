@@ -24,9 +24,9 @@ const nav: Record<Mode, { href: string; label: string }[]> = {
     { href: "/", label: "Zenn Studio" },
   ],
   studio: [
-    { href: "/#dersler", label: "Dersler" },
-    { href: "/#paketler", label: "Paketler" },
+    { href: "/#hizmetler", label: "Hizmetlerimiz" },
     { href: "/#antrenorler", label: "Antrenörler" },
+    { href: "/#plan", label: "Sana uygun ders" },
     { href: "/#sss", label: "Sorular" },
   ],
 };

@@ -78,38 +78,41 @@ export async function submitRegistration(_prev: RegistrationState, formData: For
 }
 
 /**
- * The short form on the home page: which lesson, name, mobile. The way to
- * train follows from the lesson (group classes are group, the rest private),
- * Mat Pilates can be asked for online, and the days and time range that suit
- * the visitor are optional; package and people are settled on the call.
+ * The home page's step-by-step request and the six-question planner: lesson,
+ * days, time, name (and the number when the visitor stays on the site). With
+ * `channel=whatsapp` the visitor has just been sent to WhatsApp with the same
+ * details; the request is still recorded in the CRM so the team sees it come.
  */
-export async function submitQuickRequest(_prev: RegistrationState, formData: FormData): Promise<RegistrationState> {
+export async function submitStudioRequest(_prev: RegistrationState, formData: FormData): Promise<RegistrationState> {
   const values = textValues(formData);
   if (values.website) return { status: "ok", reference: makeReference(), summary: "" };
 
+  const form: RequestForm = values.form === "planner" ? "planner" : "wizard";
   const discipline = values.discipline ?? "";
-  const online = values.online === "on" && discipline === "mat-pilates";
   const parsed = registrationSchema.safeParse({
     discipline,
-    format: online ? "online" : inStudioFormat(discipline),
-    plan: "",
+    format: values.format || inStudioFormat(discipline),
+    plan: values.plan ?? "",
     people: "1",
-    slot: "farketmez",
+    slot: values.slot || "farketmez",
     days: formData.getAll("days"),
     timeFrom: values.timeFrom ?? "",
     timeTo: values.timeTo ?? "",
     firstName: values.firstName ?? "",
     lastName: values.lastName ?? "",
     phone: values.phone ?? "",
+    channel: values.channel === "whatsapp" ? "whatsapp" : "form",
     email: "",
-    note: "",
+    note: values.note ?? "",
     consent: values.consent,
   });
   if (!parsed.success) {
     return { status: "error", errors: fieldErrors(parsed.error.issues), message: "Bazı alanları kontrol et.", values };
   }
 
-  const sent = await deliver(parsed.data, "quick");
-  if (!sent.ok) return { status: "error", errors: {}, values, message: FAILED };
-  return { status: "ok", reference: sent.reference, summary: summarize(parsed.data, sent.reference) };
+  const sent = await deliver(parsed.data, form);
+  // On WhatsApp the visitor already has the conversation open; a failed CRM copy must not show them an error.
+  if (!sent.ok && parsed.data.channel === "form") return { status: "error", errors: {}, values, message: FAILED };
+  const reference = sent.ok ? sent.reference : makeReference();
+  return { status: "ok", reference, summary: summarize(parsed.data, reference) };
 }

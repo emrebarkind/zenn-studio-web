@@ -1,14 +1,15 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { coaches, disciplines, faqs, formats } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { ZennWordmark } from "@/components/brand";
+import { company } from "@/content/company";
 import { DisciplineVisual } from "@/components/discipline-visual";
 import { HeroPhotos, type HeroSlide } from "@/components/home/hero-photos";
-import { WaysToTrain } from "@/components/home/ways-to-train";
+import { RequestWizard } from "@/components/home/request-wizard";
+import { Planner } from "@/components/home/planner";
 import { CoachGrid, type CoachCard } from "@/components/home/coach-grid";
-import { QuickRequest } from "@/components/home/quick-request";
 import { MobileRequestBar } from "@/components/home/mobile-request-bar";
 import reformerWide from "@/assets/photos/reformer-wide.jpg";
 import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
@@ -75,18 +76,18 @@ export default function StudioHome() {
               <ButtonLink href="#talep" className="min-h-14 px-8 text-base">
                 Ders talebi
               </ButtonLink>
-              <ButtonLink href="#dersler" variant="outline" className="min-h-14 px-8 text-base">
-                Dersler
+              <ButtonLink href="#hizmetler" variant="outline" className="min-h-14 px-8 text-base">
+                Hizmetlerimiz
               </ButtonLink>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Dersler: five big photo cards, centred (3 + 2 on a wide screen). */}
-      <section id="dersler" className="scroll-mt-24 py-24 sm:py-32">
+      {/* Hizmetlerimiz: five big photo cards, centred (3 + 2 on a wide screen). */}
+      <section id="hizmetler" className="scroll-mt-24 py-24 sm:py-32">
         <Container>
-          <SectionHeading title="Dersler" lead="Beş branş. Belli günlerde grup dersi ya da 1-6 kişilik özel ders." />
+          <SectionHeading title="Hizmetlerimiz" lead="Beş branş. Belli günlerde grup dersi ya da 1-6 kişilik özel ders." />
           <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
             {disciplines.map((d, i) => (
               <li key={d.slug} className={`lg:col-span-2 ${i === 3 ? "lg:col-start-2" : ""} ${i === 4 ? "sm:col-span-2 lg:col-span-2" : ""}`}>
@@ -118,12 +119,12 @@ export default function StudioHome() {
         </Container>
       </section>
 
-      {/* Two ways to train, side by side. */}
-      <section id="paketler" className="scroll-mt-24 bg-card/60 py-24 sm:py-32">
+      {/* The request in three steps: days, lesson, name, then WhatsApp. */}
+      <section id="talep" className="scroll-mt-24 bg-card/60 py-24 sm:py-32">
         <Container>
-          <SectionHeading title="Nasıl çalışırsın" lead="Fiyatı seni aradığımızda paylaşırız. Ödeme alınmaz." />
-          <div className="mt-14">
-            <WaysToTrain />
+          <SectionHeading title="Nasıl çalışırsın" lead={`Üç adımda: günü seç, dersi seç, adını yaz. ${company.whatsapp ? "Gerisini WhatsApp'ta konuşalım." : "Antrenörümüz seni arasın."}`} />
+          <div className="mt-12">
+            <RequestWizard />
           </div>
         </Container>
       </section>
@@ -131,7 +132,7 @@ export default function StudioHome() {
       {/* Coaches: a clean row of portraits; hover or tap for a photo from a lesson. */}
       <section id="antrenorler" className="scroll-mt-24 py-24 sm:py-32">
         <Container>
-          <SectionHeading title="Antrenörler" lead="Derslerin bu ekiple. Fotoğrafın üzerine gel ya da dokun; derste nasıl çalıştıklarını gör." />
+          <SectionHeading title="Antrenörler" lead="Derslerin bu ekiple. Fotoğrafın üzerine gel ya da dokun." />
           <div className="mt-14">
             <CoachGrid coaches={coachCards} />
           </div>
@@ -143,26 +144,16 @@ export default function StudioHome() {
         </Container>
       </section>
 
-      {/* The request, centred: the form goes straight to the studio's CRM. */}
-      <section id="talep" className="on-ink scroll-mt-24 bg-ink py-24 text-paper sm:py-32">
+      {/* Six questions, one plan: the right lesson and way to train, then WhatsApp. */}
+      <section id="plan" className="on-ink scroll-mt-24 bg-ink py-24 text-paper sm:py-32">
         <Container>
           <SectionHeading
             tone="paper"
             title="İlk dersini birlikte planlayalım."
-            lead="Formu bırak, antrenörün seni arasın. Uygun gün ve saatini yazarsan sana göre bir ders önerelim."
+            lead="Altı kısa soru. Cevaplarına göre sana uygun dersi ve çalışma biçimini önerelim."
           />
-          <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-x-6 gap-y-3 text-[16px] text-paper/85">
-            {["Ödeme alınmaz", "Grup dersi ya da 1-6 kişilik özel ders", "Talebin doğrudan stüdyo ekibine gider"].map((t) => (
-              <li key={t} className="flex items-center gap-2">
-                <span className="grid size-5 shrink-0 place-items-center rounded-full bg-lime text-ink">
-                  <Check className="size-3" strokeWidth={3} aria-hidden />
-                </span>
-                {t}
-              </li>
-            ))}
-          </ul>
-          <div className="mx-auto mt-12 max-w-2xl text-ink">
-            <QuickRequest />
+          <div className="mt-12">
+            <Planner />
           </div>
         </Container>
       </section>

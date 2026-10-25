@@ -5,13 +5,17 @@ import kickboksWide from "@/assets/photos/kickboks-wide.jpg";
 import birebirWide from "@/assets/photos/birebir-wide.jpg";
 import reformerTeaser from "@/assets/photos/reformer-teaser.jpg";
 import matGrup from "@/assets/photos/mat-grup.jpg";
-import zeynepDers from "@/assets/photos/zeynep-ders.jpg";
 import kickboksTorba from "@/assets/photos/kickboks-torba.jpg";
 import barisDambil from "@/assets/photos/baris-dambil.jpg";
 import antrenorAli from "@/assets/photos/antrenor-ali.jpg";
 import antrenorSuheda from "@/assets/photos/antrenor-suheda.jpg";
 import antrenorBaris from "@/assets/photos/antrenor-baris.jpg";
 import antrenorZeynep from "@/assets/photos/antrenor-zeynep.jpg";
+import antrenorZeynep2 from "@/assets/photos/antrenor-zeynep-2.jpg";
+import antrenorSuheda2 from "@/assets/photos/antrenor-suheda-2.jpg";
+import antrenorBaris2 from "@/assets/photos/antrenor-baris-2.jpg";
+import antrenorEce from "@/assets/photos/antrenor-ece.jpg";
+import antrenorEce2 from "@/assets/photos/antrenor-ece-2.jpg";
 
 // Every piece of copy and every business fact on the site lives here, so the
 // studio can change prices, coaches or contact details without touching
@@ -126,6 +130,7 @@ export const disciplines: Discipline[] = [
     bring: "Spor ayakkabı, havlu ve su.",
     formats: ["group"],
     coaches: [],
+    // TODO(studio): a real photo of a member pedalling (lower body); until then a typographic card.
     photo: null,
   },
   {
@@ -175,25 +180,32 @@ export type Coach = {
 };
 
 // Branşlar follow what each coach actually teaches in the CRM (2026-10-25).
-// TODO(studio): portraits for Ece and Sude; surnames and short bios once approved.
+// Second photo: another portrait from the same shoot (a different angle), Ali at the bag.
+// TODO(studio): Sude's portrait; surnames and short bios once approved.
 export const coaches: Coach[] = [
   {
     name: "Zeynep",
     disciplines: ["mat-pilates", "fonksiyonel-antrenman"],
     portrait: { src: antrenorZeynep, alt: "Antrenör Zeynep", position: "50% 20%" },
-    action: { src: zeynepDers, alt: "Zeynep derste üyenin duruşunu düzeltirken", position: "50% 40%" },
+    action: { src: antrenorZeynep2, alt: "Antrenör Zeynep", position: "50% 20%" },
+  },
+  {
+    name: "Ece",
+    disciplines: ["mat-pilates", "reformer-pilates", "fonksiyonel-antrenman"],
+    portrait: { src: antrenorEce, alt: "Antrenör Ece", position: "50% 20%" },
+    action: { src: antrenorEce2, alt: "Antrenör Ece", position: "50% 15%" },
   },
   {
     name: "Şüheda",
     disciplines: ["reformer-pilates"],
     portrait: { src: antrenorSuheda, alt: "Antrenör Şüheda", position: "50% 20%" },
-    action: { src: reformerTeaser, alt: "Şüheda reformer üzerinde", position: "50% 50%" },
+    action: { src: antrenorSuheda2, alt: "Antrenör Şüheda", position: "50% 20%" },
   },
   {
     name: "Barış",
     disciplines: ["fonksiyonel-antrenman"],
     portrait: { src: antrenorBaris, alt: "Antrenör Barış", position: "50% 20%" },
-    action: { src: barisDambil, alt: "Barış dambılla çalışırken", position: "50% 30%" },
+    action: { src: antrenorBaris2, alt: "Antrenör Barış", position: "50% 20%" },
   },
   {
     name: "Ali",
@@ -201,7 +213,6 @@ export const coaches: Coach[] = [
     portrait: { src: antrenorAli, alt: "Antrenör Ali", position: "50% 20%" },
     action: { src: kickboksTorba, alt: "Ali kum torbasında", position: "45% 30%" },
   },
-  { name: "Ece", disciplines: ["mat-pilates", "reformer-pilates", "fonksiyonel-antrenman"], portrait: null, action: null },
   { name: "Sude", disciplines: ["reformer-pilates", "fonksiyonel-antrenman"], portrait: null, action: null },
 ];
 

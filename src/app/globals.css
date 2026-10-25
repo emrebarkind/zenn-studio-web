@@ -89,3 +89,12 @@ body {
 .hero-zoom {
   animation: hero-zoom 8s ease-out both;
 }
+
+/* A step of the request or the planner sliding in. */
+@keyframes step-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.step-in {
+  animation: step-in 380ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}

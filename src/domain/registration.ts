@@ -73,8 +73,11 @@ export const registrationSchema = z
     lastName: z.string().trim().min(2, "Soyadını yaz."),
     phone: z
       .string()
+      .default("")
       .transform((v) => v.replace(/[\s()-]/g, ""))
-      .pipe(z.string().regex(/^(\+?90|0)?5\d{9}$/, "Cep telefonunu 05xx xxx xx xx biçiminde yaz.")),
+      .pipe(z.union([z.literal(""), z.string().regex(/^(\+?90|0)?5\d{9}$/, "Cep telefonunu 05xx xxx xx xx biçiminde yaz.")])),
+    /** "whatsapp": the visitor continues on WhatsApp, so their number arrives with the message. */
+    channel: z.enum(["form", "whatsapp"]).default("form"),
     email: z.union([z.literal(""), z.email("Geçerli bir e-posta yaz.")]).default(""),
     note: z.string().trim().max(500, "Not en fazla 500 karakter olabilir.").default(""),
     consent: z.literal("on", { error: "Devam etmek için aydınlatma metnini onayla." }),
@@ -83,6 +86,9 @@ export const registrationSchema = z
     const discipline = disciplines.find((d) => d.slug === v.discipline);
     if (discipline && !discipline.formats.includes(v.format as FormatId)) {
       ctx.addIssue({ code: "custom", path: ["format"], message: "Bu branş bu şekilde verilmiyor." });
+    }
+    if (v.channel === "form" && !v.phone) {
+      ctx.addIssue({ code: "custom", path: ["phone"], message: "Cep telefonunu 05xx xxx xx xx biçiminde yaz." });
     }
     if (v.timeFrom && v.timeTo && v.timeTo <= v.timeFrom) {
       ctx.addIssue({ code: "custom", path: ["timeTo"], message: "Bitiş saati başlangıçtan sonra olmalı." });
@@ -99,7 +105,7 @@ export function summarize(r: Registration, reference: string): string {
   return [
     `Merhaba, Zenn Studio ders talebim (${reference}):`,
     `Ad soyad: ${r.firstName} ${r.lastName}`,
-    `Telefon: ${r.phone}`,
+    r.phone && `Telefon: ${r.phone}`,
     r.email && `E-posta: ${r.email}`,
     `Branş: ${discipline}`,
     `Şekil: ${way}`,
@@ -114,7 +120,23 @@ export function summarize(r: Registration, reference: string): string {
     .join("\n");
 }
 
-export type RequestForm = "quick" | "detailed";
+export type RequestForm = "quick" | "detailed" | "wizard" | "planner";
+
+/** The message the visitor sends the studio on WhatsApp: who, what, when. */
+export function whatsappMessage(r: Pick<Registration, "firstName" | "lastName" | "discipline" | "format" | "days" | "timeFrom" | "timeTo">, extra?: string): string {
+  const discipline = disciplines.find((d) => d.slug === r.discipline)?.name ?? r.discipline;
+  const way = r.format === "group" ? "grup dersi" : r.format === "online" ? "online ders" : "özel ders";
+  return [
+    `Merhaba Zenn Studio, ders talebim var.`,
+    `Ad soyad: ${r.firstName} ${r.lastName}`,
+    `Ders: ${discipline} (${way})`,
+    daysLabel(r.days) && `Uygun günler: ${daysLabel(r.days)}`,
+    timeRangeLabel(r.timeFrom, r.timeTo) && `Saat: ${timeRangeLabel(r.timeFrom, r.timeTo)}`,
+    extra,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
 
 /** The quick form only asks the discipline: group disciplines go to a group, the rest to a private lesson. */
 export function inStudioFormat(slug: string): FormatId {
@@ -140,6 +162,7 @@ export function crmPayload(
     reference: meta.reference,
     submittedAt: meta.submittedAt,
     form: meta.form,
+    channel: r.channel,
     firstName: r.firstName,
     lastName: r.lastName,
     phone: r.phone,
@@ -147,10 +170,9 @@ export function crmPayload(
     discipline: { slug: r.discipline, name: discipline?.name ?? r.discipline },
     format: { id: r.format, name: format?.name ?? r.format },
     plan: plan ? { id: plan.id, name: plan.name } : null,
-    // The quick form never asks how many; say nothing rather than "1 kişi".
     people: r.format === "private" && meta.form === "detailed" ? r.people : null,
     // Morning / evening group only means something for a group class.
-    slot: r.format === "group" && meta.form === "detailed" ? r.slot : null,
+    slot: r.format === "group" && meta.form !== "quick" ? r.slot : null,
     days: WEEKDAYS.filter((d) => r.days.includes(d.id)).map((d) => d.label),
     timeFrom: r.timeFrom || null,
     timeTo: r.timeTo || null,
