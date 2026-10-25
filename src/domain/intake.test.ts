@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assessIntake, intakeCrmNote, intakeNotes, intakeSteps, intakeWhatsApp, levelOf, type IntakeAnswers } from "./intake";
+import { assessIntake, intakeCrmNote, intakeNotes, intakeSteps, levelOf, type IntakeAnswers } from "./intake";
 
 const base: IntakeAnswers = {
   goals: ["posture", "mobility"],
@@ -68,16 +68,9 @@ describe("assessIntake", () => {
 
 describe("what the visitor and the coaches read", () => {
   it("says the answers back without telling the visitor which sport suits them", () => {
-    const text = [...intakeNotes(base), intakeWhatsApp(base, "Ayşe", "Kaya")].join(" ");
+    const text = intakeNotes(base).join(" ");
     expect(text).not.toMatch(/sana uygun|senin için ideal|öneriyoruz|en iyi/i);
     expect(text).toMatch(/Pazartesi ve Çarşamba/);
-  });
-
-  it("writes the WhatsApp message in the visitor's voice", () => {
-    const m = intakeWhatsApp(base, "Ayşe", "Kaya");
-    expect(m).toMatch(/^Merhaba Zenn Studio, ben Ayşe Kaya\./);
-    expect(m).toContain("Hedefim duruşumu ve bel-sırt rahatlığımı geliştirmek ve daha esnek ve rahat hareket etmek.");
-    expect(m).toContain("Hangi dersle başlayacağıma birlikte karar vermek istiyorum.");
   });
 
   it("gives the coaches every answer and our first take, within 500 characters", () => {

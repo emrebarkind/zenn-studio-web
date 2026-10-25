@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import { startTransition, useActionState, useEffect, useState } from "react";
-import { Check, MessageCircle } from "lucide-react";
-import { company } from "@/content/company";
+import { Check } from "lucide-react";
 import { submitStudioRequest, type RegistrationState } from "@/app/kayit/actions";
-import { whatsappMessage, type WeekdayId } from "@/domain/registration";
+import type { WeekdayId } from "@/domain/registration";
 import { buttonClass } from "@/components/ui";
 
 export type RequestChoice = {
@@ -24,35 +23,30 @@ const input =
   "mt-1.5 block min-h-13 w-full rounded-2xl bg-paper px-4 text-[16px] ring-1 ring-ink/15 outline-none transition-shadow focus:ring-2 focus:ring-ink aria-invalid:ring-2 aria-invalid:ring-danger";
 
 /**
- * The last step of both home-page flows: name (and a mobile number when the
- * studio has no WhatsApp line yet), consent, send. With WhatsApp the visitor
- * lands in a chat with everything they chose already written; the same
- * request is recorded in the studio's CRM.
+ * The last step of both home-page flows: name, mobile number, consent, send.
+ * The request goes to the studio's CRM ("Gelen aramalar") and the visitor is
+ * told a coach will call, usually within an hour (owner, 2026-10-25: no
+ * WhatsApp hand-off from the forms).
  */
 export function RequestFinish({
   choice,
   form,
   onBack,
   onDone,
-  waText,
 }: {
   choice: RequestChoice;
   form: "wizard" | "planner";
   onBack?: () => void;
-  /** Called once the request is sent (or WhatsApp opened), so the parent can drop its own heading. */
+  /** Called once the request is sent, so the parent can drop its own heading. */
   onDone?: () => void;
-  /** The WhatsApp text, when the flow writes its own (the intake); otherwise built from the choice. */
-  waText?: (firstName: string, lastName: string) => string;
 }) {
   const [state, action, pending] = useActionState<RegistrationState, FormData>(submitStudioRequest, { status: "idle" });
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [consent, setConsent] = useState(false);
   const [local, setLocal] = useState<Record<string, string>>({});
-  const [chatUrl, setChatUrl] = useState<string | null>(null);
-  const wa = company.whatsapp;
   const errors = { ...(state.status === "error" ? state.errors : {}), ...local };
-  const done = state.status === "ok" || !!chatUrl;
+  const done = state.status === "ok";
 
   useEffect(() => {
     if (done) onDone?.();
@@ -64,20 +58,11 @@ export function RequestFinish({
         <span className="mx-auto grid size-16 place-items-center rounded-full bg-lime">
           <Check className="size-8" aria-hidden />
         </span>
-        <h3 className="mt-6 text-[2rem] leading-none font-semibold tracking-[-0.035em]">
-          {chatUrl ? "Mesajın WhatsApp'ta hazır." : "Talebin alındı."}
-        </h3>
+        <h3 className="mt-6 text-[2rem] leading-none font-semibold tracking-[-0.035em]">Talebin alındı.</h3>
         <p className="mx-auto mt-3 max-w-md text-lg text-ink-soft">
-          {chatUrl
-            ? "Gönder'e basman yeterli; antrenörümüz oradan dönüş yapar."
-            : `Talep numaran ${state.status === "ok" ? state.reference : ""}. Antrenörümüz seni arayacak.`}
+          Eğitmenlerimiz en kısa sürede seninle iletişime geçecek; ortalama 1 saat içinde.
         </p>
-        {chatUrl && (
-          <a href={chatUrl} target="_blank" rel="noopener noreferrer" className={buttonClass("ink", "mt-6")}>
-            <MessageCircle className="size-5" aria-hidden />
-            WhatsApp&apos;ı tekrar aç
-          </a>
-        )}
+        {state.status === "ok" && state.reference && <p className="mt-3 text-sm text-ink-soft">Talep numaran: {state.reference}</p>}
       </div>
     );
   }
@@ -85,34 +70,21 @@ export function RequestFinish({
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    // Checked here so every missing field shows at once, and so WhatsApp opens
-    // in the same tap (a pop-up must come from the click itself). The server checks again.
+    // Checked here so every missing field shows at once. The server checks again.
     const missing: Record<string, string> = {};
     if (firstName.trim().length < 2) missing.firstName = "Adını yaz.";
     if (lastName.trim().length < 2) missing.lastName = "Soyadını yaz.";
-    if (!wa && !String(data.get("phone") ?? "").trim()) missing.phone = "Cep telefonunu yaz.";
+    if (!String(data.get("phone") ?? "").trim()) missing.phone = "Cep telefonunu yaz.";
     if (!consent) missing.consent = "Devam etmek için aydınlatma metnini onayla.";
     setLocal(missing);
     if (Object.keys(missing).length) return;
-    if (wa) {
-      const who = { firstName: firstName.trim(), lastName: lastName.trim() };
-      const text = waText
-        ? waText(who.firstName, who.lastName)
-        : whatsappMessage(
-            { ...who, discipline: choice.discipline, format: choice.format, days: choice.days, timeFrom: choice.timeFrom, timeTo: choice.timeTo },
-            choice.note,
-          );
-      const url = `https://wa.me/${wa}?text=${encodeURIComponent(text)}`;
-      window.open(url, "_blank", "noopener");
-      setChatUrl(url);
-    }
     startTransition(() => action(data));
   }
 
   return (
     <form onSubmit={submit} noValidate>
       <input type="hidden" name="form" value={form} />
-      <input type="hidden" name="channel" value={wa ? "whatsapp" : "form"} />
+      <input type="hidden" name="channel" value="form" />
       <input type="hidden" name="discipline" value={choice.discipline} />
       <input type="hidden" name="format" value={choice.format} />
       <input type="hidden" name="plan" value={choice.plan ?? ""} />
@@ -136,13 +108,11 @@ export function RequestFinish({
           <input name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} autoComplete="family-name" aria-invalid={!!errors.lastName} className={input} />
           {errors.lastName && <span className="mt-1 block text-sm font-medium text-danger">{errors.lastName}</span>}
         </label>
-        {!wa && (
-          <label className="block text-left sm:col-span-2">
-            <span className="text-sm font-semibold">Cep telefonu</span>
-            <input name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="05xx xxx xx xx" aria-invalid={!!errors.phone} className={input} />
-            {errors.phone && <span className="mt-1 block text-sm font-medium text-danger">{errors.phone}</span>}
-          </label>
-        )}
+        <label className="block text-left sm:col-span-2">
+          <span className="text-sm font-semibold">Cep telefonu</span>
+          <input name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="05xx xxx xx xx" aria-invalid={!!errors.phone} className={input} />
+          {errors.phone && <span className="mt-1 block text-sm font-medium text-danger">{errors.phone}</span>}
+        </label>
       </div>
 
       <label className="mt-5 flex items-start gap-3 text-left">

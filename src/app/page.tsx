@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ChevronsDown } from "lucide-react";
 import { coaches, disciplines, faqs, studioLocation } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
-import { company } from "@/content/company";
 import { HeroVideo } from "@/components/home/hero-video";
 import { ServiceDeck } from "@/components/home/service-deck";
 import { RequestWizard } from "@/components/home/request-wizard";
@@ -78,10 +77,10 @@ export default function StudioHome() {
         </Container>
       </section>
 
-      {/* The request in three steps: days, lesson, name, then WhatsApp. */}
+      {/* The request in three steps: days, lesson, name; it goes to the CRM and a coach calls back. */}
       <section id="talep" className={`scroll-mt-24 bg-card/60 py-24 sm:py-32 ${screen}`}>
         <Container className="fit leave">
-          <SectionHeading title="Nasıl çalışırsın" lead={`Üç adımda: günü seç, dersi seç, adını yaz. ${company.whatsapp ? "Gerisini WhatsApp'ta konuşalım." : "Antrenörümüz seni arasın."}`} />
+          <SectionHeading title="Nasıl çalışırsın" lead="Üç adımda: günü seç, dersi seç, adını yaz. Eğitmenlerimiz seni arasın." />
           <div className="rise mt-12 lg:mt-8">
             <RequestWizard />
           </div>

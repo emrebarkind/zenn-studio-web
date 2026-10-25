@@ -9,7 +9,6 @@ import {
   intakeCrmNote,
   intakeNotes,
   intakeSteps,
-  intakeWhatsApp,
   WINDOWS,
   type IntakeAnswers,
   type IntakeStep,
@@ -263,12 +262,11 @@ function Summary({ answers, onEdit }: { answers: IntakeAnswers; onEdit: () => vo
         <div className="p-6 sm:p-9 lg:p-8">
           <h3 className="text-[1.75rem] leading-tight font-semibold tracking-[-0.03em]">Talebini bize gönder</h3>
           <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
-            Onaylarsan bu notlar antrenörlerimize ulaşır. Seninle konuşup sana uygun dersi ve saati birlikte belirleriz.
+            Onaylarsan bu notlar eğitmenlerimize ulaşır. Seni arayıp sana uygun dersi ve saati birlikte belirleriz; ortalama 1 saat içinde dönüyoruz.
           </p>
           <div className="mt-6">
             <RequestFinish
               form="planner"
-              waText={(first, last) => intakeWhatsApp(answers, first, last)}
               choice={{
                 discipline: x.discipline,
                 format: x.format,

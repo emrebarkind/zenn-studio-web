@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { disciplines } from "@/content/site";
-import { company } from "@/content/company";
 import { DisciplineVisual } from "@/components/discipline-visual";
 import { HOURS, WEEKDAYS, type WeekdayId } from "@/domain/registration";
 import { buttonClass } from "@/components/ui";
@@ -36,7 +35,7 @@ function TimeSelect({ label, value, onChange, hours }: { label: string; value: s
 
 /**
  * The home page's request in three steps: which days (and hours), which
- * lesson, who. The last step sends the visitor to WhatsApp with all of it
+ * lesson, who. The last step sends it all to the studio CRM; a coach calls back
  * written out (and records it in the CRM).
  */
 export function RequestWizard() {
@@ -194,7 +193,7 @@ export function RequestWizard() {
                 <p className="mx-auto mt-2 max-w-md text-ink-soft">
                   {d.name}
                   {bothWays ? (format === "group" ? " (grup dersi)" : " (bireysel)") : ""}, {WEEKDAYS.filter((w) => days.includes(w.id)).map((w) => w.label).join(", ")}
-                  {timeFrom || timeTo ? `, ${timeFrom || "…"}-${timeTo || "…"}` : ""}. {company.whatsapp ? "Hepsi WhatsApp mesajına yazılır." : "Antrenörümüz seni arar."}
+                  {timeFrom || timeTo ? `, ${timeFrom || "…"}-${timeTo || "…"}` : ""}. Eğitmenlerimiz seni arar.
                 </p>
               </>
             )}

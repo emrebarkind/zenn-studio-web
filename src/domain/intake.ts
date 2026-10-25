@@ -238,7 +238,7 @@ const windowNames = (ws: WindowId[]) => WINDOWS.filter((w) => ws.includes(w.id))
 const disciplineNames = (ids: InterestId[]) =>
   disciplines.filter((d) => ids.includes(d.slug)).map((d) => d.name);
 
-// Each goal as something to do, said to the visitor and by the visitor.
+// Each goal as something to do, said to the visitor.
 const GOAL_YOU: Record<GoalId, string> = {
   posture: "duruşunu ve bel-sırt rahatlığını geliştirmek",
   strength: "güçlenmek",
@@ -246,14 +246,6 @@ const GOAL_YOU: Record<GoalId, string> = {
   mobility: "daha esnek ve rahat hareket etmek",
   stress: "stres atıp zihnini dinlendirmek",
   coordination: "koordinasyonunu geliştirmek",
-};
-const GOAL_ME: Record<GoalId, string> = {
-  posture: "duruşumu ve bel-sırt rahatlığımı geliştirmek",
-  strength: "güçlenmek",
-  fitness: "kondisyonumu artırmak",
-  mobility: "daha esnek ve rahat hareket etmek",
-  stress: "stres atıp zihnimi dinlendirmek",
-  coordination: "koordinasyonumu geliştirmek",
 };
 
 /** The visitor's answers, said back in plain words. Nothing here tells them what to do. */
@@ -317,24 +309,4 @@ export function intakeCrmNote(a: IntakeAnswers, x: Assessment): string {
   ].filter(Boolean);
   const note = parts.join(". ") + ".";
   return note.length > 500 ? `${note.slice(0, 497)}...` : note;
-}
-
-/** The WhatsApp message: who, what they want to work on, when they can come. No sport is called "right" for them. */
-export function intakeWhatsApp(a: IntakeAnswers, firstName: string, lastName: string): string {
-  const picked = disciplineNames(a.interests);
-  const days = dayNames(a.days);
-  const windows = windowNames(a.windows);
-  const when = [days.length ? `${joinTr(days)} günleri` : "", windows.length ? `${joinTr(windows)} saatlerinde` : ""].filter(Boolean).join(", ");
-  const often = a.frequency === "4+" ? "Haftada 4 gün ya da daha fazla" : `Haftada ${a.frequency} gün`;
-  return [
-    `Merhaba Zenn Studio, ben ${firstName} ${lastName}.`,
-    "Sitedeki soruları cevapladım; bana uygun dersi sizinle birlikte seçmek istiyorum.",
-    a.goals.length && `Hedefim ${joinTr(a.goals.map((g) => GOAL_ME[g]))}.`,
-    picked.length ? `İlgilendiğim dersler: ${joinTr(picked)}.` : "Hangi dersle başlayacağıma birlikte karar vermek istiyorum.",
-    a.company === "pair" ? "Bir arkadaşımla geleceğim." : a.company === "small" ? "3-6 kişilik bir grupla geleceğiz." : "",
-    `${often}${when ? `, ${when}` : ""} gelebilirim.`,
-    "Bilgi verebilir misiniz? Teşekkürler.",
-  ]
-    .filter(Boolean)
-    .join(" ");
 }

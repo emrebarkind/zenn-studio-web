@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { startTransition, useActionState, useState } from "react";
-import { Check, MessageCircle } from "lucide-react";
+import { Check } from "lucide-react";
 import {
   disciplines,
   plans,
@@ -13,7 +13,6 @@ import {
   type FormatId,
   type PlanId,
 } from "@/content/site";
-import { company } from "@/content/company";
 import { buttonClass } from "@/components/ui";
 import { DayTimePicker } from "@/components/day-time-picker";
 import { submitRegistration, type RegistrationState } from "./actions";
@@ -114,7 +113,6 @@ export function RegistrationForm() {
   }
 
   if (state.status === "ok") {
-    const wa = company.whatsapp ? `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(state.summary)}` : null;
     return (
       <div className="rounded-[28px] bg-card p-7 sm:p-10" role="status">
         <span className="grid size-14 place-items-center rounded-2xl bg-lime">
@@ -122,18 +120,9 @@ export function RegistrationForm() {
         </span>
         <h2 className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">Talebin alındı.</h2>
         <p className="mt-3 max-w-prose text-lg text-ink-soft">
-          Talep numaran <strong className="text-ink tabular-nums">{state.reference}</strong>. Antrenörümüz uygun gün ve
-          saati konuşmak için seni arayacak.
+          Eğitmenlerimiz en kısa sürede seninle iletişime geçecek; ortalama 1 saat içinde. Talep numaran{" "}
+          <strong className="text-ink tabular-nums">{state.reference}</strong>.
         </p>
-        {wa && (
-          <>
-            <p className="mt-6 max-w-prose text-ink-soft">{"Daha hızlı dönüş için talebini WhatsApp'tan da gönderebilirsin."}</p>
-            <a href={wa} target="_blank" rel="noopener noreferrer" className={buttonClass("ink", "mt-4")}>
-              <MessageCircle className="size-5" aria-hidden />
-              {"WhatsApp'tan gönder"}
-            </a>
-          </>
-        )}
         <pre className="mt-8 rounded-2xl bg-paper p-5 font-sans text-[15px] whitespace-pre-wrap">{state.summary}</pre>
       </div>
     );

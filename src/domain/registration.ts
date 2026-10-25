@@ -127,39 +127,6 @@ export function joinTr(words: string[]): string {
   return words.length <= 1 ? (words[0] ?? "") : `${words.slice(0, -1).join(", ")} ve ${words.at(-1)}`;
 }
 
-/**
- * The message the visitor sends the studio on WhatsApp, written the way a
- * person would write it (owner, 2026-10-25): who, which lesson, when.
- */
-export function whatsappMessage(r: Pick<Registration, "firstName" | "lastName" | "discipline" | "format" | "days" | "timeFrom" | "timeTo">, extra?: string): string {
-  const discipline = disciplines.find((d) => d.slug === r.discipline)?.name ?? r.discipline;
-  const want =
-    r.format === "group"
-      ? `${discipline} grup dersine katılmak istiyorum.`
-      : r.format === "online"
-        ? `Online ${discipline} dersi almak istiyorum.`
-        : `${discipline} özel dersi almak istiyorum.`;
-  const days = WEEKDAYS.filter((d) => r.days.includes(d.id)).map((d) => d.long);
-  const time =
-    r.timeFrom && r.timeTo
-      ? `saat ${r.timeFrom} ile ${r.timeTo} arası`
-      : r.timeFrom
-        ? `saat ${r.timeFrom} sonrası`
-        : r.timeTo
-          ? `saat ${r.timeTo} öncesi`
-          : "";
-  const when = [days.length ? `${joinTr(days)} günleri` : "", time].filter(Boolean).join(" ");
-  return [
-    `Merhaba Zenn Studio, ben ${r.firstName} ${r.lastName}.`,
-    want,
-    when && `${when.charAt(0).toLocaleUpperCase("tr")}${when.slice(1)} gelebilirim.`,
-    extra,
-    "Bilgi verebilir misiniz? Teşekkürler.",
-  ]
-    .filter(Boolean)
-    .join(" ");
-}
-
 /** The quick form only asks the discipline: group disciplines go to a group, the rest to a private lesson. */
 export function inStudioFormat(slug: string): FormatId {
   const d = disciplines.find((x) => x.slug === slug);
