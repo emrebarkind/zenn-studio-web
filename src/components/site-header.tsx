@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { buttonClass } from "@/components/ui";
 import { ZennWordmark } from "@/components/brand";
@@ -40,7 +40,9 @@ const ctas: Record<Mode, { href: string; label: string }> = {
 
 /** Floating dark pill. It is sticky, so pages flow below it; the home hero
  *  pulls itself up underneath with a negative margin equal to its height
- *  (pt-3 + h-14, sm: h-16). */
+ *  (pt-3 + h-14, sm: h-16). Over the home hero it is an open, full-width bar
+ *  instead (owner, 2026-10-25, after a reference): logo left, links centred,
+ *  two lime dot links right; past the hero it gathers into the pill. */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() ?? "/";
@@ -48,6 +50,21 @@ export function SiteHeader() {
   const mode: Mode = pathname.startsWith("/isletmeler") ? "landing-tr" : lang === "en" ? "landing-en" : "studio";
   const items = nav[mode];
   const cta = ctas[mode];
+  const home = pathname === "/";
+  const [pastHero, setPastHero] = useState(false);
+  useEffect(() => {
+    if (!home) return;
+    const check = () => setPastHero(window.scrollY >= window.innerHeight - 120);
+    const first = requestAnimationFrame(check);
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      cancelAnimationFrame(first);
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, [home]);
+  const onHero = home && !pastHero && !open;
   // Small language switch: TR ↔ EN, on the B2B pages only (English covers those).
   const switcher = mode === "studio" ? null : (
     <Link
@@ -63,9 +80,15 @@ export function SiteHeader() {
 
   return (
     <header className="on-ink sticky top-0 z-40 px-3 pt-3 sm:px-5" style={{ viewTransitionName: "site-header" }}>
-      <div className="mx-auto max-w-6xl rounded-[22px] bg-ink/80 text-paper shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150">
-        <div className="flex h-14 items-center justify-between pr-2 pl-5 sm:h-16 sm:pr-3 sm:pl-6">
-          <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)} className="min-h-11 content-center">
+      <div
+        className={`mx-auto rounded-[22px] text-paper transition-[max-width,background-color,box-shadow,backdrop-filter] duration-500 ease-out ${
+          onHero
+            ? "max-w-[88rem] bg-transparent shadow-none"
+            : "max-w-6xl bg-ink/80 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-xl backdrop-saturate-150"
+        }`}
+      >
+        <div className="grid h-14 grid-cols-[1fr_auto_1fr] items-center pr-2 pl-5 sm:h-16 sm:pr-3 sm:pl-6">
+          <Link href="/" aria-label="Zenn Studio ana sayfa" onClick={() => setOpen(false)} className="min-h-11 content-center justify-self-start">
             <ZennWordmark className="text-[19px] sm:text-[21px]" />
           </Link>
           <nav aria-label="Ana menü" className="hidden items-center gap-7 md:flex">
@@ -73,20 +96,32 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-[15px] font-medium text-paper/75 transition-colors hover:text-paper"
+                className={`text-[15px] font-medium transition-colors hover:text-paper ${onHero ? "text-paper/90" : "text-paper/75"}`}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-1">
+          <div className="col-start-3 flex items-center justify-end gap-1">
             {switcher}
-            {/* On phones the menu (and on the studio pages the bottom bar) carries it. */}
-            <span className="hidden sm:block">
-              <Link href={cta.href} className={buttonClass("primary", "min-h-10 px-5")}>
-                {cta.label}
-              </Link>
-            </span>
+            {/* Over the hero: two lime dot links, as in the reference; after it, the lime button. */}
+            {onHero && mode === "studio" ? (
+              <span className="hidden items-center gap-6 pr-3 sm:flex">
+                {[cta, { href: "/#konum", label: "İletişim" }].map((l) => (
+                  <Link key={l.href} href={l.href} className="inline-flex min-h-10 items-center gap-2 text-[14px] font-semibold tracking-[0.04em] text-lime uppercase transition-opacity hover:opacity-80">
+                    <span aria-hidden className="size-1.5 rounded-full bg-lime" />
+                    {l.label}
+                  </Link>
+                ))}
+              </span>
+            ) : (
+              /* On phones the menu (and on the studio pages the bottom bar) carries it. */
+              <span className="hidden sm:block">
+                <Link href={cta.href} className={buttonClass("primary", "min-h-10 px-5")}>
+                  {cta.label}
+                </Link>
+              </span>
+            )}
             <button
               type="button"
               className="grid size-11 place-items-center rounded-full md:hidden"

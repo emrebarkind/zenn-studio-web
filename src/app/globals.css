@@ -182,13 +182,21 @@ body {
 }
 
 /*
- * Wide screens: the home page reads as a stack of screens. Scrolling settles
- * gently on each section (proximity, so a long one can still be read freely),
- * and the section on its way out steps back as the next one arrives.
+ * Wide screens: the home page reads as a stack of screens. One scroll gesture
+ * moves exactly one screen and lands it flush (owner, 2026-10-25): mandatory
+ * snapping, and snap-stop so a fast flick cannot skip a section. A section
+ * that grows taller than the screen (a long form step) still scrolls inside
+ * itself before moving on. The footer is the last stop.
  */
 @media (min-width: 1024px) {
   html.snap-sections {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
+  }
+  html.snap-sections main section[id] {
+    scroll-snap-stop: always;
+  }
+  html.snap-sections footer {
+    scroll-snap-align: end;
   }
 }
 @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {

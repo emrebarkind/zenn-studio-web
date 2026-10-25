@@ -46,6 +46,7 @@ export default function StudioHome() {
           <HeroVideo />
         </div>
         <div aria-hidden className="absolute inset-0 bg-black/30" />
+        <div aria-hidden className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/55 to-transparent" />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
         <Container className="hero-out relative z-10 pt-32 pb-8 text-center sm:pb-10">
           <div className="settle mx-auto max-w-6xl">
