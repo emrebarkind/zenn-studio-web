@@ -148,7 +148,7 @@ export const landing: Record<Lang, LandingCopy> = {
     heroAlt: "Athlete exercising on a reformer at Zenn Studio",
     intro: {
       title: "AI sales and customer service for fitness studios.",
-      text: "Zenn builds a Claude-powered sales and customer-service assistant for fitness studios. It answers website visitors with the studio's own information, recommends the right package, starts the pre-registration and hands over to the team when a person should answer. We build it inside our own studio in Istanbul.",
+      text: "Zenn builds a Claude-powered sales and customer-service assistant for fitness studios. It answers website visitors with the studio's own information, recommends the right package, starts the pre-registration and hands over to the team when a person should answer. We build it inside our own studio in Tekirdağ.",
       primary: "Watch the demo",
       secondary: "Talk to us",
     },
