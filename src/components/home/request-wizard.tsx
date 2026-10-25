@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { disciplines } from "@/content/site";
 import { DisciplineVisual } from "@/components/discipline-visual";
@@ -11,11 +11,14 @@ import { RequestFinish } from "./request-finish";
 const STEPS = ["Gün", "Ders", "Bilgilerin"] as const;
 
 function TimeSelect({ label, value, onChange, hours }: { label: string; value: string; onChange: (v: string) => void; hours: string[] }) {
+  // Controlled (the hidden fields carry the value), but browsers expect every field to have an id for autofill.
+  const id = useId();
   return (
     <label className="block text-left">
       <span className="text-sm text-ink-soft">{label}</span>
       <span className="relative mt-1.5 block">
         <select
+          id={id}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="block min-h-13 w-full appearance-none rounded-2xl bg-paper px-4 pr-10 text-[16px] ring-1 ring-ink/15 outline-none focus:ring-2 focus:ring-ink"

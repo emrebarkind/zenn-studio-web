@@ -82,7 +82,8 @@ h1, h2, h3 {
 /* The one orchestrated moment: the hero's discipline words settle in. */
 @keyframes settle {
   from {
-    opacity: 0;
+    /* Not 0: an invisible element is not a paint yet, which would hold up the page's first big paint (LCP). */
+    opacity: 0.01;
     transform: translateY(0.25em);
   }
   to {

@@ -8,9 +8,9 @@ import { useEffect, useState } from "react";
  * video (each scene cropped around the action), phones the portrait original
  * at 720p. Files: public/video/hero-{wide,tall}.*
  *
- * The still underneath is what paints first; the video only starts loading
- * once the page itself has loaded, so it never competes with the text and
- * fonts for a phone's bandwidth, and it fades in once it is actually playing.
+ * The still underneath is what paints first; the video only starts loading a
+ * moment after the page itself has loaded, so it never competes with the text
+ * and fonts for a phone's bandwidth, and it fades in once it is actually playing.
  * Reduced motion or a data-saver setting keep the still alone.
  */
 export function HeroVideo() {
@@ -25,7 +25,7 @@ export function HeroVideo() {
     let timer = 0;
     const start = () => {
       const wide = window.matchMedia("(min-width: 640px)").matches;
-      timer = window.setTimeout(() => setSrc(wide ? "/video/hero-wide.mp4" : "/video/hero-tall.mp4"), 300);
+      timer = window.setTimeout(() => setSrc(wide ? "/video/hero-wide.mp4" : "/video/hero-tall.mp4"), 1500);
     };
     if (document.readyState === "complete") start();
     else window.addEventListener("load", start, { once: true });

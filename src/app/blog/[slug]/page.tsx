@@ -44,7 +44,8 @@ export async function generateMetadata({
 
 export default function PostPage({ params }: PageProps<"/blog/[slug]">) {
   return (
-    <Suspense>
+    // The fallback holds a screen's height, so the footer never flashes up and jumps down while the content streams in.
+    <Suspense fallback={<div className="min-h-svh" />}>
       <PostContent params={params} />
     </Suspense>
   );

@@ -1,4 +1,7 @@
 import { z } from "zod";
+
+// This schema also runs in the browser; jitless keeps zod from probing \`new Function\`, which the site's CSP forbids.
+z.config({ jitless: true });
 import { disciplines, formats, plans, PRIVATE_GROUP_MAX, type FormatId } from "@/content/site";
 
 export type PaymentMethod = "card" | "studio" | "transfer";

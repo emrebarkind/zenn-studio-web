@@ -25,7 +25,8 @@ export async function generateMetadata({ params }: PageProps<"/branslar/[slug]">
 export default function DisciplinePage({ params }: PageProps<"/branslar/[slug]">) {
   // Every slug is prerendered; the boundary keeps navigations instant.
   return (
-    <Suspense>
+    // The fallback holds a screen's height, so the footer never flashes up and jumps down while the content streams in.
+    <Suspense fallback={<div className="min-h-svh" />}>
       <DisciplineContent params={params} />
     </Suspense>
   );
