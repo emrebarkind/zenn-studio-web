@@ -31,7 +31,7 @@ eklenecek ve sıra ona göre düzenlenecek.
 | --- | --- | --- | --- |
 | yazıldı | Tekirdağ'da pilatese başlamak: mat mı, reformer mı? | tekirdağ pilates | reformer-pilates |
 | yazıldı | Reformer pilates nedir? İlk derste neler olur | tekirdağ reformer pilates | reformer-pilates |
-| sırada | Grup derslerimiz nasıl işliyor? Mat Pilates ve Spinning, 8 ve 12 derslik paketler, sabah ve akşam grupları | tekirdağ grup pilates dersi | mat-pilates |
+| yazıldı | Grup derslerimiz nasıl işliyor? Mat Pilates ve Spinning, 8 ve 12 derslik paketler, sabah ve akşam grupları | tekirdağ grup pilates dersi | mat-pilates |
 | sırada | Bireysel derslerimiz: tek başına ya da 6 kişiye kadar (Mat ve Reformer Pilates, Kickboks, Fonksiyonel antrenman) | tekirdağ özel ders | fonksiyonel-antrenman |
 | sırada | Tekirdağ'da spor salonu mu, stüdyo mu? Sana uygun antrenmanı seçmek | tekirdağ spor salonu | fonksiyonel-antrenman |
 | sırada | Kickboksa yeni başlayanlar: ilk ayda neler öğrenirsin | tekirdağ kickboks | kickboks |
