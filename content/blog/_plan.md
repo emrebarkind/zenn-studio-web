@@ -34,7 +34,7 @@ eklenecek ve sıra ona göre düzenlenecek.
 | yazıldı | Grup derslerimiz nasıl işliyor? Mat Pilates ve Spinning, 8 ve 12 derslik paketler, sabah ve akşam grupları | tekirdağ grup pilates dersi | mat-pilates |
 | yazıldı | Bireysel derslerimiz: tek başına ya da 6 kişiye kadar (Mat ve Reformer Pilates, Kickboks, Fonksiyonel antrenman) | tekirdağ özel ders | fonksiyonel-antrenman |
 | yazıldı | Tekirdağ'da spor salonu mu, stüdyo mu? Sana uygun antrenmanı seçmek | tekirdağ spor salonu | fonksiyonel-antrenman |
-| sırada | Kickboksa yeni başlayanlar: ilk ayda neler öğrenirsin | tekirdağ kickboks | kickboks |
+| yazıldı | Kickboksa yeni başlayanlar: ilk ayda neler öğrenirsin | tekirdağ kickboks | kickboks |
 | sırada | Spinning dersi nasıl geçer? Yeni başlayanlar için rehber | tekirdağ spinning | spinning |
 | sırada | Fonksiyonel antrenman nedir, kimlere uygun? | tekirdağ personal trainer | fonksiyonel-antrenman |
 | sırada | Evden online mat pilates: nasıl hazırlanılır | online pilates dersi | mat-pilates |
