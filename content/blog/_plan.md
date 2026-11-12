@@ -36,7 +36,7 @@ eklenecek ve sıra ona göre düzenlenecek.
 | yazıldı | Tekirdağ'da spor salonu mu, stüdyo mu? Sana uygun antrenmanı seçmek | tekirdağ spor salonu | fonksiyonel-antrenman |
 | yazıldı | Kickboksa yeni başlayanlar: ilk ayda neler öğrenirsin | tekirdağ kickboks | kickboks |
 | yazıldı | Spinning dersi nasıl geçer? Yeni başlayanlar için rehber | tekirdağ spinning | spinning |
-| sırada | Fonksiyonel antrenman nedir, kimlere uygun? | tekirdağ personal trainer | fonksiyonel-antrenman |
+| yazıldı | Fonksiyonel antrenman nedir, kimlere uygun? | tekirdağ personal trainer | fonksiyonel-antrenman |
 | sırada | Evden online mat pilates: nasıl hazırlanılır | online pilates dersi | mat-pilates |
 | sırada | Haftada kaç gün antrenman? Yeni başlayanlar için gerçekçi bir plan | tekirdağ spor | fonksiyonel-antrenman |
 | sırada | Haftada kaç gün pilates ve spinning? Dersleri birlikte planlamak | tekirdağ pilates spinning | spinning |
