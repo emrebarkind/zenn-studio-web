@@ -10,6 +10,7 @@ import {
   planRules,
   plans,
   studio,
+  studioHours,
   studioLocation,
 } from "@/content/site";
 import { goalFit, questions } from "@/domain/matcher";
@@ -31,6 +32,7 @@ export function buildKnowledge(): string {
   lines.push(
     `Tekirdağ'da bir stüdyo; adres: ${studioLocation.neighbourhood}, ${studioLocation.street}, ${studioLocation.district}/${studioLocation.city}. Mat Pilates ve Spinning grup dersleri; Mat Pilates, Reformer Pilates, Kickboks ve Fonksiyonel antrenman tek başına ya da 6 kişiye kadar küçük grupla; talep üzerine yalnız Mat Pilates için online ders.`,
   );
+  lines.push(`Açık olduğumuz saatler: ${studioHours.label} (${studioHours.note.toLocaleLowerCase("tr")}).`);
 
   h("Formatlar");
   for (const f of formats) {

@@ -1,6 +1,6 @@
 import { MapPin, MessageCircle, Navigation } from "lucide-react";
 import { company } from "@/content/company";
-import { directionsUrl, studioLocation as loc } from "@/content/site";
+import { directionsUrl, studioHours, studioLocation as loc } from "@/content/site";
 import { buttonClass } from "@/components/ui";
 
 // A small OpenStreetMap window centred on the studio. OpenStreetMap rather
@@ -70,6 +70,9 @@ export function FindUs() {
           {loc.neighbourhood}
           <br />
           {loc.district} / {loc.city}
+        </p>
+        <p className="mt-3 text-sm text-paper/75">
+          <span className="font-semibold text-paper">{studioHours.label}</span> · {studioHours.note}
         </p>
         <div className="mt-5 flex flex-wrap gap-2">
           <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className={buttonClass("primary", "min-h-12 px-5")}>

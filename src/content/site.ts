@@ -45,6 +45,18 @@ export const studioLocation = {
   lng: 27.5509916,
 };
 
+/**
+ * Opening hours (owner, 2026-11-17): every day including Sunday, 07:30-22:00,
+ * lessons by request — the studio is open when an antrenör has a lesson.
+ * Same hours as the Google Business Profile should show.
+ */
+export const studioHours = {
+  opens: "07:30",
+  closes: "22:00",
+  label: "Her gün 07:30–22:00",
+  note: "Pazar dahil, ders randevusuyla",
+};
+
 /** Directions to the coordinates (no business name attached). */
 export const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${studioLocation.lat},${studioLocation.lng}`;
 
