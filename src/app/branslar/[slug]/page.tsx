@@ -8,6 +8,7 @@ import { coachFullName, coaches, disciplines, faqs } from "@/content/site";
 import { ButtonLink, Container, SectionHeading } from "@/components/ui";
 import { DisciplineVisual } from "@/components/discipline-visual";
 import { GroupPackageCard, PrivateLessonCard } from "@/components/home/ways-to-train";
+import { faqJsonLd, jsonLdScript } from "@/lib/structured-data";
 
 export function generateStaticParams() {
   return disciplines.map((d) => ({ slug: d.slug }));
@@ -164,6 +165,22 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
             )}
           </div>
         </Container>
+      </section>
+
+      {/* The questions people ask about this lesson, open on the page (not folded away) so readers, search engines and AI answers all see them. */}
+      <section className="pb-20 sm:pb-28" aria-labelledby="sss">
+        <Container>
+          <SectionHeading size="md" align="left" title={<span id="sss">{d.name} hakkında sık sorulanlar</span>} />
+          <div className="mt-10 grid gap-x-12 gap-y-8 md:grid-cols-2">
+            {d.faq.map((f) => (
+              <div key={f.q} className="border-t border-ink/10 pt-6">
+                <h3 className="text-lg font-semibold tracking-tight text-balance">{f.q}</h3>
+                <p className="mt-2 max-w-[60ch] leading-relaxed text-pretty text-ink-soft">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd(d.faq)) }} />
       </section>
 
       {/* The other disciplines. */}

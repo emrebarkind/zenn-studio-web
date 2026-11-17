@@ -37,6 +37,22 @@ export function studioJsonLd() {
   };
 }
 
+/**
+ * A page's questions and answers as schema.org FAQPage, exactly as shown on
+ * the page (search engines and AI answers read both and expect them to match).
+ */
+export function faqJsonLd(items: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
 /** For a <script type="application/ld+json">, safe inside HTML. */
 export function jsonLdScript(data: unknown): string {
   return JSON.stringify(data).replace(/</g, "\\u003c");

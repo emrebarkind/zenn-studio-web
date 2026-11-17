@@ -127,6 +127,13 @@ export type Discipline = {
   coaches: string[];
   /** null until the studio has a real photo (the UI then shows a typographic card). */
   photo: Photo | null;
+  /**
+   * The questions people ask about this lesson (2026-11-17), answered in full
+   * sentences that stand on their own: shown on the branş page and given to
+   * search engines and AI answers as FAQPage data. Facts only from this file
+   * (formats, coaches, days, hours); never prices, never health advice.
+   */
+  faq: { q: string; a: string }[];
 };
 
 // Studio photo shoot, September 2026.
@@ -148,6 +155,28 @@ export const disciplines: Discipline[] = [
     bring: "Rahat kıyafet ve su.",
     formats: ["group", "private", "online"],
     coaches: ["Ece", "Zeynep"],
+    faq: [
+      {
+        q: "Tekirdağ'da Mat Pilates grup dersleri hangi günler?",
+        a: "Zenn Studio'da (Süleymanpaşa) Mat Pilates grup derslerimiz pazartesi ve çarşamba, 12 derslik pakette cuma da var. Sabah ya da akşam grubundan birini seçiyorsun ve 4 hafta boyunca o grupla devam ediyorsun.",
+      },
+      {
+        q: "Hiç pilates yapmadım, Mat Pilates'e başlayabilir miyim?",
+        a: "Evet. Hareketleri temelden gösteriyor, zorluğu seviyene göre ayarlıyoruz; gruplarımızda yeni başlayanla düzenli gelen birlikte çalışıyor. Grup temposu sana hızlı gelirse ilk dersleri tek başına da alabilirsin.",
+      },
+      {
+        q: "Mat Pilates ile Reformer Pilates arasındaki fark ne?",
+        a: "Mat Pilates'te matın üzerinde kendi vücut ağırlığınla çalışırsın; Reformer'da yaylı bir aletin direnci hareketi hem destekler hem zorlar. Mat Pilates'i grupla, tek başına ya da online alabilirsin; Reformer Pilates'i tek başına ya da 6 kişiye kadar küçük grupla veriyoruz.",
+      },
+      {
+        q: "Mat Pilates'i evden online alabilir miyim?",
+        a: "Evet, talep üzerine. Antrenörümüz seni görüntülü bağlantıda canlı izleyip düzeltir; talep formunda \"Online ders talebi\" kutusunu işaretlemen yeterli. Online dersi yalnız Mat Pilates için veriyoruz.",
+      },
+      {
+        q: "Derse ne getirmeliyim?",
+        a: "Rahat bir kıyafet ve su yeterli.",
+      },
+    ],
     photo: { src: matGrup, alt: "Mat Pilates dersinde üyenin duruşunu düzelten antrenör", position: "50% 60%" },
   },
   {
@@ -161,6 +190,28 @@ export const disciplines: Discipline[] = [
     formats: ["group"],
     coaches: [],
     // From the studio's own launch post, with its text cropped out.
+    faq: [
+      {
+        q: "Tekirdağ'da Spinning dersi nerede ve hangi günler?",
+        a: "Spinning grup derslerimiz Zenn Studio'da, Süleymanpaşa Hürriyet Mahallesi'nde. 8 derslik pakette pazartesi ve çarşamba, 12 derslik pakette cuma da geliyorsun; sabah ya da akşam grubundan birini seçiyorsun.",
+      },
+      {
+        q: "Kondisyonum zayıf, Spinning bana ağır gelir mi?",
+        a: "Gelmez. Bisikletin direncini herkes kendi seviyesine göre ayarlıyor; aynı derste yeni başlayan da düzenli gelen de kendi temposunda çalışıyor. İlk derslerde direnci düşük tutup zamanla artırman yeterli.",
+      },
+      {
+        q: "Spinning eklemleri yorar mı?",
+        a: "Spinning sabit bisiklette yapıldığı için koşu gibi zıplama ve darbe yok; bu yüzden eklemleri yormadan kardiyo yapmak isteyenler sık tercih ediyor. Bir sağlık durumun varsa başlamadan önce doktoruna danışmanı öneririz.",
+      },
+      {
+        q: "Spinning'e ne getirmeliyim?",
+        a: "Spor ayakkabı, havlu ve su. Ders tempolu geçtiği için suyu yanından ayırma.",
+      },
+      {
+        q: "Kaçırdığım Spinning dersini başka gün telafi edebilir miyim?",
+        a: "Grup paketlerinde telafi yok; katılmadığın ders de paketinden düşüyor. Bizim iptal ettiğimiz bir ders olursa paketinin sonuna ekliyoruz.",
+      },
+    ],
     photo: { src: spinningBisiklet, alt: "Spinning bisikletinde pedal çeviren bir üyenin bacakları ve bisikletin volanı", position: "62% 50%" },
   },
   {
@@ -173,6 +224,28 @@ export const disciplines: Discipline[] = [
     bring: "Kaymaz çorap ve rahat kıyafet.",
     formats: ["private"],
     coaches: ["Şüheda", "Ece", "Sude"],
+    faq: [
+      {
+        q: "Tekirdağ'da Reformer Pilates nerede yapılır?",
+        a: "Zenn Studio'da, Süleymanpaşa Hürriyet Mahallesi Şehit Mesut Bakan Caddesi No:2'de Reformer Pilates dersleri veriyoruz. Derslerimizi Şüheda, Ece ve Sude veriyor.",
+      },
+      {
+        q: "Reformer Pilates dersleri kaç kişilik?",
+        a: "Reformer Pilates'i tek başına ya da 6 kişiye kadar küçük grupla veriyoruz. Eşinle ya da arkadaşlarınla gelip kendi grubunuzu kurabilirsiniz; gün ve saati antrenörünle birlikte belirliyorsunuz.",
+      },
+      {
+        q: "Reformer'a yeni başlayan katılabilir mi?",
+        a: "Evet, pilatese yeni başlayanlar için de uygun. Aletin yayları hareketi destekleyerek doğru formu öğrenmeni kolaylaştırıyor; antrenörün ilk derste aleti ve temel hareketleri adım adım gösteriyor.",
+      },
+      {
+        q: "Reformer Pilates hangi saatlerde var?",
+        a: "Stüdyomuz pazar dahil her gün 07:30 ile 22:00 arasında, ders randevusuyla açık. Reformer dersinin saatini antrenörünün uygunluğuna göre seninle birlikte belirliyoruz.",
+      },
+      {
+        q: "Reformer dersine ne getirmeliyim?",
+        a: "Kaymaz çorap ve rahat bir kıyafet getirmen yeterli; Reformer'da kaymaz çorapla çalışıyoruz.",
+      },
+    ],
     photo: { src: reformerKollar, alt: "Reformer'da kayışlarla kollarını yukarı uzatan antrenör", position: "55% 30%" },
   },
   {
@@ -185,6 +258,28 @@ export const disciplines: Discipline[] = [
     bring: "Bandaj ve eldiven; ilk derste bizimkileri kullanabilirsin.",
     formats: ["private"],
     coaches: ["Ali"],
+    faq: [
+      {
+        q: "Tekirdağ'da kickboks dersi nerede alınır?",
+        a: "Zenn Studio'da, Süleymanpaşa'da kickboks derslerini antrenörümüz Ali veriyor. Dersleri tek başına ya da 6 kişiye kadar küçük grupla yapıyoruz.",
+      },
+      {
+        q: "Hiç kickboks yapmadım, başlayabilir miyim?",
+        a: "Evet. Gard, ayak hareketi, yumruk ve tekmeyi temelden, adım adım öğretiyoruz; tempoyu her zaman seviyene göre ayarlıyoruz. İlk kez eldiven giyen de yıllardır çalışan da aynı özeni görüyor.",
+      },
+      {
+        q: "Kickboks derslerinde sparring ya da dövüş var mı?",
+        a: "Derslerin merkezinde teknik ve kondisyon var: antrenörünün tuttuğu pedlere vurarak kombinasyon çalışıyor, kısa kondisyon bloklarıyla temponu artırıyorsun. Hedefini ilk görüşmede konuşup dersi ona göre planlıyoruz.",
+      },
+      {
+        q: "Eldiven ve bandaj almam gerekiyor mu?",
+        a: "İlk dersinde bizim eldiven ve bandajlarımızı kullanabilirsin. Düzenli gelmeye başlayınca kendi bandajını ve eldivenini edinmen daha rahat olur.",
+      },
+      {
+        q: "Arkadaşımla birlikte kickboks dersine gelebilir miyim?",
+        a: "Evet. 6 kişiye kadar küçük grup kurabilirsin; talep formunda kaç kişi olacağınızı seçmen yeterli, gün ve saati birlikte belirliyoruz.",
+      },
+    ],
     photo: { src: kickboksTorba, alt: "Kum torbasına yumruk atan kickboks antrenörü", position: "45% 30%" },
   },
   {
@@ -197,6 +292,28 @@ export const disciplines: Discipline[] = [
     bring: "Spor ayakkabı, havlu, su.",
     formats: ["private"],
     coaches: ["Barış", "Ece", "Zeynep", "Sude"],
+    faq: [
+      {
+        q: "Fonksiyonel antrenman nedir?",
+        a: "Çömelmek, eğilip kaldırmak, itmek, çekmek ve taşımak gibi vücudun her gün yaptığı hareketleri güçlendiren bir antrenman. Amaç sadece güç değil; günlük hayatta daha rahat ve dengeli hareket etmek.",
+      },
+      {
+        q: "Tekirdağ'da fonksiyonel antrenmanı kimler veriyor?",
+        a: "Zenn Studio'da (Süleymanpaşa) fonksiyonel antrenmanı Barış, Ece, Zeynep ve Sude veriyor. Dersleri tek başına ya da 6 kişiye kadar küçük grupla yapıyoruz.",
+      },
+      {
+        q: "Fonksiyonel antrenman spor salonundan farkı ne?",
+        a: "Makinelerde tek başına çalışmak yerine, programı hedefine ve seviyene göre antrenörünle birlikte kuruyorsun; ağırlığı ve tekrarı her derste o takip ediyor. Kalabalık bir salon yerine küçük, randevulu bir stüdyoda çalışıyorsun.",
+      },
+      {
+        q: "Hiç spor yapmadım, fonksiyonel antrenmana başlayabilir miyim?",
+        a: "Evet. Programı bugünkü seviyenden başlatıp ağırlığı ve tekrarı adım adım artırıyoruz; hiç spor yapmamış biri de rahatça başlayabiliyor.",
+      },
+      {
+        q: "Fonksiyonel antrenman hangi saatlerde?",
+        a: "Stüdyomuz pazar dahil her gün 07:30 ile 22:00 arasında, ders randevusuyla açık. Gün ve saati antrenörünle birlikte belirliyorsun.",
+      },
+    ],
     photo: { src: fonksiyonelBaris, alt: "Makinede çalışan antrenörümüz Barış", position: "45% 42%" },
   },
 ];
