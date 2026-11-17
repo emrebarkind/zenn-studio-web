@@ -70,7 +70,7 @@ Daha kontrollü, yavaş ve nefes odaklı bir şey arıyorsan [mat mı reformer m
 
 ## Spinning derslerimiz nasıl işliyor?
 
-Spinning, grup derslerimizden biri. Dersleri belli günlerde, sabah ve akşam gruplarıyla veriyoruz. Paketlerimiz 4 haftalık: 8 derslik pakette pazartesi ve çarşamba, 12 derslik pakette pazartesi, çarşamba ve cuma geliyorsun.
+Spinning, grup derslerimizden biri. Dersleri belli günlerde, sabah ve akşam gruplarıyla veriyoruz. Paketlerimiz 4 haftalık: dersler pazartesi, çarşamba ve cuma; 8 derslik pakette bu günlerden 2'sini, 12 derslik pakette 3'ünü seçiyorsun.
 
 Grup derslerinde telafi yok: gelemediğin ders paketinden düşer. Bizim iptal ettiğimiz ders ise paketinin sonuna eklenir. Paketleri ve grupları ayrıntılı anlattığımız [grup dersi yazımıza](/blog/tekirdagda-grup-pilates-dersi-nasil-isliyor) bakabilirsin. Ders içeriği için [Spinning sayfamız](/branslar/spinning) da var.
 

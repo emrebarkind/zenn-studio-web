@@ -150,7 +150,7 @@ export const disciplines: Discipline[] = [
     name: "Mat Pilates",
     tagline: "Tek ekipman: kendi vücudun.",
     description:
-      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Grup derslerimiz pazartesi, çarşamba ve cuma günleri, sabah ve akşam; 8 derslik pakette haftada 2, 12 derslik pakette 3 gün geliyorsun. İstersen tek başına ya da 6 kişiye kadar küçük grupla da.",
+      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Grup derslerimiz pazartesi, çarşamba ve cuma günleri, sabah ve akşam; 8 derslik pakette bu günlerden 2'sini, 12 derslik pakette 3'ünü seçiyorsun. İstersen tek başına ya da 6 kişiye kadar küçük grupla da.",
     goodFor: ["Merkez gücü ve nefes", "Duruş ve bel‑sırt sağlığı", "Grup enerjisiyle çalışmayı sevenler"],
     bring: "Rahat kıyafet ve su.",
     formats: ["group", "private", "online"],
@@ -158,7 +158,7 @@ export const disciplines: Discipline[] = [
     faq: [
       {
         q: "Tekirdağ'da Mat Pilates grup dersleri hangi günler?",
-        a: "Zenn Studio'da (Süleymanpaşa) Mat Pilates grup derslerimiz pazartesi, çarşamba ve cuma günleri, sabah ve akşam yapılıyor. 8 derslik pakette pazartesi ve çarşamba, 12 derslik pakette üç günün hepsine geliyorsun; sabah ya da akşam grubundan birini seçip 4 hafta boyunca o grupla devam ediyorsun.",
+        a: "Zenn Studio'da (Süleymanpaşa) Mat Pilates grup derslerimiz pazartesi, çarşamba ve cuma günleri, sabah ve akşam yapılıyor. 8 derslik pakette bu üç günden istediğin 2'sini, 12 derslik pakette üçünü de seçiyorsun; sabah ya da akşam grubundan birini seçip 4 hafta boyunca o grupla devam ediyorsun.",
       },
       {
         q: "Hiç pilates yapmadım, Mat Pilates'e başlayabilir miyim?",
@@ -193,7 +193,7 @@ export const disciplines: Discipline[] = [
     faq: [
       {
         q: "Tekirdağ'da Spinning dersi nerede ve hangi günler?",
-        a: "Spinning grup derslerimiz Zenn Studio'da, Süleymanpaşa Hürriyet Mahallesi'nde. 8 derslik pakette pazartesi ve çarşamba, 12 derslik pakette cuma da geliyorsun; sabah ya da akşam grubundan birini seçiyorsun.",
+        a: "Spinning grup derslerimiz Zenn Studio'da, Süleymanpaşa Hürriyet Mahallesi'nde. Grup dersleri pazartesi, çarşamba ve cuma; 8 derslik pakette bu günlerden 2'sini, 12 derslik pakette 3'ünü seçiyorsun. Sabah ya da akşam grubundan birine geliyorsun.",
       },
       {
         q: "Kondisyonum zayıf, Spinning bana ağır gelir mi?",
@@ -389,8 +389,10 @@ export type Plan = {
   includes: string[];
   /** TRY, VAT included. `null` = shared when we call back. */
   price: number | null;
-  /** Group packages: the weekdays of the group (1 = Monday … 7 = Sunday). */
+  /** Group packages: the weekdays the group runs (1 = Monday … 7 = Sunday). */
   groupDays?: number[];
+  /** Group packages: how many of those days the member comes each week; they pick which (owner, 2026-11-17). */
+  daysPerWeek?: number;
   /** One line on how the week looks, for requests without fixed group days. */
   weekNote?: string;
 };
@@ -401,9 +403,10 @@ export const plans: Plan[] = [
     name: "8 ders",
     format: "group",
     detail: "4 hafta, haftada 2 grup dersi",
-    includes: ["Sabah ya da akşam grubu", "Pazartesi ve çarşamba"],
+    includes: ["Sabah ya da akşam grubu", "Pazartesi, çarşamba ve cumadan 2 gün"],
     price: null,
-    groupDays: [1, 3],
+    groupDays: [1, 3, 5],
+    daysPerWeek: 2,
   },
   {
     id: "group-12",
@@ -413,6 +416,7 @@ export const plans: Plan[] = [
     includes: ["Sabah ya da akşam grubu", "Pazartesi, çarşamba ve cuma"],
     price: null,
     groupDays: [1, 3, 5],
+    daysPerWeek: 3,
   },
   {
     id: "private",
@@ -479,7 +483,7 @@ export const faqs = [
 /** Rules shown on /paketler and given to Zenn Asistan verbatim. */
 export const planRules = [
   "Grup paketleri 4 hafta geçerlidir ve seçtiğin sabah ya da akşam grubunda devam eder.",
-  "8 derslik grup paketi pazartesi ve çarşamba, 12 derslik grup paketi pazartesi, çarşamba ve cuma günleridir.",
+  "Grup dersleri pazartesi, çarşamba ve cuma günleri yapılır. 8 derslik pakette bu günlerden 2'sini, 12 derslik pakette 3'ünü seçersin.",
   "Grup derslerinde telafi yoktur; katılmadığın ders de paketinden düşer.",
   "Bizim iptal ettiğimiz ders paketinin sonuna eklenir.",
 ];

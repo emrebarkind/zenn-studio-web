@@ -73,6 +73,7 @@ export function GroupPackageCard({
   const [slot, setSlot] = useState<Slot>("akşam");
   const plan = groupPlans.find((p) => p.id === planId) ?? groupPlans[0];
   const days = plan.groupDays ?? [];
+  const perWeek = plan.daysPerWeek ?? days.length;
 
   return (
     <article className={`flex flex-col rounded-[28px] bg-card p-6 sm:p-9 ${className}`}>
@@ -121,7 +122,8 @@ export function GroupPackageCard({
         })}
       </ol>
       <p className="mt-5 text-ink-soft">
-        4 hafta boyunca {joinTr(days.map((n) => DAY_NAMES[n - 1]))} {slot} grubundasın. Telafi yok; bizim iptal ettiğimiz ders paketin sonuna eklenir.
+        4 hafta boyunca {joinTr(days.map((n) => DAY_NAMES[n - 1]))} günlerinden{" "}
+        {perWeek < days.length ? `istediğin ${perWeek}'sine` : "hepsine"} {slot} grubuyla geliyorsun. Telafi yok; bizim iptal ettiğimiz ders paketin sonuna eklenir.
       </p>
       <div className="mt-auto pt-8">
         <ButtonLink href={`/kayit?format=group&paket=${plan.id}${bransQuery(discipline)}`} variant="ink">

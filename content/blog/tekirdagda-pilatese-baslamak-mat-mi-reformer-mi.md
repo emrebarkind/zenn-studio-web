@@ -18,7 +18,7 @@ Mat pilatesi iki şekilde veriyoruz: **grup dersi** ve **bireysel ders**.
 
 Grup derslerimizin sabah ve akşam grupları var. Kayıt olurken hangisine geleceğini seçiyorsun ve paketin boyunca o grupla devam ediyorsun. İki paketimiz var:
 
-- **8 derslik paket:** 4 hafta boyunca pazartesi ve çarşamba.
+- **8 derslik paket:** 4 hafta boyunca pazartesi, çarşamba ve cumadan istediğin 2 gün.
 - **12 derslik paket:** 4 hafta boyunca pazartesi, çarşamba ve cuma.
 
 Grup derslerinde telafi yok; katılmadığın ders de paketinden düşüyor. Bizim iptal ettiğimiz bir ders olursa onu paketinin sonuna ekliyoruz. Bunu baştan söylüyoruz, çünkü grup dersinin en büyük faydası düzen: aynı günlerde, aynı saatte, aynı insanlarla gelmek alışkanlığı oturtuyor.

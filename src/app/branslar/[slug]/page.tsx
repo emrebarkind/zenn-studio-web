@@ -111,7 +111,7 @@ async function DisciplineContent({ params }: Pick<PageProps<"/branslar/[slug]">,
                 ))}
               </ul>
             ) : (
-              <p className="mt-4 text-lg text-paper/80">Sabah ya da akşam grubu. 8 derste pazartesi ve çarşamba, 12 derste cuma da eklenir.</p>
+              <p className="mt-4 text-lg text-paper/80">Pazartesi, çarşamba ve cuma; sabah ya da akşam grubu. 8 derslik pakette 2 gün, 12 derslik pakette 3 gün seçersin.</p>
             )}
           </div>
         </Container>

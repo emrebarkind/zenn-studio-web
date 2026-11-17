@@ -27,7 +27,7 @@ Grup derslerinde iki paketimiz var. İkisi de 4 hafta sürüyor.
 | --- | --- | --- |
 | Süre | 4 hafta | 4 hafta |
 | Haftada | 2 ders | 3 ders |
-| Günler | Pazartesi, çarşamba | Pazartesi, çarşamba, cuma |
+| Günler | Pazartesi, çarşamba, cumadan 2'si | Pazartesi, çarşamba, cuma |
 
 Hangisini seçmeli? Küçük bir ölçü: Haftanı şimdiden planlayabiliyorsan ve alışkanlığı hızlı oturtmak istiyorsan 12 ders iyi gider. Sporu yeni hayatına sokuyorsan ya da iş temponun yoğun olduğunu biliyorsan 8 dersle başlamak daha rahat olur. Haftada iki gün gelmek de düzeni kurmak için yeterli.
 
