@@ -150,7 +150,7 @@ export const disciplines: Discipline[] = [
     name: "Mat Pilates",
     tagline: "Tek ekipman: kendi vücudun.",
     description:
-      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Sabah ve akşam gruplarımızda haftada 2 ya da 3 gün çalışıyoruz; istersen tek başına ya da 6 kişiye kadar küçük grupla da.",
+      "Matın üzerinde, vücut ağırlığıyla çalışan klasik pilates. Merkez gücünü, duruşu ve nefes kontrolünü geliştirir. Grup derslerimiz pazartesi, çarşamba ve cuma günleri, sabah ve akşam; 8 derslik pakette haftada 2, 12 derslik pakette 3 gün geliyorsun. İstersen tek başına ya da 6 kişiye kadar küçük grupla da.",
     goodFor: ["Merkez gücü ve nefes", "Duruş ve bel‑sırt sağlığı", "Grup enerjisiyle çalışmayı sevenler"],
     bring: "Rahat kıyafet ve su.",
     formats: ["group", "private", "online"],
@@ -158,7 +158,7 @@ export const disciplines: Discipline[] = [
     faq: [
       {
         q: "Tekirdağ'da Mat Pilates grup dersleri hangi günler?",
-        a: "Zenn Studio'da (Süleymanpaşa) Mat Pilates grup derslerimiz pazartesi ve çarşamba, 12 derslik pakette cuma da var. Sabah ya da akşam grubundan birini seçiyorsun ve 4 hafta boyunca o grupla devam ediyorsun.",
+        a: "Zenn Studio'da (Süleymanpaşa) Mat Pilates grup derslerimiz pazartesi, çarşamba ve cuma günleri, sabah ve akşam yapılıyor. 8 derslik pakette pazartesi ve çarşamba, 12 derslik pakette üç günün hepsine geliyorsun; sabah ya da akşam grubundan birini seçip 4 hafta boyunca o grupla devam ediyorsun.",
       },
       {
         q: "Hiç pilates yapmadım, Mat Pilates'e başlayabilir miyim?",
