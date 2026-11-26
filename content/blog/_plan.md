@@ -40,7 +40,7 @@ eklenecek ve sıra ona göre düzenlenecek.
 | yazıldı | Evden online mat pilates: nasıl hazırlanılır | online pilates dersi | mat-pilates |
 | yazıldı | Haftada kaç gün antrenman? Yeni başlayanlar için gerçekçi bir plan | tekirdağ spor | fonksiyonel-antrenman |
 | yazıldı | Haftada kaç gün pilates ve spinning? Dersleri birlikte planlamak | tekirdağ pilates spinning | spinning |
-| sırada | Pilates ve kickboks için ilk dersten önce: yanına ne alırsın, ne yersin, nasıl hazırlanırsın? | tekirdağ ilk ders | mat-pilates |
+| yazıldı | Pilates ve kickboks için ilk dersten önce: yanına ne alırsın, ne yersin, nasıl hazırlanırsın? | tekirdağ ilk ders | mat-pilates |
 | sırada | Ders sonrası ve dinlenme günü: kaslar ağrırsa ne yapmalı? Yeni başlayan için sade rehber | kas ağrısı spor sonrası | fonksiyonel-antrenman |
 | sırada | Antrenör nasıl seçilir? İlk görüşmede sorabileceğin 5 soru | tekirdağ antrenör | fonksiyonel-antrenman |
 | sırada | Sabah mı akşam mı antrenman? Ders saatini seçerken nelere bakmalı | tekirdağ sabah antrenmanı | fonksiyonel-antrenman |
@@ -51,4 +51,5 @@ Ajanın yazarken ihtiyaç duyup sitede bulamadığı bilgiler. Doldurulursa (src
 yazılarda kullanılabilir.
 
 - Otopark ya da ulaşım bilgisi
+- Soyunma odası, duş ve dolap var mı? Mat Pilates için mat stüdyoda mı veriliyor, yoksa üye kendi matını mı getiriyor?
 - Bir üye aynı pakette hem Mat Pilates hem Spinning derslerini karıştırabiliyor mu (paket bir branşa mı bağlı)?
